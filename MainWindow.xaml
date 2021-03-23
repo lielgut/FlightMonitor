@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ex1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="691" Width="982"
+        ResizeMode="NoResize">
     <Grid>
-
+        <Frame Content="Frame" Margin="25,20,460,269" Source="Views/PlayerView.xaml"/>
+        <Frame Content="Frame" Margin="554,20,26,389" Source="Views/ControlsView.xaml"/>
+        <Frame Content="Frame" Margin="554,306,26,29" Source="Views/DataView.xaml"/>
     </Grid>
 </Window>
