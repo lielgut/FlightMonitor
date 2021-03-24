@@ -16,7 +16,7 @@ namespace ex1.Views
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class DataView : Page
+    public partial class DataView : UserControl
     {
         public DataView()
         {

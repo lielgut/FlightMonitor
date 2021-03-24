@@ -16,7 +16,7 @@ namespace ex1.Views
     /// <summary>
     /// Interaction logic for PlayerView.xaml
     /// </summary>
-    public partial class PlayerView : Page
+    public partial class PlayerView : UserControl
     {
         public PlayerView()
         {

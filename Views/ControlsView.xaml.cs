@@ -16,7 +16,7 @@ namespace ex1.Views
     /// <summary>
     /// Interaction logic for ControlsView.xaml
     /// </summary>
-    public partial class ControlsView : Page
+    public partial class ControlsView : UserControl
     {
         public ControlsView()
         {
