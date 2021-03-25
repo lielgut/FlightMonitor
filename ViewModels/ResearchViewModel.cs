@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ex1.ViewModels
 {
-    class ControlsViewModel : ViewModel
+    class ResearchViewModel : ViewModel
     {
     }
 }

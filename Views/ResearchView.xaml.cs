@@ -10,15 +10,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace ex1.Views
 {
     /// <summary>
-    /// Interaction logic for ControlsView.xaml
+    /// Interaction logic for ResearchView.xaml
     /// </summary>
-    public partial class ControlsView : UserControl
+    public partial class ResearchView : UserControl
     {
-        public ControlsView()
+        public ResearchView()
         {
             InitializeComponent();
         }
