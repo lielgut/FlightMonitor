@@ -25,9 +25,8 @@ namespace ex1.Model
         private Stream stream;
         private ASCIIEncoding enc;
 
-        public SimpleClient(int portnum)
-        {
-            this.destPort = portnum;
+        public SimpleClient()
+        {            
             this.cl = new TcpClient();
             this.enc = new ASCIIEncoding();
         }

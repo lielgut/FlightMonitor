@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ex1.ViewModels;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -20,9 +21,23 @@ namespace ex1.Views
     /// </summary>
     public partial class ResearchView : UserControl
     {
+        private ResearchViewModel researchVM;
+        internal ResearchViewModel ResearchVM
+        {
+            get
+            {
+                return researchVM;
+            }
+            set
+            {
+                researchVM = value;
+            }
+        }
         public ResearchView()
         {
             InitializeComponent();
+            DataContext = researchVM;
+
             ListBoxItem newItem = new ListBoxItem();
             newItem.Content = "Item";
             ListBoxItem newItem1 = new ListBoxItem();

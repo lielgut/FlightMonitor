@@ -53,21 +53,21 @@ namespace ex1.Model
             this.research = new Research();
         }
 
-       
+
         public void start()
         {
             this.thread = new Thread(delegate ()
            {
-               pilot.startClient();               
+               pilot.startClient();
                while (!stop)
                {
-                   if((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= pilot.getNumOfLines() && speed > 0))
+                   if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= pilot.getNumOfLines() && speed > 0))
                    {
                        stop = true;
                        break;
                    }
                    Timestep += (speed > 0 ? 1 : -1);
-                   pilot.sendCurrentData(timestep);                   
+                   pilot.sendCurrentData(timestep);
                    Thread.Sleep((int)(Math.Abs(speed) * 100f));
                }
                pilot.endClient();
@@ -102,6 +102,11 @@ namespace ex1.Model
         public void changePort(int destPort)
         {
             this.pilot.changePort(destPort);
+        }
+
+        public float getCurrentData(String feature)
+        {
+            throw new Exception();
         }
     }
 }

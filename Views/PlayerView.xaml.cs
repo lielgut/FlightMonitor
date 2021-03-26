@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ex1.ViewModels;
 
 namespace ex1.Views
 {
@@ -18,9 +19,22 @@ namespace ex1.Views
     /// </summary>
     public partial class PlayerView : UserControl
     {
+        private PlayerViewModel playerVM;
+        internal PlayerViewModel PlayerVM
+        {
+            get
+            {
+                return playerVM;
+            }
+            set
+            {
+                playerVM = value;
+            }
+        }
         public PlayerView()
         {
             InitializeComponent();
+            DataContext = playerVM;
         }
     }
 }

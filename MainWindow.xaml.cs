@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ex1.ViewModels;
+using ex1.Model;
+using ex1.Views;
 
 namespace ex1
 {
@@ -20,13 +22,17 @@ namespace ex1
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        MainViewModel vm;
+    {       
         public MainWindow()
         {
-            InitializeComponent();            
-            vm = new MainViewModel();
-            DataContext = vm;
+            FlightControl fc = new FlightControl();
+            ConfigWindow cw = new ConfigWindow(this,fc);
+            cw.Show();
+            InitializeComponent();                                    
+            playerView.PlayerVM = new PlayerViewModel(fc);
+            dataView.DataVM = new DataViewModel(fc);
+            reserachView.ResearchVM = new ResearchViewModel(fc);
+            Visibility = Visibility.Hidden;
         }
 
         private void Window_Closed(object sender, EventArgs e)

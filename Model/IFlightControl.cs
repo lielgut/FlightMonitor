@@ -14,5 +14,6 @@ namespace ex1.Model
         public void loadFeatures(string xmlPath);
         public void loadData(string csvPath);
         public void changePort(int destPort);
+        public float getCurrentData(String feature);
     }
 }

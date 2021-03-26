@@ -26,5 +26,10 @@ namespace ex1.Model
         {
             throw new NotImplementedException();
         }
+        // TODO implement
+        public void addFeature(string featureName, int column)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

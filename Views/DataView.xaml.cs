@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ex1.ViewModels;
 
 namespace ex1.Views
 {
@@ -18,9 +19,22 @@ namespace ex1.Views
     /// </summary>
     public partial class DataView : UserControl
     {
+        private DataViewModel dataVM;
+        internal DataViewModel DataVM
+        {
+            get
+            {
+                return dataVM;
+            }
+            set
+            {
+                dataVM = value;
+            }
+        }
         public DataView()
         {
             InitializeComponent();
+            DataContext = dataVM;
         }
     }
 }
