@@ -25,13 +25,14 @@ namespace ex1
     {       
         public MainWindow()
         {
-            //ConfigWindow cw = new ConfigWindow();
-            //cw.Show();
-            InitializeComponent();
-            FlightControl fc = new FlightControl();            
+            FlightControl fc = new FlightControl();
+            ConfigWindow cw = new ConfigWindow(this,fc);
+            cw.Show();
+            InitializeComponent();                                    
             playerView.PlayerVM = new PlayerViewModel(fc);
             dataView.DataVM = new DataViewModel(fc);
             reserachView.ResearchVM = new ResearchViewModel(fc);
+            Visibility = Visibility.Hidden;
         }
 
         private void Window_Closed(object sender, EventArgs e)

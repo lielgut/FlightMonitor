@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:ex1.Views"
         mc:Ignorable="d"
         Title="FlightStat" Height="691" Width="982"
-        ResizeMode="NoResize" Closed="Window_Closed">
+        ResizeMode="NoResize" Closed="Window_Closed" Visibility="Visible">
     <Grid Margin="10,10,10,11" Background="Gray">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

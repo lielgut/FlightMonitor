@@ -11,6 +11,7 @@ namespace ex1.Model
 
         public SimplePilot()
         {
+            this.cl = new SimpleClient();
             this.dataLines = new List<string>();
         }
 
