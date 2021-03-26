@@ -20,13 +20,15 @@ namespace ex1.Views
         public ConfigWindow()
         {
             InitializeComponent();
+            
+            
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mw = new MainWindow();            
+        {                 
             this.Close();
-            mw.Show();
+            
         }
     }
 }

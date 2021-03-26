@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ex1.ViewModels;
+using ex1.Model;
+using ex1.Views;
 
 namespace ex1
 {
@@ -21,11 +23,13 @@ namespace ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainViewModel vm;
+        ViewModel vm;
         public MainWindow()
         {
+            //ConfigWindow cw = new ConfigWindow();
+            //cw.Show();
             InitializeComponent();            
-            vm = new MainViewModel();
+            vm = new MainViewModel(new FlightControl());
             DataContext = vm;
         }
 

@@ -10,5 +10,7 @@ namespace ex1.Model
         public void addData(string s);
         // get value of feature at given timestep
         public float getValue(string featureName, int timestep);
+        // add feature-column mapping
+        public void addFeature(string featureName, int column);
     }
 }

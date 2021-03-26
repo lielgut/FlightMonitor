@@ -11,12 +11,12 @@
             <ColumnDefinition Width="121*"/>
             <ColumnDefinition Width="212*"/>
         </Grid.ColumnDefinitions>
-        <TextBox HorizontalAlignment="Left" Margin="75,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="21,55,0,0" VerticalAlignment="Top" Height="18"/>
-        <Label Content="load FlightGear path:" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
-        <TextBox HorizontalAlignment="Left" Margin="75,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="21,118,0,0" VerticalAlignment="Top" Height="18"/>
-        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="21,90,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
+        <TextBox HorizontalAlignment="Left" Margin="60,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="6,33,0,0" VerticalAlignment="Top" Height="18"/>
+        <Label Content="load FlightGear path:" HorizontalAlignment="Left" Margin="7,5,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
+        <TextBox HorizontalAlignment="Left" Margin="60,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="6,84,0,0" VerticalAlignment="Top" Height="18"/>
+        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="6,56,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
         <TextBox HorizontalAlignment="Left" Margin="76,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Grid.ColumnSpan="2"/>
         <Button Content="browse" HorizontalAlignment="Left" Margin="22,183,0,0" VerticalAlignment="Top" Height="18"/>
         <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="22,155,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="144" Height="28"/>
