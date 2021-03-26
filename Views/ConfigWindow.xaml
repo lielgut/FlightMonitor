@@ -1,0 +1,26 @@
+﻿<Window x:Class="ex1.Views.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ex1.Views"
+        mc:Ignorable="d"
+        Title="FlightStat" Height="283" Width="407">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="212*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox HorizontalAlignment="Left" Margin="75,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="21,55,0,0" VerticalAlignment="Top" Height="18"/>
+        <Label Content="load FlightGear path:" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
+        <TextBox HorizontalAlignment="Left" Margin="75,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="21,118,0,0" VerticalAlignment="Top" Height="18"/>
+        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="21,90,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="145" Height="28"/>
+        <TextBox HorizontalAlignment="Left" Margin="76,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Grid.ColumnSpan="2"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="22,183,0,0" VerticalAlignment="Top" Height="18"/>
+        <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="22,155,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="144" Height="28"/>
+        <Button Content="next" Grid.Column="1" HorizontalAlignment="Left" Margin="213,226,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
+    </Grid>
+</Window>

@@ -48,7 +48,7 @@ namespace ex1.Model
         public void close()
         {
             stream.Close();
-            cl.Close();
+            cl.Close();            
         }
     }
 }

@@ -23,6 +23,23 @@ namespace ex1.Views
         public ResearchView()
         {
             InitializeComponent();
+            ListBoxItem newItem = new ListBoxItem();
+            newItem.Content = "Item";
+            ListBoxItem newItem1 = new ListBoxItem();
+            newItem1.Content = "Item1";
+            ListBoxItem newItem2 = new ListBoxItem();
+            newItem2.Content = "Item2";
+            listBox.Items.Add(newItem);
+            listBox.Items.Add(newItem1);
+            listBox.Items.Add(newItem2);
+        }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBoxItem lbi = (ListBoxItem) listBox.SelectedItems[0];                   
+            MessageBox.Show(lbi.Content.ToString());
+            
+            
         }
     }
 }

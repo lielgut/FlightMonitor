@@ -24,9 +24,19 @@ namespace ex1
         MainViewModel vm;
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
             vm = new MainViewModel();
             DataContext = vm;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void DataView_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
