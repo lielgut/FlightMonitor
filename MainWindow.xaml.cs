@@ -22,15 +22,16 @@ namespace ex1
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        ViewModel vm;
+    {       
         public MainWindow()
         {
             //ConfigWindow cw = new ConfigWindow();
             //cw.Show();
-            InitializeComponent();            
-            vm = new MainViewModel(new FlightControl());
-            DataContext = vm;
+            InitializeComponent();
+            FlightControl fc = new FlightControl();            
+            playerView.PlayerVM = new PlayerViewModel(fc);
+            dataView.DataVM = new DataViewModel(fc);
+            reserachView.ResearchVM = new ResearchViewModel(fc);
         }
 
         private void Window_Closed(object sender, EventArgs e)
