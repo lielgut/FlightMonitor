@@ -66,9 +66,9 @@ namespace ex1.Model
                    {
                        stop = true;
                        break;
-                   }
-                   Timestep += (speed > 0 ? 1 : -1);
+                   }                   
                    pilot.sendCurrentData(Timestep);
+                   Timestep += (speed > 0 ? 1 : -1);
                    Thread.Sleep((int)(Math.Abs(speed) * 1f));
                }
            });
