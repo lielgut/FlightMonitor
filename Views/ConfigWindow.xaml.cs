@@ -33,44 +33,22 @@ namespace ex1.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {            
 
+            try
+            {
+                fc.changePort(Int32.Parse(portnum.Text));
+            }
+            catch(System.FormatException)
+            {
+                MessageBox.Show("Invalid port number.");
+                return;
+            }
             if(fgPath.Text == "")
             {
                 MessageBox.Show("Please select FlightGear installation folder.");
                 return;
             }
-            if (normalFlightPath.Text == "")
-            {
-                MessageBox.Show("Please select normal flight CSV file.");
-                return;
-            }
-            if (newFlightPath.Text == "")
-            {
-                MessageBox.Show("Please select new flight CSV file.");
-                return;
-            }
-            if (anomalyDetPath.Text == "")
-            {
-                MessageBox.Show("Please select anomaly detection dll.");
-                return;
-            }
 
-            try
-            {
-                fc.changePort(Int32.Parse(portnum.Text));
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Invalid port number.");
-                return;
-            }
-
-            if(!fc.startClient())
-            {
-                MessageBox.Show("FlightGear server inactive at specified Port.\r\nPlease load FlightGear with required settings and press fly.");
-                return;
-            }
-
-
+            
 
             this.Close();            
             mw.Visibility = Visibility.Visible;

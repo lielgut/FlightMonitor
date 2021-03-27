@@ -22,13 +22,13 @@ namespace ex1
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {        
+    {       
         public MainWindow()
         {
-            InitializeComponent();
-            IFlightControl fc = new FlightControl();
+            FlightControl fc = new FlightControl();
             ConfigWindow cw = new ConfigWindow(this,fc);
-            cw.Show();           
+            cw.Show();
+            InitializeComponent();                                    
             playerView.PlayerVM = new PlayerViewModel(fc);
             dataView.DataVM = new DataViewModel(fc);
             reserachView.ResearchVM = new ResearchViewModel(fc);
@@ -37,8 +37,12 @@ namespace ex1
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            //fc.endClient(); 
+            
         }
 
+        private void DataView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
