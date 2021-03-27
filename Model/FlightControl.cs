@@ -91,7 +91,29 @@ namespace ex1.Model
 
         public void loadFeatures(string xmlPath)
         {
-            throw new NotImplementedException();
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(xmlPath);
+            XmlNodeList relevantXml = xDoc.GetElementsByTagName("output");
+            //cut the duplicates
+            xDoc.LoadXml(relevantXml[0].OuterXml);
+            //get features
+            XmlNodeList featuresFromXml = xDoc.GetElementsByTagName("name");
+            int counter = 0;
+            foreach (XmlNode feature in featuresFromXml)
+            {
+                string text = feature.InnerText;
+                if (!features.ContainsKey(text))
+                { 
+                    flightdata.addFeature(text,counter)
+                    counter++;
+                }
+                else
+                {
+                    text += 2;
+                    flightdata.addFeature(text,counter)
+                    counter++;
+                }
+            }
         }
 
         public void loadData(string csvPath)
