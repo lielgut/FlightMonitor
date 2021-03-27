@@ -31,10 +31,18 @@ namespace ex1.Model
             this.enc = new ASCIIEncoding();
         }
 
-        public void connect()
-        {
-            cl.Connect("127.0.0.1", destPort);
-            this.stream = cl.GetStream();
+        public bool connect()
+        {            
+            try
+            {
+                cl.Connect("127.0.0.1", destPort);
+                this.stream = cl.GetStream();
+                return true;
+            }
+            catch(SocketException)
+            {
+                return false;
+            }                        
         }
 
         public void send(string data)

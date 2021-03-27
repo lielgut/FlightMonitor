@@ -59,7 +59,6 @@ namespace ex1.Model
         {
             this.thread = new Thread(delegate ()
            {
-               pilot.startClient();
                while (!stop)
                {
                    if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= pilot.getNumOfLines() && speed > 0))
@@ -71,7 +70,6 @@ namespace ex1.Model
                    pilot.sendCurrentData(timestep);
                    Thread.Sleep((int)(Math.Abs(speed) * 100f));
                }
-               pilot.endClient();
            });
             thread.Start();
         }
@@ -134,6 +132,16 @@ namespace ex1.Model
         public float getCurrentData(String feature)
         {
             return flightdata.getValue(feature, timestep);
+        }
+
+        public bool startClient()
+        {
+            return pilot.startClient();
+        }
+
+        public void endClient()
+        {
+            pilot.endClient();
         }
     }
 }

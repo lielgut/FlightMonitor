@@ -7,7 +7,7 @@ namespace ex1.Model
     interface IClient
     {
         public int DestPort { get; set; }
-        public void connect();
+        public bool connect();
         public void send(string data);
         public void close();
     }
