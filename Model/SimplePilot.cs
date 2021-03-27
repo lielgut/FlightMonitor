@@ -17,19 +17,14 @@ namespace ex1.Model
 
         // TODO implement
         public override void addLine(string s)
-        {            
-            throw new NotImplementedException();
-        }
-
-        public override int getNumOfLines()
         {
-            throw new NotImplementedException();
+            dataLines.Add(s);
         }
 
         // TODO implement
         public override void sendCurrentData(int timestep)
         {
-            throw new NotImplementedException();
+            cl.send(dataLines[timestep]);
         }
     }
 }

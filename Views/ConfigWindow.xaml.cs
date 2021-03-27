@@ -31,23 +31,29 @@ namespace ex1.Views
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            fc.loadFeatures("..//..//..//playback_small.xml");
             
              if(fgPath.Text == "")
             {
                 MessageBox.Show("Please select FlightGear installation folder.");
                 return;
             }
+
             if (normalFlightPath.Text == "" || !File.Exists(normalFlightPath.Text))
             {
                 MessageBox.Show("Please select normal flight CSV file.");
                 return;
             }
+
             if (newFlightPath.Text == "" || !File.Exists(newFlightPath.Text))
             {
                 MessageBox.Show("Please select new flight CSV file.");
                 return;
-            }
+            }            
+            fc.loadData(newFlightPath.Text); 
+            
+            
             if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
             {
                 MessageBox.Show("Please select anomaly detection dll.");
@@ -75,6 +81,7 @@ namespace ex1.Views
                 MessageBox.Show("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings.");
                 return;
             }
+            fc.start();
 
             this.Close();            
             mw.Visibility = Visibility.Visible;

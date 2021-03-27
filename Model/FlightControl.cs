@@ -35,9 +35,10 @@ namespace ex1.Model
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
             }
-        }
+        }        
 
         private volatile bool stop;
+        private int numLines;
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -51,7 +52,7 @@ namespace ex1.Model
             this.stop = false;
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
-            this.research = new Research();
+            this.research = new Research();            
         }
 
 
@@ -61,14 +62,14 @@ namespace ex1.Model
            {
                while (!stop)
                {
-                   if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= pilot.getNumOfLines() && speed > 0))
+                   if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= numLines && speed > 0))
                    {
                        stop = true;
                        break;
                    }
                    Timestep += (speed > 0 ? 1 : -1);
-                   pilot.sendCurrentData(timestep);
-                   Thread.Sleep((int)(Math.Abs(speed) * 100f));
+                   pilot.sendCurrentData(Timestep);
+                   Thread.Sleep((int)(Math.Abs(speed) * 1f));
                }
            });
             thread.Start();
@@ -115,12 +116,15 @@ namespace ex1.Model
         {
             System.IO.StreamReader f = new System.IO.StreamReader(csvPath);
             string line;
+            int i = 0;
             while((line = f.ReadLine()) != null)
             {
                 pilot.addLine(line);
                 flightdata.addData(line);
                 // add research data
+                i++;
             }
+            numLines = i;            
             f.Close();
         }
 
