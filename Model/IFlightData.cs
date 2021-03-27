@@ -12,5 +12,7 @@ namespace ex1.Model
         public float getValue(string featureName, int timestep);
         // add feature-column mapping
         public void addFeature(string featureName, int column);
+        // returns if feature names contain given name
+        public bool containsFeature(string featureName);
     }
 }

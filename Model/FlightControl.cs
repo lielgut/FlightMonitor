@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading;
+using System.Xml;
 
 namespace ex1.Model
 {
@@ -91,34 +92,38 @@ namespace ex1.Model
 
         public void loadFeatures(string xmlPath)
         {
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(xmlPath);
-            XmlNodeList relevantXml = xDoc.GetElementsByTagName("output");
-            //cut the duplicates
-            xDoc.LoadXml(relevantXml[0].OuterXml);
-            //get features
-            XmlNodeList featuresFromXml = xDoc.GetElementsByTagName("name");
-            int counter = 0;
-            foreach (XmlNode feature in featuresFromXml)
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlPath);
+            XmlNodeList xmlNode = doc.GetElementsByTagName("output");
+            // cut the duplicates
+            doc.LoadXml(xmlNode[0].OuterXml);
+            // get feature names
+            XmlNodeList xmlFeatures = doc.GetElementsByTagName("name");
+            int i = 0;
+            foreach (XmlNode feature in xmlFeatures)
             {
-                string text = feature.InnerText;
-                if (!features.ContainsKey(text))
-                { 
-                    flightdata.addFeature(text,counter)
-                    counter++;
-                }
-                else
+                string featureName = feature.InnerText;
+                // if same feature name appears twice append 2 to its name
+                if (flightdata.containsFeature(featureName))
                 {
-                    text += 2;
-                    flightdata.addFeature(text,counter)
-                    counter++;
+                    featureName += "2";
                 }
-            }
+                flightdata.addFeature(featureName, i);
+                i++;
+            }         
         }
 
         public void loadData(string csvPath)
         {
-            throw new NotImplementedException();
+            System.IO.StreamReader f = new System.IO.StreamReader(csvPath);
+            string line;
+            while((line = f.ReadLine()) != null)
+            {
+                pilot.addLine(line);
+                flightdata.addData(line);
+                // add research data
+            }
+            f.Close();
         }
 
         public void changePort(int destPort)
@@ -128,7 +133,7 @@ namespace ex1.Model
 
         public float getCurrentData(String feature)
         {
-            throw new Exception();
+            return flightdata.getValue(feature, timestep);
         }
     }
 }
