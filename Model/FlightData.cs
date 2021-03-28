@@ -28,7 +28,15 @@ namespace ex1.Model
 
         public float getValue(string featureName, int timestep)
         {
-            return data[timestep][features[featureName]];
+            try
+            {
+                return data[timestep][features[featureName]];
+            }            
+            catch(Exception)
+            {
+                return 0;
+            }
+            
         }
         public void addFeature(string featureName, int column)
         {

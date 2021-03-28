@@ -50,6 +50,7 @@ namespace ex1.Model
             string s = data + "\r\n";
             byte[] msg = enc.GetBytes(s);
             stream.Write(msg, 0, msg.Length);
+            // catch exception if server closes
         }
 
         public void close()
