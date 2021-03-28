@@ -20,7 +20,7 @@
 
         <views:PlayerView x:Name="playerView" Grid.Row="0" Grid.Column="0" Margin="2"/>
 
-        <views:ResearchView x:Name="reserachView" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
 
         <views:DataView x:Name="dataView" Grid.Row="1" Grid.Column="0" Margin="2" />
 
