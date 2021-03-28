@@ -19,7 +19,7 @@ namespace ex1.Model
             set
             {
                 this.speed = value;
-                PropertyChangedNotify("Speed");
+                PropertyChangedNotify("Speed");               
             }
         }
 
@@ -34,6 +34,7 @@ namespace ex1.Model
             {
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
+                PropertyChangedNotify("Altimeter");
             }
         }        
 
