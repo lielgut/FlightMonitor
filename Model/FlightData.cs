@@ -15,7 +15,6 @@ namespace ex1.Model
             this.features = new Dictionary<string, int>();
         }
 
-        // TODO implement
         public void addData(string s)
         {
             List<float> l = new List<float>();
@@ -27,12 +26,10 @@ namespace ex1.Model
             data.Add(l);
         }
 
-        // TODO implement
         public float getValue(string featureName, int timestep)
         {
-            return data[features[featureName]][timestep];
+            return data[timestep][features[featureName]];
         }
-        // TODO implement
         public void addFeature(string featureName, int column)
         {
             features.Add(featureName, column);

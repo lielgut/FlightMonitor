@@ -83,10 +83,7 @@ namespace ex1.Model
 
         public void PropertyChangedNotify(string prop)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         public void loadFeatures(string xmlPath)
