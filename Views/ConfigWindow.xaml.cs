@@ -32,11 +32,15 @@ namespace ex1.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            fc.loadFeatures("..//..//..//playback_small.xml");
             
              if(fgPath.Text == "")
             {
                 MessageBox.Show("Please select FlightGear installation folder.");
+                return;
+            }
+             if(!File.Exists(fgPath.Text + "//data//Protocol//playback_small.xml"))
+            {
+                MessageBox.Show("playback_small.xml not found in FlightGear directory.\r\nPlease add the file to data/Protocol folder.");
                 return;
             }
 
@@ -50,9 +54,7 @@ namespace ex1.Views
             {
                 MessageBox.Show("Please select new flight CSV file.");
                 return;
-            }            
-            fc.loadData(newFlightPath.Text); 
-            
+            }                        
             
             if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
             {
@@ -81,6 +83,9 @@ namespace ex1.Views
                 MessageBox.Show("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings.");
                 return;
             }
+            fc.loadFeatures("..//..//..//playback_small.xml");
+            fc.loadData(newFlightPath.Text);
+
             fc.start();
 
             this.Close();            
