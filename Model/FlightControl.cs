@@ -19,7 +19,7 @@ namespace ex1.Model
             set
             {
                 this.speed = value;
-                PropertyChangedNotify("Speed");               
+                PropertyChangedNotify("Speed");
             }
         }
 
@@ -66,7 +66,7 @@ namespace ex1.Model
             }
         }
 
-        private volatile bool stop;        
+        private volatile bool stop;
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -78,31 +78,31 @@ namespace ex1.Model
             this.speed = 1;
             this.timestep = 0;
             this.numLines = 0;
-            //this.isReverse = false;
+            this.isReverse = false;
             this.stop = false;
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
-            this.research = new Research();            
+            this.research = new Research();
         }
 
 
         public void start()
         {
             this.thread = new Thread(delegate ()
-           {
-               while (!stop)
-               {
-                   bool IsReverse = Speed < 0;
-                   if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
-                   {
-                       stop = true;
-                       break;
-                   }                   
-                   pilot.sendCurrentData(Timestep);
-                   Timestep += (IsReverse ? -1 : 1);
-                   Thread.Sleep((int)(100f / Math.Abs(Speed)));
-               }
-           });
+            {
+                while (!stop)
+                {
+                    bool IsReverse = Speed < 0;
+                    if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    {
+                        stop = true;
+                        break;
+                    }
+                    pilot.sendCurrentData(Timestep);
+                    Timestep += (IsReverse ? -1 : 1);
+                    Thread.Sleep((int)(100f / Math.Abs(Speed)));
+                }
+            });
             thread.Start();
         }
 
@@ -137,7 +137,7 @@ namespace ex1.Model
                 }
                 flightdata.addFeature(featureName, i);
                 i++;
-            }         
+            }
         }
 
         public void loadData(string csvPath)
@@ -152,7 +152,7 @@ namespace ex1.Model
                 // add research data
                 i++;
             }
-            NumLines = i;            
+            NumLines = i;
             f.Close();
         }
 

@@ -11,11 +11,12 @@ namespace ex1.Model
     class SimpleClient : IClient
     {
         private int destPort;
-        int IClient.DestPort {
+        int IClient.DestPort
+        {
             get
             {
                 return destPort;
-            } 
+            }
             set
             {
                 this.destPort = value;
@@ -26,23 +27,23 @@ namespace ex1.Model
         private ASCIIEncoding enc;
 
         public SimpleClient()
-        {            
+        {
             this.cl = new TcpClient();
             this.enc = new ASCIIEncoding();
         }
 
         public bool connect()
-        {            
+        {
             try
             {
                 cl.Connect("127.0.0.1", destPort);
                 this.stream = cl.GetStream();
                 return true;
             }
-            catch(SocketException)
+            catch (SocketException)
             {
                 return false;
-            }                        
+            }
         }
 
         public void send(string data)
@@ -56,7 +57,7 @@ namespace ex1.Model
         public void close()
         {
             stream.Close();
-            cl.Close();            
+            cl.Close();
         }
     }
 }
