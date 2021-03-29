@@ -20,10 +20,7 @@ namespace ex1.ViewModels
         }
         public void PropertyChangedNotify(string prop)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

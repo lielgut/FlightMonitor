@@ -25,7 +25,7 @@
         <Button Content="browse" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="18" Click="BrowseAnomaly_Click" Grid.Column="1"/>
         <Label Content="choose port number:" HorizontalAlignment="Left" Margin="20,258,0,0" VerticalAlignment="Top" Width="145" Height="28"/>
         <TextBox x:Name="portnum" HorizontalAlignment="Left" Margin="144,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" TextChanged="portnum_TextChanged" Height="20"/>
-        <Label Content="copy the following settings to FlightGear:" HorizontalAlignment="Left" Margin="20,286,0,0" VerticalAlignment="Top" Width="224" Height="27" FontSize="11" Grid.ColumnSpan="2"/>
+        <Label Content="copy the following settings to FlightGear and press fly:" HorizontalAlignment="Left" Margin="20,286,0,0" VerticalAlignment="Top" Width="281" Height="27" FontSize="11" Grid.ColumnSpan="2"/>
         <TextBox x:Name="fgSetting" HorizontalAlignment="Left" Margin="19,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="46" Grid.ColumnSpan="2"/>
         <Button Content="copy to clipboard" HorizontalAlignment="Left" Margin="216,369,0,0" VerticalAlignment="Top" Width="124" Click="CopyToClipboard_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="copied" Content="copied!" HorizontalAlignment="Left" Margin="169,366,0,0" VerticalAlignment="Top" Width="52" Height="27" FontSize="11" Visibility="Hidden"/>

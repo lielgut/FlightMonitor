@@ -8,6 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="LightSlateGray">
     <Grid>
-            
+        <ProgressBar Value="{Binding VM_Altimeter, Mode=OneWay}" Margin="28,117,28,117" Maximum="700"></ProgressBar>
     </Grid>
 </UserControl>

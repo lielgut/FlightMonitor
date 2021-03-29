@@ -31,24 +31,62 @@ namespace ex1.Views
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {            
-
-            try
-            {
-                fc.changePort(Int32.Parse(portnum.Text));
-            }
-            catch(System.FormatException)
-            {
-                MessageBox.Show("Invalid port number.");
-                return;
-            }
-            if(fgPath.Text == "")
+        {
+            
+             if(fgPath.Text == "")
             {
                 MessageBox.Show("Please select FlightGear installation folder.");
                 return;
             }
+             if(!File.Exists(fgPath.Text + "//data//Protocol//playback_small.xml"))
+            {
+                MessageBox.Show("playback_small.xml not found in FlightGear directory.\r\nPlease add the file to data/Protocol folder.");
+                return;
+            }
 
+            if (normalFlightPath.Text == "" || !File.Exists(normalFlightPath.Text))
+            {
+                MessageBox.Show("Please select normal flight CSV file.");
+                return;
+            }
+
+            if (newFlightPath.Text == "" || !File.Exists(newFlightPath.Text))
+            {
+                MessageBox.Show("Please select new flight CSV file.");
+                return;
+            }                        
             
+            if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
+            {
+                MessageBox.Show("Please select anomaly detection dll.");
+                return;
+            }
+
+            try
+            {
+                int pn = Int32.Parse(portnum.Text);
+                if(pn < 1024 || pn > 65535)
+                {
+                    MessageBox.Show("Invalid port number.");
+                    return;
+                }
+                fc.changePort(pn);
+            }
+            catch (System.FormatException)
+            {
+                MessageBox.Show("Invalid port number.");
+                return;
+            }
+
+            if(!fc.startClient())
+            {
+                MessageBox.Show("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings.");
+                return;
+            }
+            fc.loadFeatures("..//..//..//playback_small.xml");
+            fc.loadData(newFlightPath.Text);
+
+            fc.start();
 
             this.Close();            
             mw.Visibility = Visibility.Visible;
@@ -75,23 +113,23 @@ namespace ex1.Views
 
         private void BrowseNormal_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog browser = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
             browser.ShowDialog();
-            normalFlightPath.Text = browser.SelectedPath;
+            normalFlightPath.Text = browser.FileName;
         }
 
         private void BrowseNew_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog browser = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
             browser.ShowDialog();
-            newFlightPath.Text = browser.SelectedPath;
+            newFlightPath.Text = browser.FileName;
         }
 
         private void BrowseAnomaly_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog browser = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
             browser.ShowDialog();
-            anomalyDetPath.Text = browser.SelectedPath;
+            anomalyDetPath.Text = browser.FileName;            
         }
     }
 }

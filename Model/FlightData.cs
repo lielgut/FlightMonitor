@@ -15,21 +15,37 @@ namespace ex1.Model
             this.features = new Dictionary<string, int>();
         }
 
-        // TODO implement
         public void addData(string s)
         {
-            throw new NotImplementedException();
+            List<float> l = new List<float>();
+            string[] values = s.Split(',');            
+            foreach (string val in values)
+            {
+                l.Add(float.Parse(val));
+            }
+            data.Add(l);
         }
 
-        // TODO implement
         public float getValue(string featureName, int timestep)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return data[timestep][features[featureName]];
+            }            
+            catch(Exception)
+            {
+                return 0;
+            }
+            
         }
-        // TODO implement
         public void addFeature(string featureName, int column)
         {
-            throw new NotImplementedException();
+            features.Add(featureName, column);
+        }
+
+        public bool containsFeature(string featureName)
+        {
+            return features.ContainsKey(featureName);
         }
     }
 }

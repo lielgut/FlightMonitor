@@ -7,9 +7,9 @@ namespace ex1.Model
     abstract class Pilot
     {
         protected IClient cl;
-        public void startClient()
+        public bool startClient()
         {
-            cl.connect();
+            return cl.connect();
         }
         public void endClient()
         {
@@ -21,8 +21,6 @@ namespace ex1.Model
         }
         // add string to saved data at last timestep
         public abstract void addLine(string s);
-        // get number of lines (timesteps)
-        public abstract int getNumOfLines();
         // find string of given timestep and send it via client
         public abstract void sendCurrentData(int timestep);
     }

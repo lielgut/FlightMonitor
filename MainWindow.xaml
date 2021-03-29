@@ -8,24 +8,22 @@
         mc:Ignorable="d"
         Title="FlightStat" Height="691" Width="982"
         ResizeMode="NoResize" Closed="Window_Closed" Visibility="Visible">
-    <Grid Margin="10,10,10,11" Background="Gray">
+    <Grid Margin="10,10,10,10" Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="0,0,481,317" Grid.ColumnSpan="3">
-            <views:PlayerView x:Name="playerView" Margin="0,0,0,10"/>
-        </Grid>
-        <Grid Margin="4,0,0,322" Grid.Column="2">
-            <views:ResearchView x:Name="reserachView" Margin="-164,0,0,0"/>
-        </Grid>
-        <Grid Margin="0,337,481,0" Grid.ColumnSpan="3">
-            <views:DataView x:Name="dataView" Margin="0,-10,0,0" Loaded="DataView_Loaded"/>
-        </Grid>
-        <Grid Margin="4,332,0,0" Grid.Column="2">
 
-        </Grid>
+        <views:PlayerView x:Name="playerView" Grid.Row="0" Grid.Column="0" Margin="2"/>
+
+        <views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
+
+        <views:DataView x:Name="dataView" Grid.Row="1" Grid.Column="0" Margin="2" />
+
 
     </Grid>
 

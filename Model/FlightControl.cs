@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading;
+using System.Xml;
 
 namespace ex1.Model
 {
@@ -33,6 +34,35 @@ namespace ex1.Model
             {
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
+                PropertyChangedNotify("Minute");
+                PropertyChangedNotify("Length");
+                PropertyChangedNotify("Altimeter");
+            }
+        }
+
+        private int numLines;
+        public int NumLines
+        {
+            get
+            {
+                return numLines;
+            }
+            set
+            {
+                this.numLines = value;
+            }
+        }
+
+        private bool isReverse;
+        public bool IsReverse
+        {
+            get
+            {
+                return IsReverse;
+            }
+            set
+            {
+                this.isReverse = value;
             }
         }
 
@@ -47,6 +77,8 @@ namespace ex1.Model
         {
             this.speed = 1;
             this.timestep = 0;
+            this.numLines = 0;
+            this.isReverse = false;
             this.stop = false;
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
@@ -57,21 +89,20 @@ namespace ex1.Model
         public void start()
         {
             this.thread = new Thread(delegate ()
-           {
-               pilot.startClient();
-               while (!stop)
-               {
-                   if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= pilot.getNumOfLines() && speed > 0))
-                   {
-                       stop = true;
-                       break;
-                   }
-                   Timestep += (speed > 0 ? 1 : -1);
-                   pilot.sendCurrentData(timestep);
-                   Thread.Sleep((int)(Math.Abs(speed) * 100f));
-               }
-               pilot.endClient();
-           });
+            {
+                while (!stop)
+                {
+                    bool IsReverse = Speed < 0;
+                    if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    {
+                        stop = true;
+                        break;
+                    }
+                    pilot.sendCurrentData(Timestep);
+                    Timestep += (IsReverse ? -1 : 1);
+                    Thread.Sleep((int)(100f / Math.Abs(Speed)));
+                }
+            });
             thread.Start();
         }
 
@@ -83,20 +114,46 @@ namespace ex1.Model
 
         public void PropertyChangedNotify(string prop)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         public void loadFeatures(string xmlPath)
         {
-            throw new NotImplementedException();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlPath);
+            XmlNodeList xmlNode = doc.GetElementsByTagName("output");
+            // cut the duplicates
+            doc.LoadXml(xmlNode[0].OuterXml);
+            // get feature names
+            XmlNodeList xmlFeatures = doc.GetElementsByTagName("name");
+            int i = 0;
+            foreach (XmlNode feature in xmlFeatures)
+            {
+                string featureName = feature.InnerText;
+                // if same feature name appears twice append 2 to its name
+                if (flightdata.containsFeature(featureName))
+                {
+                    featureName += "2";
+                }
+                flightdata.addFeature(featureName, i);
+                i++;
+            }
         }
 
         public void loadData(string csvPath)
         {
-            throw new NotImplementedException();
+            System.IO.StreamReader f = new System.IO.StreamReader(csvPath);
+            string line;
+            int i = 0;
+            while((line = f.ReadLine()) != null)
+            {
+                pilot.addLine(line);
+                flightdata.addData(line);
+                // add research data
+                i++;
+            }
+            NumLines = i;
+            f.Close();
         }
 
         public void changePort(int destPort)
@@ -106,7 +163,17 @@ namespace ex1.Model
 
         public float getCurrentData(String feature)
         {
-            throw new Exception();
+            return flightdata.getValue(feature, timestep);
+        }
+
+        public bool startClient()
+        {
+            return pilot.startClient();
+        }
+
+        public void endClient()
+        {
+            pilot.endClient();
         }
     }
 }
