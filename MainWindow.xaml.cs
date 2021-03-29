@@ -43,7 +43,7 @@ namespace ex1
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
 
-            Visibility = Visibility.Hidden;
+            //Visibility = Visibility.Hidden;
         }
 
         private void Window_Closed(object sender, EventArgs e)

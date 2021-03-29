@@ -5,13 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ex1.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450.446" d:DesignWidth="800"
              Background="Pink">
-    <Grid>
+    <Grid Margin="0,35,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="79*"/>
             <RowDefinition Height="146*"/>
         </Grid.RowDefinitions>
+        <Button Margin="345,86,400,134" Grid.Row="1">
+            <Image Source="\images\playbutton.png" Height="29" Width="51"/>
+        </Button>
         <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" Height="26" Grid.Row="1"/>
         <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" Height="30" Width="66" Grid.Row="1"/>
         <Label Content="speed:" HorizontalAlignment="Left" Margin="233,15,0,0" VerticalAlignment="Top" Grid.Row="1"/>
