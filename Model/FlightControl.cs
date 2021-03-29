@@ -34,12 +34,39 @@ namespace ex1.Model
             {
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
+                PropertyChangedNotify("Minute");
+                PropertyChangedNotify("Length");
                 PropertyChangedNotify("Altimeter");
             }
-        }        
+        }
 
-        private volatile bool stop;
         private int numLines;
+        public int NumLines
+        {
+            get
+            {
+                return numLines;
+            }
+            set
+            {
+                this.numLines = value;
+            }
+        }
+
+        private bool isReverse;
+        public bool IsReverse
+        {
+            get
+            {
+                return IsReverse;
+            }
+            set
+            {
+                this.isReverse = value;
+            }
+        }
+
+        private volatile bool stop;        
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -50,6 +77,8 @@ namespace ex1.Model
         {
             this.speed = 1;
             this.timestep = 0;
+            this.numLines = 0;
+            //this.isReverse = false;
             this.stop = false;
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
@@ -63,14 +92,15 @@ namespace ex1.Model
            {
                while (!stop)
                {
-                   if ((speed == 0) || (Timestep == 0 && speed < 0) || (Timestep >= numLines && speed > 0))
+                   bool IsReverse = Speed < 0;
+                   if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
                    {
                        stop = true;
                        break;
                    }                   
                    pilot.sendCurrentData(Timestep);
-                   Timestep += (speed > 0 ? 1 : -1);
-                   Thread.Sleep((int)(Math.Abs(speed) * 1f));
+                   Timestep += (IsReverse ? -1 : 1);
+                   Thread.Sleep((int)(100f / Math.Abs(Speed)));
                }
            });
             thread.Start();
@@ -122,7 +152,7 @@ namespace ex1.Model
                 // add research data
                 i++;
             }
-            numLines = i;            
+            NumLines = i;            
             f.Close();
         }
 
