@@ -7,23 +7,155 @@
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
-             Height="150"
-             Width="200"
+             Height="400"
+             Width="600"
              Background="LightSlateGray">
     <UserControl.Resources>
-        
-    <Style TargetType="lvc:AngularGauge">
-        <Setter Property="NeedleFill" Value="#FF8F00"></Setter>
-        <Setter Property="SectionsInnerRadius" Value=".5"></Setter>
-    </Style>
+        <Style TargetType="lvc:AngularGauge">
+            <Setter Property="NeedleFill" Value="#FF312F2F"></Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
-        <lvc:AngularGauge Grid.Row="1" Grid.Column="2" Value="{Binding VM_Airspeed, Mode=OneWay}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--Speedometer for Airspeed-->
+        <lvc:AngularGauge Grid.Row="0" Grid.Column="0" Value="{Binding VM_Airspeed, Mode=OneWay}" FromValue="0" ToValue="150" 
+                          LabelsStep="10" TicksStep="5" Wedge="300"
+                          TicksForeground="WhiteSmoke" Foreground="White" 
+                          FontWeight="Light" FontSize="10"
+                          SectionsInnerRadius=".65">
             <lvc:AngularGauge.Sections>
-                <lvc:AngularSection FromValue="0" ToValue="80" Fill="#505050"></lvc:AngularSection>
-                <lvc:AngularSection FromValue="80" ToValue="100" Fill="#353535"></lvc:AngularSection>
+                <lvc:AngularSection FromValue="0" ToValue="120" Fill="#F8A725"></lvc:AngularSection>
+                <lvc:AngularSection FromValue="120" ToValue="150" Fill="#FF3939"></lvc:AngularSection>
             </lvc:AngularGauge.Sections>
         </lvc:AngularGauge>
-        <!--<ProgressBar Value="{Binding VM_Altimeter, Mode=OneWay}" Margin="50" Maximum="700"></ProgressBar>-->
+
+        <!--Gauge showing heading direction-->
+        <lvc:AngularGauge Grid.Row="1" Grid.Column="0" Value="{Binding VM_HeadingDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
+                           TicksStep="360" LabelsStep="90" SectionsInnerRadius="1">
+        </lvc:AngularGauge>
+        <!--Joystick showing Aileron and Elevator-->
+        <Canvas Grid.Row="1" Grid.Column="1" Margin="0,0,-40,-140" >
+            <Canvas.LayoutTransform>
+                <ScaleTransform ScaleY="0.4" ScaleX="0.4" />
+            </Canvas.LayoutTransform>
+
+            <Ellipse Width="340" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF2C2A2A" Offset="1" />
+                        <GradientStop Color="#FF3A3737" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+
+            </Ellipse>
+            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="290" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24"/>
+            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="30" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                <Polygon.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-180"/>
+                    </TransformGroup>
+                </Polygon.RenderTransform>
+            </Polygon>
+            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="280" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                <Polygon.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </Polygon.RenderTransform>
+            </Polygon>
+            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="15" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                <Polygon.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                    </TransformGroup>
+                </Polygon.RenderTransform>
+            </Polygon>
+
+            <Ellipse Height="170" Width="170" Canvas.Left="85" Canvas.Top="85">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF0E0E0E" Offset="1" />
+                        <GradientStop Color="#FF323030" Offset="0.68" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+
+            </Ellipse>
+            <Ellipse Width="90" Height="90" Canvas.Left="125" Canvas.Top="125">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF8B8B8B"/>
+                        <GradientStop Color="#FFBDBDBD" Offset="1"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+                <Ellipse.RenderTransform>
+                    <TranslateTransform X="{Binding VM_Aileron}" Y="{Binding VM_Elevator}"/>
+                </Ellipse.RenderTransform>
+
+            </Ellipse>
+        </Canvas>
+        <!--Slider for Throttle-->
+        <Canvas Grid.Row="1" Grid.Column="1" Margin="191,0,79,65">
+            <Rectangle Width="20" Height="135" Fill="#FF323030"/>
+            <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF4D4D4D" Offset="0"/>
+                        <GradientStop Color="#FF131313" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF292929" Offset="1"/>
+                        <GradientStop Color="#FF535353"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.RenderTransform>
+                    <TranslateTransform Y="{Binding VM_Throttle}"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+        </Canvas>
+        <!--Slider for Rudder-->
+        <Canvas Grid.Row="1" Grid.Column="1" Margin="157,103,113,-38" RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Rectangle Width="20" Height="135" Fill="#FF323030"/>
+            <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
+                <Rectangle.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF4D4D4D" Offset="0"/>
+                        <GradientStop Color="#FF131313" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF292929" Offset="1"/>
+                        <GradientStop Color="#FF535353"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.RenderTransform>
+                    <TranslateTransform X="{Binding VM_Rudder}"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+        </Canvas>
+        <Canvas Grid.Row="0" Grid.Column="1">
+
+          
+        </Canvas>
     </Grid>
 </UserControl>

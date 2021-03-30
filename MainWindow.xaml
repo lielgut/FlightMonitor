@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:ex1.Views"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
-        Title="FlightStat" Height="600" Width="800"
+        Title="FlightStat" Height="auto" Width="auto"
         ResizeMode="NoResize" Visibility="Visible">
     
     <Grid Margin="10,10,10,10" Background="Gray">
