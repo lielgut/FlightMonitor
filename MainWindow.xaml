@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
         Title="FlightStat" Height="600" Width="800"
-        ResizeMode="NoResize" Closed="Window_Closed" Visibility="Visible">
+        ResizeMode="NoResize" Visibility="Visible">
     
     <Grid Margin="10,10,10,10" Background="Gray">
         <Grid.RowDefinitions>

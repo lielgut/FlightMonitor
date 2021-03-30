@@ -36,7 +36,12 @@ namespace ex1.Model
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
                 PropertyChangedNotify("Length");
-                PropertyChangedNotify("Altimeter");
+
+                if(Timestep != NumLines)
+                {
+                    PropertyChangedNotify("Altimeter");
+                    PropertyChangedNotify("Airspeed");
+                }                
             }
         }
 
@@ -88,12 +93,13 @@ namespace ex1.Model
 
         public void start()
         {
+            stop = false;
             this.thread = new Thread(delegate ()
             {
                 while (!stop)
                 {
                     bool IsReverse = Speed < 0;
-                    if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
                     {
                         stop = true;
                         break;
@@ -108,7 +114,7 @@ namespace ex1.Model
 
         void IFlightControl.stop()
         {
-            this.stop = true;
+            stop = true;
             thread.Join();
         }
 

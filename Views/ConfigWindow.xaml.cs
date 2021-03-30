@@ -19,15 +19,13 @@ namespace ex1.Views
     /// </summary>
     public partial class ConfigWindow : Window
     {
-        private MainWindow mw;
+        // private MainWindow mw;
         private IFlightControl fc;
 
-        internal ConfigWindow(MainWindow mw, IFlightControl fc)
+        public ConfigWindow()
         {
-            this.mw = mw;
-            this.fc = fc;
-            InitializeComponent();                        
-            
+            this.fc = new FlightControl();
+            InitializeComponent();                                    
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -86,10 +84,13 @@ namespace ex1.Views
             fc.loadFeatures("..//..//..//playback_small.xml");
             fc.loadData(newFlightPath.Text);
 
-            fc.start();
+            // fc.start();
 
-            this.Close();            
-            mw.Visibility = Visibility.Visible;
+            MainWindow mw = new MainWindow(fc);
+            mw.Show();
+            this.Close();
+                    
+            // mw.Visibility = Visibility.Visible;
         }
 
         private void portnum_TextChanged(object sender, TextChangedEventArgs e)

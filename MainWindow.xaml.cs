@@ -23,12 +23,12 @@ namespace ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        FlightControl fc;
-        public MainWindow()
+        IFlightControl fc;
+        internal MainWindow(IFlightControl fc)
         {
-            fc = new FlightControl();
-            ConfigWindow cw = new ConfigWindow(this, fc);
-            cw.Show();
+            this.fc = fc;
+            // ConfigWindow cw = new ConfigWindow(this, fc);
+            // cw.Show();
             InitializeComponent();
 
             PlayerViewModel pvm = new PlayerViewModel(fc); ;
@@ -44,11 +44,8 @@ namespace ex1
             researchView.DataContext = rvm;
 
             //Visibility = Visibility.Hidden;
-        }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            fc.endClient();
+            fc.start();
         }
     }
 }
