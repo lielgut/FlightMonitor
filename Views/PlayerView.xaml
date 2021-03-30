@@ -5,16 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ex1.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450.446" d:DesignWidth="800"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
              Background="Pink">
-    <Grid Margin="0,35,0,0">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="79*"/>
-            <RowDefinition Height="146*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Margin="345,86,400,134" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button Margin="5">
             <Image Source="\images\playbutton.png" Height="29" Width="51"/>
         </Button>
+            
+        </StackPanel>
+        
         <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" Height="26" Grid.Row="1"/>
         <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" Height="30" Width="66" Grid.Row="1"/>
         <Label Content="speed:" HorizontalAlignment="Left" Margin="233,15,0,0" VerticalAlignment="Top" Grid.Row="1"/>

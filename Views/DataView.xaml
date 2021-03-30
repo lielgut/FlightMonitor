@@ -3,11 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ex1.Views"
+             xmlns:local="clr-namespace:ex1.Views" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             Height="150"
+             Width="200"
              Background="LightSlateGray">
+    <UserControl.Resources>
+        
+    <Style TargetType="lvc:AngularGauge">
+        <Setter Property="NeedleFill" Value="#FF8F00"></Setter>
+        <Setter Property="SectionsInnerRadius" Value=".5"></Setter>
+    </Style>
+    </UserControl.Resources>
     <Grid>
-        <ProgressBar Value="{Binding VM_Altimeter, Mode=OneWay}" Margin="28,117,28,117" Maximum="700"></ProgressBar>
+        <lvc:AngularGauge Grid.Row="1" Grid.Column="2" Value="{Binding VM_Airspeed, Mode=OneWay}">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="80" Fill="#505050"></lvc:AngularSection>
+                <lvc:AngularSection FromValue="80" ToValue="100" Fill="#353535"></lvc:AngularSection>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+        <!--<ProgressBar Value="{Binding VM_Altimeter, Mode=OneWay}" Margin="50" Maximum="700"></ProgressBar>-->
     </Grid>
 </UserControl>

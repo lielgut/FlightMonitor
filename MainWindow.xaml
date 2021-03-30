@@ -6,23 +6,25 @@
         xmlns:local="clr-namespace:ex1"  
         xmlns:views="clr-namespace:ex1.Views"
         mc:Ignorable="d"
-        Title="FlightStat" Height="691" Width="982"
+        SizeToContent="WidthAndHeight"
+        Title="FlightStat" Height="600" Width="800"
         ResizeMode="NoResize" Closed="Window_Closed" Visibility="Visible">
+    
     <Grid Margin="10,10,10,10" Background="Gray">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <views:PlayerView x:Name="playerView" Grid.Row="0" Grid.Column="0" Margin="2"/>
+        <views:PlayerView x:Name="playerView" Grid.Row="1" Grid.ColumnSpan="2" Margin="2"/>
 
         <views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
 
-        <views:DataView x:Name="dataView" Grid.Row="1" Grid.Column="0" Margin="2" />
+        <views:DataView x:Name="dataView" Margin="2" />
 
 
     </Grid>
