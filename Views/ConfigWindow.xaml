@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ex1.Views"
+        xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        TextElement.FontSize="10"
         Title="FlightStat" Height="481" Width="654" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,22 +13,24 @@
             <ColumnDefinition Width="212*"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="fgPath" HorizontalAlignment="Left" Margin="25,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Height="18" Click="BrowseFgPath_Click" Grid.Column="1"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Height="18" Click="BrowseFgPath_Click" Grid.Column="1" FontSize="8"/>
         <Label Content="FlightGear installation folder:" HorizontalAlignment="Left" Margin="20,62,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
         <TextBox x:Name="normalFlightPath" HorizontalAlignment="Left" Margin="25,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNormal_Click" Grid.Column="1"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNormal_Click" Grid.Column="1" FontSize="8"/>
         <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="20,102,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
         <TextBox x:Name="newFlightPath" HorizontalAlignment="Left" Margin="25,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNew_Click" Grid.Column="1"/>
+        <Button Content="browse" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNew_Click" Grid.Column="1" FontSize="8"/>
         <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="20,142,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
         <Label Content="load anomaly detection dll:" HorizontalAlignment="Left" Margin="20,185,0,0" VerticalAlignment="Top" Width="164" Height="28"/>
-        <TextBox x:Name="anomalyDetPath" HorizontalAlignment="Left" Margin="28,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="18" Click="BrowseAnomaly_Click" Grid.Column="1"/>
+        <TextBox x:Name="anomalyDetPath" HorizontalAlignment="Left" Margin="25,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" />
+        <Button Content="browse" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="18" Click="BrowseAnomaly_Click" Grid.Column="1" FontSize="8"/>
         <Label Content="choose port number:" HorizontalAlignment="Left" Margin="20,258,0,0" VerticalAlignment="Top" Width="145" Height="28"/>
         <TextBox x:Name="portnum" HorizontalAlignment="Left" Margin="144,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" TextChanged="portnum_TextChanged" Height="20"/>
         <Label Content="copy the following settings to FlightGear and press fly:" HorizontalAlignment="Left" Margin="20,286,0,0" VerticalAlignment="Top" Width="281" Height="27" FontSize="11" Grid.ColumnSpan="2"/>
         <TextBox x:Name="fgSetting" HorizontalAlignment="Left" Margin="19,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="46" Grid.ColumnSpan="2"/>
-        <Button Content="copy to clipboard" HorizontalAlignment="Left" Margin="216,369,0,0" VerticalAlignment="Top" Width="124" Click="CopyToClipboard_Click" Grid.ColumnSpan="2"/>
+        <Button ToolTip="Copy to clipboard" HorizontalAlignment="Left" Margin="216,369,0,0" VerticalAlignment="Top" Width="124" Click="CopyToClipboard_Click" Grid.ColumnSpan="2" FontSize="10">
+            <materialDesign:PackIcon Kind="ContentCopy"/>
+        </Button>
         <Label x:Name="copied" Content="copied!" HorizontalAlignment="Left" Margin="169,366,0,0" VerticalAlignment="Top" Width="52" Height="27" FontSize="11" Visibility="Hidden"/>
         <Image Source="/images/flightgear.png" Grid.Column="1" HorizontalAlignment="Left" Height="444" Margin="128,0,0,0" VerticalAlignment="Center" Width="284" Stretch="UniformToFill"/>
         <Button Content="Done" HorizontalAlignment="Left" Margin="320,396,0,0" VerticalAlignment="Top" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
