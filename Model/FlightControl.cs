@@ -39,8 +39,16 @@ namespace ex1.Model
 
                 if(Timestep != NumLines)
                 {
+                    PropertyChangedNotify("Throttle");
+                    PropertyChangedNotify("Rudder");
+                    PropertyChangedNotify("Aileron");
+                    PropertyChangedNotify("Elevator");
                     PropertyChangedNotify("Altimeter");
                     PropertyChangedNotify("Airspeed");
+                    PropertyChangedNotify("HeadingDeg");
+                    PropertyChangedNotify("PitchDeg");
+                    PropertyChangedNotify("RollDeg");
+                    PropertyChangedNotify("SideSlipDeg");
                 }                
             }
         }
