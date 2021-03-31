@@ -160,7 +160,7 @@
                             </RadialGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
+                    <Rectangle Width="40" Height="15" Canvas.Left="-10">
                         <Rectangle.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF292929" Offset="1"/>
@@ -168,7 +168,7 @@
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                         <Rectangle.RenderTransform>
-                            <TranslateTransform X="{Binding VM_Rudder}"/>
+                            <TranslateTransform Y="{Binding VM_Rudder}"/>
                         </Rectangle.RenderTransform>
                     </Rectangle>
 
@@ -183,29 +183,32 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Speedometer for Airspeed-->
-                
+
                 <Grid Grid.Column="0" Margin="5 17">
-                    
+
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=AirSpeedBorder}" />
                     </Grid.OpacityMask>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="6*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0" Background="#FFCE21CE"></Border>
-                    <TextBlock Text="Air Speed" Grid.Row="0" TextAlignment="Center" Padding="0 35" Foreground="WhiteSmoke" FontSize="18"/>
-                    <lvc:AngularGauge Margin="0 0 0 0" Value="{Binding VM_Airspeed, Mode=OneWay}" FromValue="0" ToValue="200" 
-                          LabelsStep="10" TicksStep="5" Wedge="300"
-                          TicksForeground="WhiteSmoke" Foreground="White" 
-                          FontWeight="Light" FontSize="8">
-                    </lvc:AngularGauge>
-                    <Border x:Name="AirSpeedBorder" Grid.Row="1" CornerRadius="180" Background="White" />
-                    <TextBlock Text="{Binding VM_Airspeed, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <Border Grid.Row="1" Background="#FFCE21CE"></Border>
+                    <TextBlock Text="Air Speed" Grid.Row="0" TextAlignment="Center" Padding="0 35" Foreground="White" FontSize="18"/>
+                    <Border x:Name="AirSpeedBorder" Grid.Row="0" CornerRadius="180" Background="White" />
+                    <!--<Image  Grid.RowSpan="2" Stretch="Fill" Source="/images/Airspeed.png"/>-->
+                    <Image Grid.RowSpan="2" Margin="0 0 0 0" Source="/images/SpeedIndicator.png" Width="110" Height="110" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_Airspeed, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock Text="{Binding VM_Airspeed, Mode=OneWay}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
                 </Grid>
                 <!--Gauge showing heading direction-->
-                <Grid Grid.Column="1" Margin="5 17">
-                    
+                <Grid Grid.Column="1" Margin="5 20">
+
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=HeadingDegBorder}" />
                     </Grid.OpacityMask>
@@ -214,14 +217,19 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#FF21CECE"></Border>
-                    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="0 35" Foreground="WhiteSmoke" FontSize="10">
+                    <Image Source="/images/compass.png" Width="160" Height="160" RenderTransformOrigin="0.5,0.5"/>
+                    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="0 100" Foreground="White" FontSize="10">
                         Heading<LineBreak/>Degree
-                        
+
                     </TextBlock>
-                    <lvc:AngularGauge Margin="7" Grid.Row="0" Value="{Binding VM_HeadingDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
-                           TicksStep="45" LabelsStep="45" SectionsInnerRadius="0" TicksForeground="WhiteSmoke" Foreground="White" FlowDirection="LeftToRight">
-                    </lvc:AngularGauge>
-                    <Border x:Name="HeadingDegBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <Image Grid.RowSpan="2" Margin="0 0 0 0" Source="/images/comapss_indicator.png" Width="110" Height="110" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_HeadingDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                        <Border x:Name="HeadingDegBorder" Grid.Row="1" CornerRadius="180" Background="White" />
                     <TextBlock Text="{Binding VM_HeadingDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
                 </Grid>
             </Grid>
@@ -233,7 +241,7 @@
                 </Grid.ColumnDefinitions>
                 <!--Gauge showing Yaw-->
                 <Grid Margin="5 10">
-                    
+
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=YawBorder}" />
                     </Grid.OpacityMask>
@@ -242,18 +250,23 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#CE2156"></Border>
-                    <lvc:AngularGauge Margin="7" Grid.Row="0" Value="{Binding VM_SideSlipDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
-                           TicksStep="45" LabelsStep="45" SectionsInnerRadius="0" TicksForeground="WhiteSmoke" Foreground="White">
-                    </lvc:AngularGauge>
+                    <Image Margin="0 25 0 0" Source="/images/Yaw_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_SideSlipDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
                     <Border x:Name="YawBorder" Grid.Row="1" CornerRadius="180" Background="White" />
-                    <TextBlock Text="Yaw" Grid.Row="0" TextAlignment="Center" Padding="0 40" Foreground="WhiteSmoke" FontSize="18">
-                        
+                    <TextBlock Text="Yaw" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
+
                     </TextBlock>
                     <TextBlock Text="{Binding VM_SideSlipDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
                 </Grid>
                 <!--Gauge showing Roll-->
                 <Grid Grid.Column="1" Margin="5 10">
-                    
+
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=RollBorder}" />
                     </Grid.OpacityMask>
@@ -262,12 +275,17 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#FF9FCE21"></Border>
-                    <lvc:AngularGauge Margin="7" Grid.Row="0" Value="{Binding VM_RollDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
-                           TicksStep="45" LabelsStep="45" SectionsInnerRadius="0" TicksForeground="WhiteSmoke" Foreground="White">
-                    </lvc:AngularGauge>
+                    <Image Margin="0 25 0 0" Source="/images/Roll_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_RollDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
                     <Border x:Name="RollBorder" Grid.Row="1" CornerRadius="180" Background="White" />
-                    <TextBlock Text="Roll" Grid.Row="0" TextAlignment="Center" Padding="0 40" Foreground="WhiteSmoke" FontSize="18">
-                        
+                    <TextBlock Text="Roll" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
+
                     </TextBlock>
                     <TextBlock Text="{Binding VM_RollDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
                 </Grid>
@@ -282,11 +300,16 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#FFCE8F21"></Border>
-                    <lvc:AngularGauge Margin="7" Grid.Row="0" Value="{Binding VM_PitchDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
-                           TicksStep="45" LabelsStep="45" SectionsInnerRadius="0" TicksForeground="WhiteSmoke" Foreground="White">
-                    </lvc:AngularGauge>
+                    <Image Margin="0 25 0 0" Source="/images/Pitch_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_PitchDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
                     <Border x:Name="PitchBorder" Grid.Row="1" CornerRadius="180" Background="White" />
-                    <TextBlock Text="Pitch" Grid.Row="0" TextAlignment="Center" Padding="0 40" Foreground="WhiteSmoke" FontSize="18">
+                    <TextBlock Text="Pitch" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
 
                     </TextBlock>
                     <TextBlock Text="{Binding VM_PitchDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>

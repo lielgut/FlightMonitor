@@ -27,14 +27,14 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getCurrentData("aileron")*50;
+                return fc.getCurrentData("aileron")*80;
             }
         }
         public float VM_Elevator
         {
             get
             {
-                return fc.getCurrentData("elevator")*50;
+                return fc.getCurrentData("elevator")*80;
             }
         }
         public float VM_Altimeter
