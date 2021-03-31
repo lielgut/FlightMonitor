@@ -9,40 +9,27 @@
              VerticalAlignment="Stretch"
              Background="WhiteSmoke">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions> 
-        <!--Speeed Stack Panel-->
+        <StackPanel>
+            <!--Speeed Stack Panel-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="speed:" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Row="1"/>
-            <Label Content="{Binding VM_Speed, Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="37"/>
+                <Label Content="{Binding VM_Speed, Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="37"/>
                 <Slider Value="{Binding VM_Speed, Mode=TwoWay}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="168" IsSnapToTickEnabled="True" TickFrequency="0.25" Minimum="0.25" Maximum="5" Grid.Row="1" TickPlacement="TopLeft"/>
             </StackPanel>
-        
-        <!--Panel for slider and timestep-->
-        <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="37"/>
-            <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}"/>
-            <Label Content="{Binding VM_MaxTime, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="37"/>
+
+            <!--Panel for slider and timestep-->
+            <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="37"/>
+                <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}"/>
+                <Label Content="{Binding VM_MaxTime, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="37"/>
+            </StackPanel>
+
+            <!--Panel for buttons-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
+                <Button Margin="5" Grid.Column="1" Click="Play_Click">
+                    <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
+                </Button>
+            </StackPanel>
         </StackPanel>
-        
-        <!--Panel for buttons-->
-        <Grid Grid.Row="2" Grid.Column="0" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
-        <Button Margin="5" Grid.Column="1" Click="Play_Click">
-                <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
-        </Button>
-        </Grid>
-        
-        
     </Grid>
 </UserControl>
