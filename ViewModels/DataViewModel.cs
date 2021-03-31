@@ -11,28 +11,30 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getCurrentData("throttle");
+                // -120 for going up in the Y axis, the values of throttle are 0-1.
+                return fc.getCurrentData("throttle")*(-120);
             }
         }
         public float VM_Rudder
         {
             get
             {
-                return fc.getCurrentData("rudder");
+                // I assume the data is 0-1, max value we can achieve is 120, min is 0.
+                return fc.getCurrentData("rudder")*120;
             }
         }
         public float VM_Aileron
         {
             get
             {
-                return fc.getCurrentData("aileron");
+                return fc.getCurrentData("aileron")*50;
             }
         }
         public float VM_Elevator
         {
             get
             {
-                return fc.getCurrentData("elevator");
+                return fc.getCurrentData("elevator")*50;
             }
         }
         public float VM_Altimeter

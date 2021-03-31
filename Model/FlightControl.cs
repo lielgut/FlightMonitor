@@ -35,8 +35,25 @@ namespace ex1.Model
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
-                PropertyChangedNotify("Length");
-                PropertyChangedNotify("Altimeter");
+                if (Timestep == 0)
+                {
+                    PropertyChangedNotify("Length");
+                    PropertyChangedNotify("MaxTime");
+                }
+
+                if (Timestep != NumLines)
+                {
+                    PropertyChangedNotify("Throttle");
+                    PropertyChangedNotify("Rudder");
+                    PropertyChangedNotify("Aileron");
+                    PropertyChangedNotify("Elevator");
+                    PropertyChangedNotify("Altimeter");
+                    PropertyChangedNotify("Airspeed");
+                    PropertyChangedNotify("HeadingDeg");
+                    PropertyChangedNotify("PitchDeg");
+                    PropertyChangedNotify("RollDeg");
+                    PropertyChangedNotify("SideSlipDeg");
+                }
             }
         }
 
@@ -67,6 +84,12 @@ namespace ex1.Model
         }
 
         private volatile bool stop;
+        public bool Stop
+        {
+            get { return stop; }
+            set { stop = value; }
+        }
+
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -79,7 +102,7 @@ namespace ex1.Model
             this.timestep = 0;
             this.numLines = 0;
             this.isReverse = false;
-            this.stop = false;
+            this.stop = true;
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
             this.research = new Research();
@@ -88,12 +111,13 @@ namespace ex1.Model
 
         public void start()
         {
+            stop = false;
             this.thread = new Thread(delegate ()
             {
                 while (!stop)
                 {
                     bool IsReverse = Speed < 0;
-                    if ((Speed == 0) || (Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
                     {
                         stop = true;
                         break;
@@ -108,7 +132,7 @@ namespace ex1.Model
 
         void IFlightControl.stop()
         {
-            this.stop = true;
+            stop = true;
             thread.Join();
         }
 
@@ -145,7 +169,7 @@ namespace ex1.Model
             System.IO.StreamReader f = new System.IO.StreamReader(csvPath);
             string line;
             int i = 0;
-            while((line = f.ReadLine()) != null)
+            while ((line = f.ReadLine()) != null)
             {
                 pilot.addLine(line);
                 flightdata.addData(line);

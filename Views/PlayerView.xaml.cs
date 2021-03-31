@@ -36,5 +36,19 @@ namespace ex1.Views
             InitializeComponent();
             DataContext = playerVM;
         }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            if (playerVM.VM_IsPlaying)
+            {
+                playerVM.fc.stop();
+                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            }
+            else
+            {
+                playerVM.fc.start();
+                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
+            }
+        }
     }
 }

@@ -9,14 +9,17 @@
 
   <ItemGroup>
     <None Remove="images\flightgear.png" />
+    <None Remove="images\playbutton.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="images\flightgear.png" />
+    <Resource Include="images\playbutton.png" />
   </ItemGroup>
 
   <ItemGroup>
