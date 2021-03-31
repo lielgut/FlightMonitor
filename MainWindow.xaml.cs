@@ -45,7 +45,7 @@ namespace ex1
 
             //Visibility = Visibility.Hidden;
 
-            fc.start();
+            //fc.start();
         }
     }
 }

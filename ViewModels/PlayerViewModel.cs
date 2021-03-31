@@ -7,6 +7,11 @@ namespace ex1.ViewModels
 {
     class PlayerViewModel : ViewModel
     {
+        public bool VM_IsPlaying
+        {
+            get { return !fc.Stop; }
+            set { fc.Stop = !value; }
+        }
         public float VM_Speed
         {
             get { return fc.Speed; }
@@ -38,6 +43,18 @@ namespace ex1.ViewModels
         public int VM_Length
         {
             get { return fc.NumLines; }
+        }
+        public string VM_MaxTime
+        {
+            get {
+                int ts = VM_Length;
+                int seconds = (int)(0.1f * (float)ts);
+                int minutes = seconds / 60;
+                seconds %= 60;
+                string sMinutes = minutes >= 10 ? minutes.ToString() : "0" + minutes.ToString();
+                string sSeconds = seconds >= 10 ? seconds.ToString() : "0" + seconds.ToString();
+                return sMinutes + ":" + sSeconds;
+            }
         }
         public PlayerViewModel(IFlightControl fc) : base(fc) { }
 

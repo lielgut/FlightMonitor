@@ -7,39 +7,42 @@
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
-             Background="Pink">
+             Background="WhiteSmoke">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions> 
+        <!--Speeed Stack Panel-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="speed:" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.Row="1"/>
+            <Label Content="{Binding VM_Speed, Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="37"/>
+                <Slider Value="{Binding VM_Speed, Mode=TwoWay}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="168" IsSnapToTickEnabled="True" TickFrequency="0.25" Minimum="0.25" Maximum="5" Grid.Row="1" TickPlacement="TopLeft"/>
+            </StackPanel>
+        
+        <!--Panel for slider and timestep-->
+        <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="37"/>
+            <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}"/>
+            <Label Content="{Binding VM_MaxTime, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="37"/>
+        </StackPanel>
+        
+        <!--Panel for buttons-->
         <Grid Grid.Row="2" Grid.Column="0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-            
-        <Button Margin="5" Grid.Column="1">
-                <materialDesign:PackIcon Kind="Play"/>
-                <!--<Image Source="\images\playbutton.png" Height="29" Width="51"/>-->
+        <Button Margin="5" Grid.Column="1" Click="Play_Click">
+                <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
         </Button>
-            
-            <StackPanel Grid.Column="2">
-                
-            <StackPanel Orientation="Horizontal">
-                <Label Content="speed:" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Row="1"/>
-                <Label Content="{Binding VM_Speed, Mode=OneWay}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="69" Height="27" />
-            </StackPanel>
-        <Slider Value="{Binding VM_Speed, Mode=TwoWay}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="168" IsSnapToTickEnabled="True" TickFrequency="0.25" Minimum="0.25" Maximum="5" Grid.Row="1"/>
-            </StackPanel>
         </Grid>
         
-        <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center" Margin="0,41,0,0" VerticalAlignment="Top" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" Height="26" Grid.Row="1"/>
-        <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Left" Margin="182,6,0,0" VerticalAlignment="Top" Height="30" Width="66" Grid.Row="1"/>
+        
     </Grid>
 </UserControl>

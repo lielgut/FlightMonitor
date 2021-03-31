@@ -11,6 +11,7 @@ namespace ex1.Model
         int Timestep { get; set; } 
         int NumLines { get; set; }
         bool IsReverse { get; set; }
+        bool Stop { get; set; }
         public void start();
         public void stop();
         public void loadFeatures(string xmlPath);
