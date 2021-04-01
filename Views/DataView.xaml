@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ex1.Views" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:ex1.Views" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
@@ -181,7 +181,22 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="1.2*"/>
                 </Grid.ColumnDefinitions>
-
+                <TextBlock Text="Aileron" Grid.Column="2" HorizontalAlignment="Center" Margin="27,0,0,0"/>
+                <TextBlock Text="Rudder" Grid.Column="2" HorizontalAlignment="Center" Margin="27,185,0,0"/>
+                <TextBlock Text="Elevator" Grid.Column="2" HorizontalAlignment="Center" Margin="45,5,0,39" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock Text="Elevator" Grid.Column="2" HorizontalAlignment="Center" Margin="-55,5,0,39" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-90"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
                 <!--Speedometer for Airspeed-->
 
                 <Grid Grid.Column="0" Margin="5 17">
@@ -189,22 +204,24 @@
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=AirSpeedBorder}" />
                     </Grid.OpacityMask>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="6*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="1" Background="#FFCE21CE"></Border>
-                    <TextBlock Text="Air Speed" Grid.Row="0" TextAlignment="Center" Padding="0 35" Foreground="White" FontSize="18"/>
-                    <Border x:Name="AirSpeedBorder" Grid.Row="0" CornerRadius="180" Background="White" />
-                    <!--<Image  Grid.RowSpan="2" Stretch="Fill" Source="/images/Airspeed.png"/>-->
-                    <Image Grid.RowSpan="2" Margin="0 0 0 0" Source="/images/SpeedIndicator.png" Width="110" Height="110" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <RotateTransform Angle="{Binding VM_Airspeed, Mode=OneWay}"/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
-                    <TextBlock Text="{Binding VM_Airspeed, Mode=OneWay}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <Border x:Name="AirSpeedBorder" CornerRadius="180" Background="#FF3A3B63" />
+                    <Grid >
+                        <Grid >
+                            <ed:Arc StartAngle="-140" EndAngle="140" Stretch="None" 
+                    Height="150" Width="150" StrokeThickness="20"      
+                    StrokeDashArray=".25" Stroke="#FF484D5F"/>
+                            <ed:Arc StartAngle="-140" EndAngle="{Binding VM_SpeedToAngle, Mode=OneWay}" Stretch="None" 
+                    Height="150" Width="150" StrokeThickness="20"
+                    StrokeDashArray=".25" Stroke="Turquoise"/>
+                        </Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="knots" Foreground="White" HorizontalAlignment="Center"
+                        FontSize="14"/>
+                            <TextBlock Text="{Binding VM_Airspeed, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center"
+                        FontSize="40" FontWeight="Light" Margin="0 0 0 20"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="Air Speed" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 120 0 0" Foreground="White" FontSize="17"/>
                 </Grid>
                 <!--Gauge showing heading direction-->
                 <Grid Grid.Column="1" Margin="5 20">
@@ -229,8 +246,9 @@
                             </TransformGroup>
                         </Image.RenderTransform>
                     </Image>
-                        <Border x:Name="HeadingDegBorder" Grid.Row="1" CornerRadius="180" Background="White" />
-                    <TextBlock Text="{Binding VM_HeadingDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <Border x:Name="HeadingDegBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <TextBlock Text="{Binding VM_HeadingDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1">
@@ -262,7 +280,8 @@
                     <TextBlock Text="Yaw" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
 
                     </TextBlock>
-                    <TextBlock Text="{Binding VM_SideSlipDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <TextBlock Text="{Binding VM_SideSlipDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
                 </Grid>
                 <!--Gauge showing Roll-->
                 <Grid Grid.Column="1" Margin="5 10">
@@ -287,7 +306,8 @@
                     <TextBlock Text="Roll" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
 
                     </TextBlock>
-                    <TextBlock Text="{Binding VM_RollDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <TextBlock Text="{Binding VM_RollDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
                 </Grid>
                 <!--Gauge showing Pitch-->
                 <Grid Grid.Column="2" Margin="5 10">
@@ -312,7 +332,8 @@
                     <TextBlock Text="Pitch" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
 
                     </TextBlock>
-                    <TextBlock Text="{Binding VM_PitchDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Width="70"/>
+                    <TextBlock Text="{Binding VM_PitchDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
                 </Grid>
             </Grid>
 

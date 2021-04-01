@@ -12,7 +12,7 @@ namespace ex1.ViewModels
             get
             {
                 // -120 for going up in the Y axis, the values of throttle are 0-1.
-                return fc.getCurrentData("throttle")*(-120);
+                return (float)Math.Round(fc.getCurrentData("throttle")*(-120),2);
             }
         }
         public float VM_Rudder
@@ -20,63 +20,73 @@ namespace ex1.ViewModels
             get
             {
                 // I assume the data is 0-1, max value we can achieve is 120, min is 0.
-                return fc.getCurrentData("rudder")*120;
+                return (float)Math.Round(fc.getCurrentData("rudder")*120,2);
             }
         }
         public float VM_Aileron
         {
             get
             {
-                return fc.getCurrentData("aileron")*80;
+                return (float)Math.Round(fc.getCurrentData("aileron")*80,2);
             }
         }
         public float VM_Elevator
         {
             get
             {
-                return fc.getCurrentData("elevator")*80;
+                return (float)Math.Round(fc.getCurrentData("elevator")*80,2);
             }
         }
         public float VM_Altimeter
         {
             get
             {
-                return fc.getCurrentData("altimeter_indicated-altitude-ft");
+                return (float)Math.Round(fc.getCurrentData("altimeter_indicated-altitude-ft"),2);
             }
         }
         public float VM_Airspeed
         {
             get
             {
-                return fc.getCurrentData("airspeed-kt");
+                return (float)Math.Round(fc.getCurrentData("airspeed-kt"),2);
+            }
+        }
+        public float VM_SpeedToAngle
+        {
+            get
+            {
+                float newSpeed = VM_Airspeed * 1.4f -140f;
+                if (newSpeed > 140f)
+                    return 140f;
+                return newSpeed;
             }
         }
         public float VM_HeadingDeg
         {
             get
             {
-                return fc.getCurrentData("heading-deg");
+                return (float)Math.Round(fc.getCurrentData("heading-deg"),2);
             }
         }
         public float VM_PitchDeg
         {
             get
             {
-                return fc.getCurrentData("pitch-deg");
+                return (float)Math.Round(fc.getCurrentData("pitch-deg"),2);
             }
         }
         public float VM_RollDeg
         {
             get
             {
-                return fc.getCurrentData("roll-deg");
+                return (float)Math.Round(fc.getCurrentData("roll-deg"),2);
             }
         }
         public float VM_SideSlipDeg
         {
             get
             {
-                return fc.getCurrentData("side-slip-deg");
+                return (float)Math.Round(fc.getCurrentData("side-slip-deg"),2);
             }
         }
 

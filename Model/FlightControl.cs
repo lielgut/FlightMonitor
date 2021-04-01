@@ -49,6 +49,7 @@ namespace ex1.Model
                     PropertyChangedNotify("Elevator");
                     PropertyChangedNotify("Altimeter");
                     PropertyChangedNotify("Airspeed");
+                    PropertyChangedNotify("SpeedToAngle");
                     PropertyChangedNotify("HeadingDeg");
                     PropertyChangedNotify("PitchDeg");
                     PropertyChangedNotify("RollDeg");
