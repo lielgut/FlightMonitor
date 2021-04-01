@@ -49,6 +49,7 @@ namespace ex1.Model
                     PropertyChangedNotify("Elevator");
                     PropertyChangedNotify("Altimeter");
                     PropertyChangedNotify("Airspeed");
+                    PropertyChangedNotify("SpeedToAngle");
                     PropertyChangedNotify("HeadingDeg");
                     PropertyChangedNotify("PitchDeg");
                     PropertyChangedNotify("RollDeg");
@@ -70,12 +71,12 @@ namespace ex1.Model
             }
         }
 
-        private bool isReverse;
+        private volatile bool isReverse;
         public bool IsReverse
         {
             get
             {
-                return IsReverse;
+                return isReverse;
             }
             set
             {
@@ -116,7 +117,6 @@ namespace ex1.Model
             {
                 while (!stop)
                 {
-                    bool IsReverse = Speed < 0;
                     if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
                     {
                         stop = true;
@@ -135,11 +135,11 @@ namespace ex1.Model
             stop = true;
             thread.Join();
         }
-
         public void PropertyChangedNotify(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+        
 
         public void loadFeatures(string xmlPath)
         {
@@ -189,7 +189,10 @@ namespace ex1.Model
         {
             return flightdata.getValue(feature, timestep);
         }
-
+        public void SendCurrentData()
+        {
+            pilot.sendCurrentData(Timestep);
+        }
         public bool startClient()
         {
             return pilot.startClient();

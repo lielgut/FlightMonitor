@@ -12,15 +12,15 @@
             <ColumnDefinition Width="121*"/>
             <ColumnDefinition Width="212*"/>
         </Grid.ColumnDefinitions>
+        <Label Content="FlightGear installation folder:" HorizontalAlignment="Left" Margin="20,62,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
         <TextBox x:Name="fgPath" HorizontalAlignment="Left" Margin="25,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
         <Button Content="browse" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Height="18" Click="BrowseFgPath_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="FlightGear installation folder:" HorizontalAlignment="Left" Margin="20,62,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
+        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="20,102,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
         <TextBox x:Name="normalFlightPath" HorizontalAlignment="Left" Margin="25,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
         <Button Content="browse" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNormal_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="20,102,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
+        <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="20,142,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
         <TextBox x:Name="newFlightPath" HorizontalAlignment="Left" Margin="25,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
         <Button Content="browse" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNew_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="20,142,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
         <Label Content="load anomaly detection dll:" HorizontalAlignment="Left" Margin="20,185,0,0" VerticalAlignment="Top" Width="164" Height="28"/>
         <TextBox x:Name="anomalyDetPath" HorizontalAlignment="Left" Margin="25,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" />
         <Button Content="browse" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="18" Click="BrowseAnomaly_Click" Grid.Column="1" FontSize="8"/>
