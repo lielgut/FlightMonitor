@@ -2,72 +2,37 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Shapes;
+using OxyPlot;
 
 namespace ex1.Model
 {
-    class Circle
-    {
-        private float cx;
-        private float cy;
-        private float radius;
-        public Circle(float cx, float cy, float radius)
-        {
-            this.cx = cx;
-            this.cy = cy;
-            this.radius = radius;
-        }
-    }
     class Research : IResearch
     {
-        private Dictionary<String, List<float>> featuresData;
-        private Dictionary<String, String> correlatedFeatures;
-        private Dictionary<Tuple<int, String>, bool> anomalies;
-        private Dictionary<String, Line> linearRegLines;
-        private Dictionary<String, Circle> minimalCircles;
+        private List<Dictionary<String, PlotModel>> plots;
+        private List<String> features;
+        private Dictionary<String, List<float>> data;
 
-        public Research()
+        public Research() { }
+
+        public void addFeature(string featureName)
         {
-            this.featuresData = new Dictionary<String, List<float>>();
-            this.correlatedFeatures = new Dictionary<string, string>();
-            this.anomalies = new Dictionary<Tuple<int, string>, bool>();
-            this.linearRegLines = new Dictionary<string, Line>();
-            this.minimalCircles = new Dictionary<string, Circle>();
+            features.Add(featureName);
+            data[featureName] = new List<float>();
         }
 
-        public void addValue(string feature, float value)
+        public string getFeature(int i)
         {
-            featuresData[feature].Add(value);
+            return features[i];
         }
 
-        public string getCorrelatedFeature(string feature)
+        public void addData(string featureName, float val)
         {
-            return correlatedFeatures[feature];
+            data[featureName].Add(val);
         }
 
-        public Line getLinearRegLine(string feature)
+        public PlotModel getPlotModel(int timestep, string featureName)
         {
-            return linearRegLines[feature];
-        }
-
-        public Circle getMinimalCircle(string feature)
-        {
-            return minimalCircles[feature];
-        }
-
-        public float getValue(string feature, int timestep)
-        {
-            return featuresData[feature][timestep];
-        }
-
-        public bool isAnAnomaly(int timestep, string feature)
-        {
-            Tuple<int, String> t = new Tuple<int, string>(timestep, feature);
-            return anomalies[t];
-        }
-        // TO DO implement
-        public void learnNormal(string path)
-        {
-            throw new NotImplementedException();
+            return plots[timestep][featureName];
         }
     }
 }
