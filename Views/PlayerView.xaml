@@ -25,9 +25,21 @@
             </StackPanel>
 
             <!--Panel for buttons-->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-                <Button Margin="5" Grid.Column="1" Click="Play_Click">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Margin="5">
+                    <materialDesign:PackIcon Kind="SkipBackward"/>
+                </Button>
+				<Button Margin="5" Click="FRewind_Click" MouseLeftButtonUp="FRewind_MouseLeftButtonUp" MouseLeftButtonDown="FRewind_MouseLeftButtonDown">
+                    <materialDesign:PackIcon Kind="FastRewind"/>
+                </Button>
+                <Button Margin="5" Click="Play_Click">
                     <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
+                </Button>
+			    <Button Margin="5" Click="FForward_Click" MouseLeftButtonUp="FForward_MouseLeftButtonUp" MouseLeftButtonDown="FForward_MouseLeftButtonDown">
+                    <materialDesign:PackIcon Kind="FastForward"/>
+                </Button>
+			    <Button Margin="5">
+                    <materialDesign:PackIcon Kind="SkipForward"/>
                 </Button>
             </StackPanel>
         </StackPanel>

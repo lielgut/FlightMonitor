@@ -50,5 +50,40 @@ namespace ex1.Views
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
         }
+
+        private void FForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (playerVM.VM_Timestep + 5 < playerVM.VM_Length)
+                playerVM.VM_Timestep += 5;
+            else
+                playerVM.VM_Timestep = playerVM.VM_Length;
+        }
+
+        private void FRewind_Click(object sender, RoutedEventArgs e)
+        {
+            playerVM.VM_IsReverse = true;
+            playerVM.VM_Timestep -= 5;
+        }
+
+        private void FRewind_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            playerVM.VM_IsReverse = true;
+            playerVM.VM_Speed *= 2;
+        }
+
+        private void FForward_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            playerVM.VM_Speed /= 2;
+        }
+
+        private void FForward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            playerVM.VM_Speed *= 2;
+        }
+
+        private void FRewind_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            playerVM.VM_Speed /= 2;
+        }
     }
 }
