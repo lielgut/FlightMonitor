@@ -20,26 +20,35 @@
             <!--Panel for slider and timestep-->
             <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="37"/>
-                <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}"/>
+                <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" DragLeave="SendData_DragLeave"/>
                 <Label Content="{Binding VM_MaxTime, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="37"/>
             </StackPanel>
 
             <!--Panel for buttons-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<Button Margin="5">
+                <Button Margin="5" Click="FRewind5_Click">
+                    <materialDesign:PackIcon Kind="Rewind5" />
+                </Button>
+                <Button Margin="5" PreviewMouseLeftButtonDown="SkipBackward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipBackward_MouseLeftButtonUp">
                     <materialDesign:PackIcon Kind="SkipBackward"/>
                 </Button>
-				<Button Margin="5" Click="FRewind_Click" MouseLeftButtonUp="FRewind_MouseLeftButtonUp" MouseLeftButtonDown="FRewind_MouseLeftButtonDown">
+                <Button Margin="5"  PreviewMouseLeftButtonUp="FRewind_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FRewind_MouseLeftButtonDown">
                     <materialDesign:PackIcon Kind="FastRewind"/>
+                </Button>
+                <Button Margin="5" Click="Stop_Click">
+                    <materialDesign:PackIcon Kind="Stop"/>
                 </Button>
                 <Button Margin="5" Click="Play_Click">
                     <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
                 </Button>
-			    <Button Margin="5" Click="FForward_Click" MouseLeftButtonUp="FForward_MouseLeftButtonUp" MouseLeftButtonDown="FForward_MouseLeftButtonDown">
+                <Button Margin="5"  PreviewMouseLeftButtonUp="FForward_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FForward_MouseLeftButtonDown">
                     <materialDesign:PackIcon Kind="FastForward"/>
                 </Button>
-			    <Button Margin="5">
+                <Button Margin="5" PreviewMouseLeftButtonDown="SkipForward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipForward_MouseLeftButtonUp">
                     <materialDesign:PackIcon Kind="SkipForward"/>
+                </Button>
+                <Button Margin="5" Click="FForward5_Click">
+                    <materialDesign:PackIcon Kind="FastForward5" />
                 </Button>
             </StackPanel>
         </StackPanel>
