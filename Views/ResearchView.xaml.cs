@@ -38,5 +38,10 @@ namespace ex1.Views
             InitializeComponent();
             DataContext = researchVM;
         }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            researchVM.VM_SelectedFeature = (sender as ListBox).SelectedItem as String;
+        }
     }
 }

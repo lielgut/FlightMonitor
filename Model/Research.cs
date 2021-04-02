@@ -7,12 +7,17 @@ using OxyPlot;
 namespace ex1.Model
 {
     class Research : IResearch
-    {
-        private List<Dictionary<String, PlotModel>> plots;
+    {       
         private List<String> features;
         private Dictionary<String, List<float>> data;
+        private List<Dictionary<String, PlotModel>> plots;
 
-        public Research() { }
+        public Research()
+        {
+            features = new List<String>();
+            data = new Dictionary<string, List<float>>();
+            plots = new List<Dictionary<string, PlotModel>>();
+        }
 
         public void addFeature(string featureName)
         {
@@ -25,9 +30,14 @@ namespace ex1.Model
             return features[i];
         }
 
-        public void addData(string featureName, float val)
+        public void addData(int featureNum, float val)
         {
-            data[featureName].Add(val);
+            data[features[featureNum]].Add(val);
+        }
+
+        public List<String> getFeaturesList()
+        {
+            return features;
         }
 
         public PlotModel getPlotModel(int timestep, string featureName)

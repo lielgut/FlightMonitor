@@ -10,12 +10,25 @@ namespace ex1.ViewModels
     {
         public ResearchViewModel(IFlightControl fc) : base(fc) { }
 
-        private PlotModel plot;
+        private String selectedFeature;
+        public String VM_SelectedFeature
+        {
+            get
+            {
+                return selectedFeature;
+            }
+            set
+            {
+                selectedFeature = value;
+                PropertyChangedNotify("VM_SelectedFeature");
+            }
+        }
+        
         public PlotModel VM_Plot
         {
             get
             {
-                throw new NotImplementedException();
+                return fc.getCurrentPlot(selectedFeature);
             }
             set
             {
@@ -27,7 +40,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                throw new NotImplementedException();
+                return fc.getFeaturesList();
             }
             set
             {
