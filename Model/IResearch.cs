@@ -10,7 +10,8 @@ namespace ex1.Model
     {
         public void addFeature(string featureName);
         public string getFeature(int i);
-        public void addData(string featureName, float val);
+        public void addData(int featureNum, float val);
+        public List<String> getFeaturesList();
         public PlotModel getPlotModel(int timestep, string featureName);
 
     }

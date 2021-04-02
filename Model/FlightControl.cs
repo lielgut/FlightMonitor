@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using OxyPlot;
 
 namespace ex1.Model
 {
@@ -160,6 +161,7 @@ namespace ex1.Model
                     featureName += "2";
                 }
                 flightdata.addFeature(featureName, i);
+                research.addFeature(featureName);
                 i++;
             }
         }
@@ -172,8 +174,18 @@ namespace ex1.Model
             while ((line = f.ReadLine()) != null)
             {
                 pilot.addLine(line);
-                flightdata.addData(line);
-                // add research data
+
+                List<float> row = new List<float>();
+                string[] values = line.Split(',');
+                int j = 0;
+                foreach (string s in values)
+                {
+                    float val = float.Parse(s);
+                    row.Add(val);
+                    research.addData(j, val);
+                    j++;
+                }
+                flightdata.addData(row);
                 i++;
             }
             NumLines = i;
@@ -201,6 +213,16 @@ namespace ex1.Model
         public void endClient()
         {
             pilot.endClient();
+        }
+
+        public List<String> getFeaturesList()
+        {
+            return research.getFeaturesList();
+        }
+
+        public PlotModel getCurrentPlot(String feature)
+        {
+            return research.getPlotModel(timestep, feature);
         }
     }
 }

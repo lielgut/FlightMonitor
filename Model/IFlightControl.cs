@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using OxyPlot;
 
 namespace ex1.Model
 {
@@ -21,5 +22,7 @@ namespace ex1.Model
         public void SendCurrentData();
         public bool startClient();
         public void endClient();
+        public List<String> getFeaturesList();
+        public PlotModel getCurrentPlot(String feature);
     }
 }
