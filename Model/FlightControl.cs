@@ -215,6 +215,11 @@ namespace ex1.Model
             pilot.endClient();
         }
 
+        public String getCorrelative(String featureName)
+        {
+            return research.getCorrelative(featureName);
+        }
+
         public List<String> getFeaturesList()
         {
             return research.getFeaturesList();

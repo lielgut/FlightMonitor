@@ -21,6 +21,15 @@ namespace ex1.ViewModels
             {
                 selectedFeature = value;
                 PropertyChangedNotify("VM_SelectedFeature");
+                PropertyChangedNotify("VM_CorrFeature");
+            }
+        }
+
+        public String VM_CorrFeature
+        {
+            get
+            {
+                return fc.getCorrelative(selectedFeature);
             }
         }
         
