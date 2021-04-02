@@ -115,12 +115,12 @@ namespace ex1.Views
 
         private void SkipBackward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            playerVM.VM_IsReverse = true;
             if (!playerVM.VM_IsPlaying)
             {
                 playerVM.fc.start();
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
-            playerVM.VM_IsReverse = true;
             playerVM.VM_Speed *= 4f;
         }
 
@@ -166,9 +166,9 @@ namespace ex1.Views
             if (TimestepSlider.Value == playerVM.VM_Length && playerVM.VM_IsPlaying)
             {
                 playerVM.fc.stop();
-                playerVM.VM_IsPlaying = false;
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             }
+            System.Diagnostics.Debug.WriteLine(playerVM.VM_Timestep);
         }
     }
 }
