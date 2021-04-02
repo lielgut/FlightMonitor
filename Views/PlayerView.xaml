@@ -20,7 +20,7 @@
             <!--Panel for slider and timestep-->
             <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Label Content="{Binding VM_Minute, Mode=OneWay}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="37"/>
-                <Slider Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" Thumb.DragStarted="SendData_DragStarted" Thumb.DragCompleted="SendData_DragCompleted"/>
+                <Slider x:Name="TimestepSlider" Value="{Binding VM_Timestep, Mode=TwoWay}" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="436" Maximum="{Binding VM_Length, Mode=OneWay}" ValueChanged="Completed_ValueChanged" Thumb.DragStarted="SendData_DragStarted" Thumb.DragCompleted="SendData_DragCompleted"/>
                 <Label Content="{Binding VM_MaxTime, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="37"/>
             </StackPanel>
 
