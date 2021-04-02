@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,8 +21,8 @@ namespace ex1.Views
     public partial class PlayerView : UserControl
     {
         private PlayerViewModel playerVM;
-        //readonly TimeSpan interval = TimeSpan.FromSeconds(0.5);
-        //DateTime mouseDown = DateTime.Now;
+        // for knowing if after dragging the slider we should pause the view again since it was paused when we moved it.
+        private bool wasPaused;
         internal PlayerViewModel PlayerVM
         {
             get
@@ -55,10 +56,11 @@ namespace ex1.Views
         private void FForward5_Click(object sender, RoutedEventArgs e)
         {
             // jump forward by 50 timesteps (5 seconds)
-            if (playerVM.VM_Timestep + 50 <= playerVM.VM_Length)
+            if (playerVM.VM_Timestep + 50 < playerVM.VM_Length)
                 playerVM.VM_Timestep += 50;
             else
-                playerVM.VM_Timestep = playerVM.VM_Length;
+                // set to the last timestep
+                playerVM.VM_Timestep = playerVM.VM_Length-1;
             playerVM.fc.SendCurrentData();
         }
 
@@ -71,8 +73,6 @@ namespace ex1.Views
                 playerVM.VM_Timestep = 0;
             playerVM.fc.SendCurrentData();
         }
-
-
 
         private void FForward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -138,10 +138,21 @@ namespace ex1.Views
             playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
-        private void SendData_DragLeave(object sender, DragEventArgs e)
+        private void SendData_DragStarted(object sender, DragStartedEventArgs e)
         {
             if (!playerVM.VM_IsPlaying)
-                playerVM.fc.SendCurrentData();
+            {
+                playerVM.fc.start();
+                wasPaused = true;
+            }
+            else
+                wasPaused = false;
         }
+        private void SendData_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            if (wasPaused)
+                playerVM.fc.stop();
+        }
+
     }
 }
