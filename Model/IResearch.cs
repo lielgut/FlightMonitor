@@ -9,7 +9,8 @@ namespace ex1.Model
     interface IResearch
     {
         public void addFeature(string featureName);
-        public string getFeature(int i);
+        public String getFeature(int i);
+        public String getCorrelative(String featureName);
         public void addData(int featureNum, float val);
         public List<String> getFeaturesList();
         public PlotModel getPlotModel(int timestep, string featureName);

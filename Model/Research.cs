@@ -35,6 +35,11 @@ namespace ex1.Model
             data[features[featureNum]].Add(val);
         }
 
+        public string getCorrelative(string featureName)
+        {
+            return "temp:" + featureName;
+        }
+
         public List<String> getFeaturesList()
         {
             return features;
@@ -43,6 +48,6 @@ namespace ex1.Model
         public PlotModel getPlotModel(int timestep, string featureName)
         {
             return plots[timestep][featureName];
-        }
+        }        
     }
 }
