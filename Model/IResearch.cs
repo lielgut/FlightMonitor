@@ -10,10 +10,12 @@ namespace ex1.Model
     {
         public void addFeature(string featureName);
         public String getFeature(int i);
+        public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);
         public String getCorrelative(String featureName);
         public void addData(int featureNum, float val);
         public List<String> getFeaturesList();
         public PlotModel getPlotModel(int timestep, string featureName);
+        public bool isAnomalous(int timestep, string featureName);
 
     }
 }

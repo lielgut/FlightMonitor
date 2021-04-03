@@ -22,6 +22,7 @@ namespace ex1.ViewModels
                 selectedFeature = value;
                 PropertyChangedNotify("VM_SelectedFeature");
                 PropertyChangedNotify("VM_CorrFeature");
+                PropertyChangedNotify("VM_Plot");
             }
         }
 
@@ -29,19 +30,28 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getCorrelative(selectedFeature);
+                if(selectedFeature == null)
+                {
+                    return "null";
+                }
+                String corr = fc.getCorrelative(selectedFeature);
+                if(corr == null)
+                {
+                    return "no correlative feature";
+                }
+                return corr;
             }
         }
         
         public PlotModel VM_Plot
         {
             get
-            {
+            {          
+                if(selectedFeature == null)
+                {
+                    return null;
+                }
                 return fc.getCurrentPlot(selectedFeature);
-            }
-            set
-            {
-                throw new NotImplementedException();
             }
         }
 
@@ -50,11 +60,7 @@ namespace ex1.ViewModels
             get
             {
                 return fc.getFeaturesList();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            }            
         }
     }
 }

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" Width="657"            >
     <Grid Background="DarkGray">
-        <ListBox x:Name="listBox" Margin="0,0,538,0" Background="FloralWhite" ItemsSource="{Binding VM_Features, Mode=TwoWay}" SelectionChanged="listBox_SelectionChanged">
+        <ListBox x:Name="listBox" Margin="0,0,538,0" Background="FloralWhite" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -17,9 +17,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="295,192,39,26"/>-->
+        
         <Label Content="{Binding VM_SelectedFeature}" HorizontalAlignment="Left" Margin="254,102,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding VM_CorrFeature}" HorizontalAlignment="Left" Margin="487,98,0,0" VerticalAlignment="Top"/>
+        <oxy:PlotView Model="{Binding VM_Plot}" Margin="152,138,41,23"/>
     </Grid>
 </UserControl>

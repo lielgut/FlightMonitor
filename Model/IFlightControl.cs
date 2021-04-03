@@ -22,8 +22,9 @@ namespace ex1.Model
         public void SendCurrentData();
         public bool startClient();
         public void endClient();
+        public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);
         public String getCorrelative(String featureName);
         public List<String> getFeaturesList();
-        public PlotModel getCurrentPlot(String feature);
+        public PlotModel getCurrentPlot(String feature);       
     }
 }

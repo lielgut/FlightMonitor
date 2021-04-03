@@ -83,6 +83,7 @@ namespace ex1.Views
             }
             fc.loadFeatures("..//..//..//playback_small.xml");
             fc.loadData(newFlightPath.Text);
+            fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
 
             // fc.start();
 

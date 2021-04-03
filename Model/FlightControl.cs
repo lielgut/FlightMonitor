@@ -55,6 +55,7 @@ namespace ex1.Model
                     PropertyChangedNotify("PitchDeg");
                     PropertyChangedNotify("RollDeg");
                     PropertyChangedNotify("SideSlipDeg");
+                    PropertyChangedNotify("Plot");
                 }
             }
         }
@@ -213,6 +214,11 @@ namespace ex1.Model
         public void endClient()
         {
             pilot.endClient();
+        }
+
+        public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
+        {
+            research.analyzeData(normalFlightPath, newFlightPath, anomalyDetPath);
         }
 
         public String getCorrelative(String featureName)
