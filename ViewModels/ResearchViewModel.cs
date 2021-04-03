@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using OxyPlot;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using ex1.Model;
 
 namespace ex1.ViewModels
@@ -41,19 +44,7 @@ namespace ex1.ViewModels
                 }
                 return corr;
             }
-        }
-        
-        public PlotModel VM_Plot
-        {
-            get
-            {          
-                if(selectedFeature == null)
-                {
-                    return null;
-                }
-                return fc.getCurrentPlot(selectedFeature);
-            }
-        }
+        }               
 
         public List<String> VM_Features
         {
@@ -62,5 +53,19 @@ namespace ex1.ViewModels
                 return fc.getFeaturesList();
             }            
         }
+
+        public List<DataPoint> VM_FeaturePoints
+        {
+            get
+            {
+                List<DataPoint> l = fc.getDataPoints(selectedFeature);
+                if(l == null)
+                {
+                    return null;
+                }
+                return new List<DataPoint>(l);
+            }
+        }
+
     }
 }

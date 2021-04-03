@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using OxyPlot;
+using OxyPlot.Annotations;
+using OxyPlot.Series;
 
 namespace ex1.Model
 {
@@ -33,6 +35,7 @@ namespace ex1.Model
             }
             set
             {
+                PrevTimestep = this.timestep;
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
@@ -55,10 +58,12 @@ namespace ex1.Model
                     PropertyChangedNotify("PitchDeg");
                     PropertyChangedNotify("RollDeg");
                     PropertyChangedNotify("SideSlipDeg");
-                    PropertyChangedNotify("Plot");
+                    PropertyChangedNotify("FeaturePoints");
                 }
             }
         }
+
+        public int PrevTimestep { get; set; }
 
         private int numLines;
         public int NumLines
@@ -231,9 +236,11 @@ namespace ex1.Model
             return research.getFeaturesList();
         }
 
-        public PlotModel getCurrentPlot(String feature)
+        public List<DataPoint> getDataPoints(String featureName)
         {
-            return research.getPlotModel(timestep, feature);
+            return research.getDataPoints(Timestep, featureName);
         }
+
+
     }
 }

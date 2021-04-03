@@ -9,7 +9,8 @@ namespace ex1.Model
     interface IFlightControl : INotifyPropertyChanged
     {
         float Speed { get; set; }
-        int Timestep { get; set; } 
+        int Timestep { get; set; }
+        int PrevTimestep { get; set; }
         int NumLines { get; set; }
         bool IsReverse { get; set; }
         bool Stop { get; set; }
@@ -25,6 +26,6 @@ namespace ex1.Model
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);
         public String getCorrelative(String featureName);
         public List<String> getFeaturesList();
-        public PlotModel getCurrentPlot(String feature);       
+        public List<DataPoint> getDataPoints(String featureName);
     }
 }

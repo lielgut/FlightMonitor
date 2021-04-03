@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using OxyPlot;
+using OxyPlot.Series;
 using OxyPlot.Axes;
 using OxyPlot.Annotations;
+using System.Windows.Media;
 
 namespace ex1.Model
 {
@@ -16,29 +18,27 @@ namespace ex1.Model
             public List<float> DataVector { get; set; }
             public List<bool> Anomalies { get; set; }
             public PlotModel Plot { get; set; }
+            public PlotModel Series { get; set; }
             public ResearchData()
             {
                 Correlated = null;
                 DataVector = new List<float>();
                 Anomalies = new List<bool>();
+                Series = new PlotModel();
+                Series.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 0, Position = OxyPlot.Axes.AxisPosition.Bottom });
+                Series.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 0, Position = OxyPlot.Axes.AxisPosition.Left });
+                Series.Series.Add(new LineSeries());
                 Plot = null;
             }
         }
 
         private List<String> features;
         private Dictionary<String, ResearchData> dataDict;
-        /*private Dictionary<String, List<float>> data;
-        private Dictionary<String, String> corrFeatures;
-        private Dictionary<String, List<PlotModel>> plots;
-        private Dictionary<String, List<bool>> anomalies;*/
 
         public Research()
         {
             features = new List<String>();
             dataDict = new Dictionary<string, ResearchData>();
-            /*data = new Dictionary<String, List<float>>();
-            corrFeatures = new Dictionary<String, String>();
-            plots = new Dictionary<string, List<PlotModel>>();*/
         }
 
         public void addFeature(string featureName)
@@ -46,8 +46,6 @@ namespace ex1.Model
             features.Add(featureName);
             ResearchData rd = new ResearchData();           
             dataDict[featureName] = rd;
-            /*data[featureName] = new List<float>();
-            plots[featureName] = new List<PlotModel>();*/
         }
 
         public string getFeature(int i)
@@ -58,7 +56,6 @@ namespace ex1.Model
         public void addData(int featureNum, float val)
         {
             dataDict[features[featureNum]].DataVector.Add(val);
-            // data[features[featureNum]].Add(val);
         }
 
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
@@ -109,8 +106,8 @@ namespace ex1.Model
                     }
 
                     PlotModel plot = getPlotModel.Invoke(detector, new object[] { featureName }) as PlotModel;
-                    plot.Axes.Add(new LinearAxis { Minimum = minX, Maximum = maxX, Position = AxisPosition.Bottom });
-                    plot.Axes.Add(new LinearAxis { Minimum = minY, Maximum = maxY, Position = AxisPosition.Left });
+                    plot.Axes.Add(new LinearAxis { Minimum = minX, Maximum = maxX, Position = OxyPlot.Axes.AxisPosition.Bottom });
+                    plot.Axes.Add(new LinearAxis { Minimum = minY, Maximum = maxY, Position = OxyPlot.Axes.AxisPosition.Left });
                     dataDict[featureName].Plot = plot;
                 }
                 else
@@ -134,8 +131,12 @@ namespace ex1.Model
             return features;
         }
 
-        public PlotModel getPlotModel(int timestep, string featureName)
+        public PlotModel getPlotModel(string featureName)
         {
+            if (featureName == null)
+            {
+                return null;
+            }
             PlotModel pm = dataDict[featureName].Plot;
             if (pm == null)
             {
@@ -147,6 +148,26 @@ namespace ex1.Model
         public bool isAnomalous(int timestep, string featureName)
         {
             return dataDict[featureName].Anomalies[timestep];
+        }
+
+        public float getValue(int timestep, String featureName)
+        {
+            return dataDict[featureName].DataVector[timestep];
+        }
+
+        public List<DataPoint> getDataPoints(int timestep, String featureName)
+        {
+            if(featureName == null)
+            {
+                return null;
+            }
+            List<DataPoint> l = new List<DataPoint>();
+            List<float> values = dataDict[featureName].DataVector; 
+            for(int i=0; i < timestep; i++)
+            {
+                l.Add(new DataPoint(i, values[i]));
+            }
+            return l;
         }
     }
 }

@@ -14,8 +14,10 @@ namespace ex1.Model
         public String getCorrelative(String featureName);
         public void addData(int featureNum, float val);
         public List<String> getFeaturesList();
-        public PlotModel getPlotModel(int timestep, string featureName);
+        public PlotModel getPlotModel(string featureName);
         public bool isAnomalous(int timestep, string featureName);
+        public float getValue(int timestep, String featureName);
+        public List<DataPoint> getDataPoints(int timestep, String featureName);
 
     }
 }

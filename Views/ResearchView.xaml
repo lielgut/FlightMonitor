@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:ex1.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" Width="657"            >
-    <Grid Background="DarkGray">
-        <ListBox x:Name="listBox" Margin="0,0,538,0" Background="FloralWhite" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
+             Height="400"
+             Width="600"       >
+    <Grid Background="WhiteSmoke">
+        <ListBox x:Name="listBox" Margin="10,0,466,0" Background="White" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -17,9 +18,16 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+
+        <oxy:Plot Title="{Binding VM_SelectedFeature}" Margin="155,20,237,233">
+            <oxy:Plot.Series>
+                <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
+            </oxy:Plot.Series>
+        </oxy:Plot>
+
+        <Label Content="{Binding VM_SelectedFeature}" HorizontalAlignment="Left" Margin="546,219,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding VM_CorrFeature}" HorizontalAlignment="Left" Margin="527,322,0,0" VerticalAlignment="Top"/>
         
-        <Label Content="{Binding VM_SelectedFeature}" HorizontalAlignment="Left" Margin="254,102,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding VM_CorrFeature}" HorizontalAlignment="Left" Margin="487,98,0,0" VerticalAlignment="Top"/>
-        <oxy:PlotView Model="{Binding VM_Plot}" Margin="152,138,41,23"/>
     </Grid>
 </UserControl>
