@@ -42,7 +42,7 @@ namespace ex1.ViewModels
         }
         public int VM_Length
         {
-            get { return fc.NumLines; }
+            get { return fc.NumLines - 1; }
         }
         public string VM_MaxTime
         {

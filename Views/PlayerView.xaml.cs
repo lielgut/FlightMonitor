@@ -49,6 +49,8 @@ namespace ex1.Views
             }
             else
             {
+                if (playerVM.VM_Timestep == playerVM.VM_Length)
+                    playerVM.VM_Timestep = 0;
                 playerVM.fc.start();
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
@@ -60,7 +62,7 @@ namespace ex1.Views
                 playerVM.VM_Timestep += 50;
             else
                 // set to the last timestep
-                playerVM.VM_Timestep = playerVM.VM_Length-1;
+                playerVM.VM_Timestep = playerVM.VM_Length;
             playerVM.fc.SendCurrentData();
         }
 
@@ -113,12 +115,12 @@ namespace ex1.Views
 
         private void SkipBackward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            playerVM.VM_IsReverse = true;
             if (!playerVM.VM_IsPlaying)
             {
                 playerVM.fc.start();
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
-            playerVM.VM_IsReverse = true;
             playerVM.VM_Speed *= 4f;
         }
 
@@ -150,9 +152,23 @@ namespace ex1.Views
         }
         private void SendData_DragCompleted(object sender, DragCompletedEventArgs e)
         {
+            if (TimestepSlider.Value == playerVM.VM_Length)
+                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+
+
             if (wasPaused)
                 playerVM.fc.stop();
+            
         }
 
+        private void Completed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (TimestepSlider.Value == playerVM.VM_Length && playerVM.VM_IsPlaying)
+            {
+                playerVM.fc.stop();
+                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            }
+            System.Diagnostics.Debug.WriteLine(playerVM.VM_Timestep);
+        }
     }
 }
