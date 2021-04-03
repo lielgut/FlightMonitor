@@ -8,6 +8,11 @@
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
              Background="WhiteSmoke">
+    <UserControl.Resources>
+        <!--make all buttons round-->
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}"/>
+    </UserControl.Resources>
+
     <Grid>
         <StackPanel>
             <!--Speeed Stack Panel-->
@@ -26,19 +31,16 @@
 
             <!--Panel for buttons-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="5" Click="FRewind5_Click">
-                    <materialDesign:PackIcon Kind="Rewind5" />
-                </Button>
                 <Button Margin="5" PreviewMouseLeftButtonDown="SkipBackward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipBackward_MouseLeftButtonUp">
                     <materialDesign:PackIcon Kind="SkipBackward"/>
                 </Button>
-                <Button Margin="5"  PreviewMouseLeftButtonUp="FRewind_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FRewind_MouseLeftButtonDown">
+                <Button Margin="5" PreviewMouseLeftButtonUp="FRewind_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FRewind_MouseLeftButtonDown">
                     <materialDesign:PackIcon Kind="FastRewind"/>
                 </Button>
                 <Button Margin="5" Click="Stop_Click">
                     <materialDesign:PackIcon Kind="Stop"/>
                 </Button>
-                <Button Margin="5" Click="Play_Click">
+                <Button Margin="5" Click="Play_Click" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                     <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
                 </Button>
                 <Button Margin="5"  PreviewMouseLeftButtonUp="FForward_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FForward_MouseLeftButtonDown">
@@ -47,9 +49,15 @@
                 <Button Margin="5" PreviewMouseLeftButtonDown="SkipForward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipForward_MouseLeftButtonUp">
                     <materialDesign:PackIcon Kind="SkipForward"/>
                 </Button>
-                <Button Margin="5" Click="FForward5_Click">
-                    <materialDesign:PackIcon Kind="FastForward5" />
-                </Button>
+                <StackPanel>
+
+                    <Button Margin="5 0 0 0" Click="FForward5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="25 25 0 0">
+                        <materialDesign:PackIcon Kind="FastForward5" />
+                    </Button>
+                    <Button Margin="5 0 0 0" Click="FRewind5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="0 0 25 25">
+                        <materialDesign:PackIcon Kind="Rewind5" />
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

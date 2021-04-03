@@ -98,7 +98,7 @@ namespace ex1.Views
 
         private void SkipForward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!playerVM.VM_IsPlaying)
+            if (!playerVM.VM_IsPlaying && playerVM.VM_Timestep != playerVM.VM_Length)
             {
                 playerVM.fc.start();
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
@@ -109,12 +109,14 @@ namespace ex1.Views
         private void SkipForward_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             playerVM.VM_Speed /= 4f;
-            playerVM.fc.stop();
+            if (playerVM.VM_IsPlaying)
+                playerVM.fc.stop();
             playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
         private void SkipBackward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // set to reverse before start()
             playerVM.VM_IsReverse = true;
             if (!playerVM.VM_IsPlaying)
             {
