@@ -7,7 +7,7 @@ namespace ex1.Model
     interface IFlightData
     {
         // parse and add data
-        public void addData(string s);
+        public void addData(List<float> l);
         // get value of feature at given timestep
         public float getValue(string featureName, int timestep);
         // add feature-column mapping

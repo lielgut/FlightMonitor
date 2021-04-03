@@ -15,14 +15,8 @@ namespace ex1.Model
             this.features = new Dictionary<string, int>();
         }
 
-        public void addData(string s)
+        public void addData(List<float> l)
         {
-            List<float> l = new List<float>();
-            string[] values = s.Split(',');            
-            foreach (string val in values)
-            {
-                l.Add(float.Parse(val));
-            }
             data.Add(l);
         }
 

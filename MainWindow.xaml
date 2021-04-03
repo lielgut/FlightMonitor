@@ -18,7 +18,7 @@
         Title="FlightStat" Height="auto" Width="auto"
         ResizeMode="NoResize" Visibility="Visible">
     
-    <Grid Margin="10,10,10,10" Background="Gray">
+    <Grid Margin="10,10,10,10" Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>

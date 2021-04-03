@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using OxyPlot;
+using OxyPlot.Annotations;
+using OxyPlot.Series;
 
 namespace ex1.Model
 {
@@ -32,6 +35,7 @@ namespace ex1.Model
             }
             set
             {
+                PrevTimestep = this.timestep;
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
@@ -49,13 +53,17 @@ namespace ex1.Model
                     PropertyChangedNotify("Elevator");
                     PropertyChangedNotify("Altimeter");
                     PropertyChangedNotify("Airspeed");
+                    PropertyChangedNotify("SpeedToAngle");
                     PropertyChangedNotify("HeadingDeg");
                     PropertyChangedNotify("PitchDeg");
                     PropertyChangedNotify("RollDeg");
                     PropertyChangedNotify("SideSlipDeg");
+                    PropertyChangedNotify("FeaturePoints");
                 }
             }
         }
+
+        public int PrevTimestep { get; set; }
 
         private int numLines;
         public int NumLines
@@ -70,12 +78,12 @@ namespace ex1.Model
             }
         }
 
-        private bool isReverse;
+        private volatile bool isReverse;
         public bool IsReverse
         {
             get
             {
-                return IsReverse;
+                return isReverse;
             }
             set
             {
@@ -116,7 +124,6 @@ namespace ex1.Model
             {
                 while (!stop)
                 {
-                    bool IsReverse = Speed < 0;
                     if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
                     {
                         stop = true;
@@ -135,11 +142,11 @@ namespace ex1.Model
             stop = true;
             thread.Join();
         }
-
         public void PropertyChangedNotify(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+        
 
         public void loadFeatures(string xmlPath)
         {
@@ -160,6 +167,7 @@ namespace ex1.Model
                     featureName += "2";
                 }
                 flightdata.addFeature(featureName, i);
+                research.addFeature(featureName);
                 i++;
             }
         }
@@ -172,8 +180,18 @@ namespace ex1.Model
             while ((line = f.ReadLine()) != null)
             {
                 pilot.addLine(line);
-                flightdata.addData(line);
-                // add research data
+
+                List<float> row = new List<float>();
+                string[] values = line.Split(',');
+                int j = 0;
+                foreach (string s in values)
+                {
+                    float val = float.Parse(s);
+                    row.Add(val);
+                    research.addData(j, val);
+                    j++;
+                }
+                flightdata.addData(row);
                 i++;
             }
             NumLines = i;
@@ -189,7 +207,10 @@ namespace ex1.Model
         {
             return flightdata.getValue(feature, timestep);
         }
-
+        public void SendCurrentData()
+        {
+            pilot.sendCurrentData(Timestep);
+        }
         public bool startClient()
         {
             return pilot.startClient();
@@ -199,5 +220,27 @@ namespace ex1.Model
         {
             pilot.endClient();
         }
+
+        public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
+        {
+            research.analyzeData(normalFlightPath, newFlightPath, anomalyDetPath);
+        }
+
+        public String getCorrelative(String featureName)
+        {
+            return research.getCorrelative(featureName);
+        }
+
+        public List<String> getFeaturesList()
+        {
+            return research.getFeaturesList();
+        }
+
+        public List<DataPoint> getDataPoints(String featureName)
+        {
+            return research.getDataPoints(Timestep, featureName);
+        }
+
+
     }
 }

@@ -3,159 +3,346 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ex1.Views" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:ex1.Views" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
              Height="400"
              Width="600"
-             Background="LightSlateGray">
+             Background="WhiteSmoke">
     <UserControl.Resources>
+        <!--Style for all TextBoxes-->
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="1" Direction="-90" ShadowDepth="1" Color="Black" Opacity=".4" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--Style for all Grids-->
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="4" Direction="-90" RenderingBias="Quality" Opacity=".1" ShadowDepth="1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--Style for all Gauges-->
         <Style TargetType="lvc:AngularGauge">
             <Setter Property="NeedleFill" Value="#FF312F2F"></Setter>
+            <Setter Property="LabelsEffect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="1" Direction="-90" ShadowDepth="1" Color="Black" Opacity=".4" RenderingBias="Quality" />
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
-        <!--Speedometer for Airspeed-->
-        <lvc:AngularGauge Grid.Row="0" Grid.Column="0" Value="{Binding VM_Airspeed, Mode=OneWay}" FromValue="0" ToValue="150" 
-                          LabelsStep="10" TicksStep="5" Wedge="300"
-                          TicksForeground="WhiteSmoke" Foreground="White" 
-                          FontWeight="Light" FontSize="10"
-                          SectionsInnerRadius=".65">
-            <lvc:AngularGauge.Sections>
-                <lvc:AngularSection FromValue="0" ToValue="120" Fill="#F8A725"></lvc:AngularSection>
-                <lvc:AngularSection FromValue="120" ToValue="150" Fill="#FF3939"></lvc:AngularSection>
-            </lvc:AngularGauge.Sections>
-        </lvc:AngularGauge>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Canvas Width="200" Height="200" Margin="37,-10,308,10">
 
-        <!--Gauge showing heading direction-->
-        <lvc:AngularGauge Grid.Row="1" Grid.Column="0" Value="{Binding VM_HeadingDeg, Mode=OneWay}" FromValue="0" ToValue="360" Wedge="360"
-                           TicksStep="360" LabelsStep="90" SectionsInnerRadius="1">
-        </lvc:AngularGauge>
-        <!--Joystick showing Aileron and Elevator-->
-        <Canvas Grid.Row="1" Grid.Column="1" Margin="0,0,-40,-140" >
-            <Canvas.LayoutTransform>
-                <ScaleTransform ScaleY="0.4" ScaleX="0.4" />
-            </Canvas.LayoutTransform>
+                <!--Joystick showing Aileron and Elevator-->
+                <Canvas Width="340" Height="340" Margin="251,-68,-46,128" Canvas.Left="101" Canvas.Top="93" >
+                    <Canvas.LayoutTransform>
+                        <ScaleTransform ScaleY="0.4" ScaleX="0.4" />
+                    </Canvas.LayoutTransform>
 
-            <Ellipse Width="340" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF2C2A2A" Offset="1" />
-                        <GradientStop Color="#FF3A3737" />
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
+                    <Ellipse Width="340" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF2C2A2A" Offset="1" />
+                                <GradientStop Color="#FF3A3737" />
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
 
-            </Ellipse>
-            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="290" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24"/>
-            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="30" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Polygon.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="-180"/>
-                    </TransformGroup>
-                </Polygon.RenderTransform>
-            </Polygon>
-            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="280" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Polygon.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="90"/>
-                    </TransformGroup>
-                </Polygon.RenderTransform>
-            </Polygon>
-            <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="15" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
-                <Polygon.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="-90"/>
-                    </TransformGroup>
-                </Polygon.RenderTransform>
-            </Polygon>
+                    </Ellipse>
+                    <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="290" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24"/>
+                    <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="30" Canvas.Top="146" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                        <Polygon.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="-180"/>
+                            </TransformGroup>
+                        </Polygon.RenderTransform>
+                    </Polygon>
+                    <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="280" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                        <Polygon.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </Polygon.RenderTransform>
+                    </Polygon>
+                    <Polygon Points="100,0 200,100 100,200" Fill="#FF575757" Canvas.Left="158" Canvas.Top="15" Stretch="Uniform" Height="48" Width="24" RenderTransformOrigin="0.5,0.5">
+                        <Polygon.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="-90"/>
+                            </TransformGroup>
+                        </Polygon.RenderTransform>
+                    </Polygon>
 
-            <Ellipse Height="170" Width="170" Canvas.Left="85" Canvas.Top="85">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF0E0E0E" Offset="1" />
-                        <GradientStop Color="#FF323030" Offset="0.68" />
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
+                    <Ellipse Height="170" Width="170" Canvas.Left="85" Canvas.Top="85">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF0E0E0E" Offset="1" />
+                                <GradientStop Color="#FF323030" Offset="0.68" />
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
 
-            </Ellipse>
-            <Ellipse Width="90" Height="90" Canvas.Left="125" Canvas.Top="125">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF8B8B8B"/>
-                        <GradientStop Color="#FFBDBDBD" Offset="1"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-                <Ellipse.RenderTransform>
-                    <TranslateTransform X="{Binding VM_Aileron}" Y="{Binding VM_Elevator}"/>
-                </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Ellipse Width="90" Height="90" Canvas.Left="125" Canvas.Top="125">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF8B8B8B"/>
+                                <GradientStop Color="#FFBDBDBD" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.RenderTransform>
+                            <TranslateTransform X="{Binding VM_Aileron}" Y="{Binding VM_Elevator}"/>
+                        </Ellipse.RenderTransform>
 
-            </Ellipse>
-        </Canvas>
-        <!--Slider for Throttle-->
-        <Canvas Grid.Row="1" Grid.Column="1" Margin="191,0,79,65">
-            <Rectangle Width="20" Height="135" Fill="#FF323030"/>
-            <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF4D4D4D" Offset="0"/>
-                        <GradientStop Color="#FF131313" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF292929" Offset="1"/>
-                        <GradientStop Color="#FF535353"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-                <Rectangle.RenderTransform>
-                    <TranslateTransform Y="{Binding VM_Throttle}"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
+                    </Ellipse>
+                </Canvas>
+                <!--Slider for Throttle-->
+                <Canvas Width="30" Height="136" RenderTransformOrigin="0.5,0.5" Margin="306,34,209,30">
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
+                    <Rectangle Width="20" Height="135" Fill="#FF323030"/>
+                    <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF4D4D4D" Offset="0"/>
+                                <GradientStop Color="#FF131313" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF292929" Offset="1"/>
+                                <GradientStop Color="#FF535353"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                        <Rectangle.RenderTransform>
+                            <TranslateTransform Y="{Binding VM_Throttle}"/>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
 
-        </Canvas>
-        <!--Slider for Rudder-->
-        <Canvas Grid.Row="1" Grid.Column="1" Margin="157,103,113,-38" RenderTransformOrigin="0.5,0.5">
-            <Canvas.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="90"/>
-                </TransformGroup>
-            </Canvas.RenderTransform>
-            <Rectangle Width="20" Height="135" Fill="#FF323030"/>
-            <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
-                <Rectangle.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF4D4D4D" Offset="0"/>
-                        <GradientStop Color="#FF131313" Offset="1"/>
-                    </RadialGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Width="40" Height="15" Canvas.Left="-10" Canvas.Top="120">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF292929" Offset="1"/>
-                        <GradientStop Color="#FF535353"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-                <Rectangle.RenderTransform>
-                    <TranslateTransform X="{Binding VM_Rudder}"/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
+                </Canvas>
+                <!--Slider for Rudder-->
+                <Canvas Height="135" Width="30" Margin="353,172,162,92" Grid.RowSpan="2">
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
+                    <Rectangle Width="20" Height="135" Fill="#FF323030"/>
+                    <Rectangle Width="10" Height="125" Canvas.Left="5" Canvas.Top="5">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF4D4D4D" Offset="0"/>
+                                <GradientStop Color="#FF131313" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Width="40" Height="15" Canvas.Left="-10">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF292929" Offset="1"/>
+                                <GradientStop Color="#FF535353"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                        <Rectangle.RenderTransform>
+                            <TranslateTransform Y="{Binding VM_Rudder}"/>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
 
-        </Canvas>
-        <Canvas Grid.Row="0" Grid.Column="1">
+                </Canvas>
+            </Canvas>
 
-          
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Aileron" Grid.Column="2" HorizontalAlignment="Center" Margin="27,0,0,0"/>
+                <TextBlock Text="Rudder" Grid.Column="2" HorizontalAlignment="Center" Margin="27,185,0,0"/>
+                <TextBlock Text="Elevator" Grid.Column="2" HorizontalAlignment="Center" Margin="45,5,0,39" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock Text="Elevator" Grid.Column="2" HorizontalAlignment="Center" Margin="-55,5,0,39" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="-90"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <!--Speedometer for Airspeed-->
+
+                <Grid Grid.Column="0" Margin="5 17">
+
+                    <Grid.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=AirSpeedBorder}" />
+                    </Grid.OpacityMask>
+                    <Border x:Name="AirSpeedBorder" CornerRadius="180" Background="#FF3A3B63" />
+                    <Grid >
+                        <Grid >
+                            <ed:Arc StartAngle="-140" EndAngle="140" Stretch="None" 
+                    Height="150" Width="150" StrokeThickness="20"      
+                    StrokeDashArray=".25" Stroke="#FF484D5F"/>
+                            <ed:Arc StartAngle="-140" EndAngle="{Binding VM_SpeedToAngle, Mode=OneWay}" Stretch="None" 
+                    Height="150" Width="150" StrokeThickness="20"
+                    StrokeDashArray=".25" Stroke="Turquoise"/>
+                        </Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="knots" Foreground="White" HorizontalAlignment="Center"
+                        FontSize="14"/>
+                            <TextBlock Text="{Binding VM_Airspeed, Mode=OneWay}" Foreground="White" HorizontalAlignment="Center"
+                        FontSize="40" FontWeight="Light" Margin="0 0 0 20"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="Air Speed" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 120 0 0" Foreground="White" FontSize="17"/>
+                </Grid>
+                <!--Gauge showing heading direction-->
+                <Grid Grid.Column="1" Margin="5 20">
+
+                    <Grid.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=HeadingDegBorder}" />
+                    </Grid.OpacityMask>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF21CECE"></Border>
+                    <Image Source="/images/compass.png" Width="160" Height="160" RenderTransformOrigin="0.5,0.5"/>
+                    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="0 100" Foreground="White" FontSize="10">
+                        Heading<LineBreak/>Degree
+
+                    </TextBlock>
+                    <Image Grid.RowSpan="2" Margin="0 0 0 0" Source="/images/comapss_indicator.png" Width="110" Height="110" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_HeadingDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <Border x:Name="HeadingDegBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <TextBlock Text="{Binding VM_HeadingDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!--Gauge showing Yaw-->
+                <Grid Margin="5 10">
+
+                    <Grid.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=YawBorder}" />
+                    </Grid.OpacityMask>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#CE2156"></Border>
+                    <Image Margin="0 25 0 0" Source="/images/Yaw_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_SideSlipDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
+                    <Border x:Name="YawBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <TextBlock Text="Yaw" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
+
+                    </TextBlock>
+                    <TextBlock Text="{Binding VM_SideSlipDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
+                </Grid>
+                <!--Gauge showing Roll-->
+                <Grid Grid.Column="1" Margin="5 10">
+
+                    <Grid.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=RollBorder}" />
+                    </Grid.OpacityMask>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FF9FCE21"></Border>
+                    <Image Margin="0 25 0 0" Source="/images/Roll_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_RollDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
+                    <Border x:Name="RollBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <TextBlock Text="Roll" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
+
+                    </TextBlock>
+                    <TextBlock Text="{Binding VM_RollDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
+                </Grid>
+                <!--Gauge showing Pitch-->
+                <Grid Grid.Column="2" Margin="5 10">
+
+                    <Grid.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=PitchBorder}" />
+                    </Grid.OpacityMask>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#FFCE8F21"></Border>
+                    <Image Margin="0 25 0 0" Source="/images/Pitch_airplane_white.png" Width="120" Height="120" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="{Binding VM_PitchDeg, Mode=OneWay}"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+
+                    <Border x:Name="PitchBorder" Grid.Row="1" CornerRadius="180" Background="White" />
+                    <TextBlock Text="Pitch" Grid.Row="0" TextAlignment="Center" Padding="0 4" Foreground="White" FontSize="18">
+
+                    </TextBlock>
+                    <TextBlock Text="{Binding VM_PitchDeg, Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" Foreground="#303030" FontSize="20" Padding="0 0 0 5"/>
+                </Grid>
+            </Grid>
+
+        </Grid>
+        <Canvas Grid.Column="0">
+            <StackPanel Canvas.Left="3" Canvas.Top="17">
+                <ProgressBar Height="30" Width="350" Maximum="10000" Value="{Binding VM_Altimeter, Mode=OneWay}" Orientation="Vertical"/>
+                <TextBlock Text="Altimeter"/>
+            </StackPanel>
         </Canvas>
     </Grid>
 </UserControl>

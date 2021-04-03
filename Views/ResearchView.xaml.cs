@@ -37,24 +37,12 @@ namespace ex1.Views
         {
             InitializeComponent();
             DataContext = researchVM;
-
-            ListBoxItem newItem = new ListBoxItem();
-            newItem.Content = "Item";
-            ListBoxItem newItem1 = new ListBoxItem();
-            newItem1.Content = "Item1";
-            ListBoxItem newItem2 = new ListBoxItem();
-            newItem2.Content = "Item2";
-            listBox.Items.Add(newItem);
-            listBox.Items.Add(newItem1);
-            listBox.Items.Add(newItem2);
         }
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBoxItem lbi = (ListBoxItem) listBox.SelectedItems[0];                   
-            MessageBox.Show(lbi.Content.ToString());
-            
-            
+            researchVM.VM_SelectedFeature = (sender as ListBox).SelectedItem as String;
+            researchVM.PropertyChangedNotify("VM_FeaturePoints");
         }
     }
 }
