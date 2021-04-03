@@ -170,7 +170,6 @@ namespace ex1.Views
                 playerVM.fc.stop();
                 playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             }
-            System.Diagnostics.Debug.WriteLine(playerVM.VM_Timestep);
         }
     }
 }
