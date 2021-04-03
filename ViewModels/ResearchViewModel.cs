@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using OxyPlot;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
 using ex1.Model;
 
 namespace ex1.ViewModels
