@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using OxyPlot;
+using OxyPlot.Series;
 using ex1.Model;
 
 namespace ex1.ViewModels
@@ -32,7 +33,7 @@ namespace ex1.ViewModels
             {
                 if(selectedFeature == null)
                 {
-                    return "null";
+                    return null;
                 }
                 String corr = fc.getCorrelative(selectedFeature);
                 if(corr == null)
@@ -63,6 +64,46 @@ namespace ex1.ViewModels
                 return new List<DataPoint>(l);
             }
         }
+
+        public List<DataPoint> VM_SecondFeaturePoints
+        {
+            get
+            {
+                String corrFeature = VM_CorrFeature;
+                if(corrFeature == null || corrFeature == "no correlative feature")
+                {
+                    return null;
+                }
+                List<DataPoint> l = fc.getDataPoints(corrFeature);
+                if (l == null)
+                {
+                    return null;
+                }
+                return new List<DataPoint>(l);
+            }
+        }
+
+        /*public List<ScatterPoint> VM_CorrFeaturesPoints
+        {
+            get
+            {
+                if (VM_CorrFeature == null || VM_CorrFeature == "no correlative feature")
+                {
+                    return null;
+                }        
+                return fc.getRecentScatterPoints(selectedFeature);
+            }
+        }*/
+
+
+
+        /*public PlotModel VM_Plot
+        {
+            get
+            {
+                return fc.getCurrentPlot(selectedFeature);
+            }
+        }*/
 
     }
 }

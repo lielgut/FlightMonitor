@@ -7,6 +7,7 @@ using OxyPlot.Series;
 using OxyPlot.Axes;
 using OxyPlot.Annotations;
 using System.Windows.Media;
+using System.IO;
 
 namespace ex1.Model
 {
@@ -17,29 +18,24 @@ namespace ex1.Model
             public String Correlated { get; set; }
             public List<float> DataVector { get; set; }
             public List<bool> Anomalies { get; set; }
-            public PlotModel Plot { get; set; }
-            public PlotModel Series { get; set; }
+            //public OxyPlot.Wpf.Annotation PlotAnnotation { get; set; }
             public ResearchData()
             {
                 Correlated = null;
                 DataVector = new List<float>();
-                Anomalies = new List<bool>();
-                Series = new PlotModel();
-                Series.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 0, Position = OxyPlot.Axes.AxisPosition.Bottom });
-                Series.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 0, Position = OxyPlot.Axes.AxisPosition.Left });
-                Series.Series.Add(new LineSeries());
-                Plot = null;
+                Anomalies = new List<bool>();               
+                //PlotAnnotation = null;
             }
         }
 
         private List<String> features;
-        private Dictionary<String, ResearchData> dataDict;
-
         public Research()
         {
             features = new List<String>();
             dataDict = new Dictionary<string, ResearchData>();
         }
+        private Dictionary<String, ResearchData> dataDict;
+
 
         public void addFeature(string featureName)
         {
@@ -67,14 +63,59 @@ namespace ex1.Model
             // create instance of the Detector class from dll
             object detector = Activator.CreateInstance(detectorType);
 
+
+            // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+            // append feature names to files
+
+            string featuresStr = "";
+            int i;
+            for (i = 0; i < features.Count - 1; i++)
+            {
+                featuresStr += features[i] + ",";
+            }
+            featuresStr += features[i];
+
+            string s;
+            StreamReader normalFlightFile = new StreamReader(normalFlightPath);
+            String pathReg = @"..\..\..\Resources\regFlightWithFeatures.csv";
+            StreamWriter normalFlightFile1 = new StreamWriter(pathReg);            
+
+            normalFlightFile1.WriteLine(featuresStr);
+            while ((s = normalFlightFile.ReadLine()) != null)
+            {
+                normalFlightFile1.WriteLine(s);
+            }
+
+            normalFlightFile.Close();
+            normalFlightFile1.Close();
+
+            s = "";
+            StreamReader newFlightFile = new StreamReader(newFlightPath);
+            String pathNew = @"..\..\..\Resources\newFlightWithFeatures.csv";
+            StreamWriter newFlightFile1 = new StreamWriter(pathNew);
+
+            newFlightFile1.WriteLine(featuresStr);     
+            while ((s = newFlightFile.ReadLine()) != null)
+            {
+                newFlightFile1.WriteLine(s);
+            }
+
+            newFlightFile.Close();
+            newFlightFile1.Close();
+
+
+            // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+
+
+
+
             // load and analyze data from CSV files
             MethodInfo loadFlightData = detectorType.GetMethod("loadFlightData");
-            String temp = @"‪F:\Desktop\reg_flight0.csv";
-            loadFlightData.Invoke(detector, new object[] { temp, temp });
+            loadFlightData.Invoke(detector, new object[] { pathReg, pathNew });
 
             // learn correlated features, plot models, anomalies
             MethodInfo getCorrFeature = detectorType.GetMethod("getCorrFeature");
-            MethodInfo getPlotModel = detectorType.GetMethod("getPlotModel");
+            MethodInfo getAnnotation = detectorType.GetMethod("getAnnotation");
             MethodInfo isFeatureAnomalous = detectorType.GetMethod("isFeatureAnomalous");
             int len = dataDict[features[0]].DataVector.Count;
             foreach (String featureName in features)
@@ -87,28 +128,17 @@ namespace ex1.Model
                 
 
                 if (correlated != null)
-                {
-                    List<float> corrFeatureData = dataDict[correlated].DataVector;
-
-                    float minX = 0, minY = 0, maxX = 10, maxY = 10;
-                    for (int i = 0; i < len; i++)
+                {     
+                    for (i = 0; i < len; i++)
                     {
                         object isAnom = isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
                         dataDict[featureName].Anomalies.Add((bool)isAnom);
-
-                        float x = featureData[i];
-                        if (x < minX) { minX = x; }
-                        else if (x > maxX) { maxX = x; }
-
-                        float y = corrFeatureData[i];
-                        if (y < minY) { minY = y; }
-                        else if (y > maxY) { maxY = y; }
                     }
 
-                    PlotModel plot = getPlotModel.Invoke(detector, new object[] { featureName }) as PlotModel;
-                    plot.Axes.Add(new LinearAxis { Minimum = minX, Maximum = maxX, Position = OxyPlot.Axes.AxisPosition.Bottom });
-                    plot.Axes.Add(new LinearAxis { Minimum = minY, Maximum = maxY, Position = OxyPlot.Axes.AxisPosition.Left });
-                    dataDict[featureName].Plot = plot;
+                    //OxyPlot.Wpf.Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as OxyPlot.Wpf.Annotation;
+                    
+                  
+                    //dataDict[featureName].PlotAnnotation = annot;
                 }
                 else
                 {
@@ -131,7 +161,7 @@ namespace ex1.Model
             return features;
         }
 
-        public PlotModel getPlotModel(string featureName)
+        /*public PlotModel getPlotModel(string featureName)
         {
             if (featureName == null)
             {
@@ -143,7 +173,7 @@ namespace ex1.Model
                 return null;
             }
             return pm;
-        }      
+        }  */    
         
         public bool isAnomalous(int timestep, string featureName)
         {
@@ -169,5 +199,10 @@ namespace ex1.Model
             }
             return l;
         }
+
+        /*public OxyPlot.Wpf.Annotation getAnnotation()
+        {
+            return null;
+        }*/
     }
 }
