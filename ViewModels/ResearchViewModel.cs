@@ -86,10 +86,6 @@ namespace ex1.ViewModels
         {
             get
             {
-                if(selectedFeature == "throttle2")
-                {
-                    Console.WriteLine("...");
-                }
                 if (VM_CorrFeature == null || VM_CorrFeature == "no correlative feature")
                 {
                     return null;

@@ -249,7 +249,10 @@ namespace ex1.Model
             String cor = research.getCorrelative(featureName);
             for (int i=Timestep; i >= 0 && i > Timestep - 300; i--)
             {
-                l.Add(new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4));
+                ScatterPoint pt = new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4);
+                if (research.isAnomalous(i, featureName))
+                    pt.Size = 10; // find another way to show anomalies
+                l.Add(pt);
             }
             return l;
         }

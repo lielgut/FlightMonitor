@@ -73,8 +73,6 @@
         </StackPanel>
         <Image Source="/images/flightgear.png" Grid.Column="1" Height="444" VerticalAlignment="Center" Width="284" Stretch="UniformToFill"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1">
-            <ProgressBar x:Name="DoneProgressBar" Margin="0 0 10 0" Style="{DynamicResource MaterialDesignCircularProgressBar}"
-          IsIndeterminate="True" Value="0" Visibility="Hidden"/>
             <Button Content="Done" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
         </StackPanel>
 

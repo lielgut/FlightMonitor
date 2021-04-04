@@ -29,9 +29,9 @@ namespace ex1.Views
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-             if(fgPath.Text == "")
+        {            
+
+            if (fgPath.Text == "")
             {
                 MessageBox.Show("Please select FlightGear installation folder.");
                 return;
@@ -81,18 +81,16 @@ namespace ex1.Views
                 MessageBox.Show("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings.");
                 return;
             }
-            DoneProgressBar.Visibility = Visibility.Visible;
+
             fc.loadFeatures("..//..//..//playback_small.xml");
             fc.loadData(newFlightPath.Text);
             fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
 
-            // fc.start();
 
             MainWindow mw = new MainWindow(fc);
             mw.Show();
             this.Close();
                     
-            // mw.Visibility = Visibility.Visible;
         }
 
         private void portnum_TextChanged(object sender, TextChangedEventArgs e)
