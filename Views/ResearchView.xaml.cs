@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ex1.ViewModels;
+using OxyPlot.Axes;
 
 namespace ex1.Views
 {
@@ -23,7 +24,7 @@ namespace ex1.Views
         internal ResearchViewModel ResearchVM
         {
             get
-            {
+            {                
                 return researchVM;
             }
             set
@@ -41,6 +42,7 @@ namespace ex1.Views
         {
             researchVM.VM_SelectedFeature = (sender as ListBox).SelectedItem as String;
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
+            researchVM.PropertyChangedNotify("VM_SecondFeaturePoints");
         }
     }
 }

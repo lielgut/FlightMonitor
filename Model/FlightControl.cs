@@ -59,6 +59,7 @@ namespace ex1.Model
                     PropertyChangedNotify("RollDeg");
                     PropertyChangedNotify("SideSlipDeg");
                     PropertyChangedNotify("FeaturePoints");
+                    PropertyChangedNotify("SecondFeaturePoints");
                 }
             }
         }
@@ -239,6 +240,46 @@ namespace ex1.Model
         public List<DataPoint> getDataPoints(String featureName)
         {
             return research.getDataPoints(Timestep, featureName);
+        }
+
+        /*public PlotModel getCurrentPlot(String featureName)
+        {
+            if(featureName == null) { return null;  }
+            PlotModel pm = research.getPlotModel(featureName);
+            if(pm == null) { return null; }
+
+            int t = Timestep;
+            String cor = research.getCorrelative(featureName);
+            for (int i=t; i > PrevTimestep; i--)
+            {
+                ScatterSeries s = (ScatterSeries)pm.Series[0];
+                s.Points.Add(new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4));
+
+                pm.Annotations.Add(new PointAnnotation
+                {
+                    X = research.getValue(i, featureName),
+                    Y = research.getValue(i, cor),
+                    Size = 4,
+                    Fill = OxyColors.Pink
+                }) ;
+            }
+            return pm;
+        }*/
+
+        public List<ScatterPoint> getRecentScatterPoints(String featureName)
+        {
+            List<ScatterPoint> l = new List<ScatterPoint>();
+            String cor = research.getCorrelative(featureName);
+            for (int i=Timestep; i >= 0 && i > Timestep - 300; i--)
+            {
+                l.Add(new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4));
+            }
+            return l;
+        }
+
+        public OxyPlot.Wpf.Annotation getAnnotation()
+        {
+            return research.getAnnotation();
         }
 
 
