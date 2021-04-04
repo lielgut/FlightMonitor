@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using OxyPlot;
+using OxyPlot.Wpf;
 using OxyPlot.Series;
 
 namespace ex1.Model
@@ -28,8 +29,7 @@ namespace ex1.Model
         public String getCorrelative(String featureName);
         public List<String> getFeaturesList();
         public List<DataPoint> getDataPoints(String featureName);
-        // public PlotModel getCurrentPlot(String featureName);
-        //public List<ScatterPoint> getRecentScatterPoints(String featureName);
-        //public OxyPlot.Wpf.Annotation getAnnotation();
+        public List<ScatterPoint> getRecentScatterPoints(String featureName);
+        public Annotation getFeatureAnnotation(String featureName);
     }
 }

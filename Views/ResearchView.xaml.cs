@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ex1.ViewModels;
-using OxyPlot.Axes;
+using OxyPlot.Wpf;
 
 namespace ex1.Views
 {
@@ -40,9 +40,18 @@ namespace ex1.Views
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            researchVM.VM_SelectedFeature = (sender as ListBox).SelectedItem as String;
+            String selected = (sender as ListBox).SelectedItem as String;
+            researchVM.VM_SelectedFeature = selected;
+
+            Annotation a = researchVM.fc.getFeatureAnnotation(selected);
+            if(featuresPoints.Annotations.Count != 0)
+                featuresPoints.Annotations.RemoveAt(0);
+            if(a != null)
+                featuresPoints.Annotations.Add(a);
+
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
             researchVM.PropertyChangedNotify("VM_SecondFeaturePoints");
+            researchVM.PropertyChangedNotify("VM_CorrFeaturesPoints");            
         }
     }
 }

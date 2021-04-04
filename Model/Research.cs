@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using OxyPlot;
-using OxyPlot.Series;
-using OxyPlot.Axes;
-using OxyPlot.Annotations;
+using OxyPlot.Wpf;
 using System.Windows.Media;
 using System.IO;
 
@@ -18,13 +16,13 @@ namespace ex1.Model
             public String Correlated { get; set; }
             public List<float> DataVector { get; set; }
             public List<bool> Anomalies { get; set; }
-            //public OxyPlot.Wpf.Annotation PlotAnnotation { get; set; }
+            public Annotation PlotAnnotation { get; set; }
             public ResearchData()
             {
                 Correlated = null;
                 DataVector = new List<float>();
                 Anomalies = new List<bool>();               
-                //PlotAnnotation = null;
+                PlotAnnotation = null;
             }
         }
 
@@ -135,10 +133,8 @@ namespace ex1.Model
                         dataDict[featureName].Anomalies.Add((bool)isAnom);
                     }
 
-                    //OxyPlot.Wpf.Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as OxyPlot.Wpf.Annotation;
-                    
-                  
-                    //dataDict[featureName].PlotAnnotation = annot;
+                    Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as Annotation;                                      
+                    dataDict[featureName].PlotAnnotation = annot;
                 }
                 else
                 {
@@ -160,21 +156,7 @@ namespace ex1.Model
         {
             return features;
         }
-
-        /*public PlotModel getPlotModel(string featureName)
-        {
-            if (featureName == null)
-            {
-                return null;
-            }
-            PlotModel pm = dataDict[featureName].Plot;
-            if (pm == null)
-            {
-                return null;
-            }
-            return pm;
-        }  */    
-        
+         
         public bool isAnomalous(int timestep, string featureName)
         {
             return dataDict[featureName].Anomalies[timestep];
@@ -200,9 +182,9 @@ namespace ex1.Model
             return l;
         }
 
-        /*public OxyPlot.Wpf.Annotation getAnnotation()
+        public Annotation getFeatureAnnotation(String featureName)
         {
-            return null;
-        }*/
+            return dataDict[featureName].PlotAnnotation;
+        }
     }
 }

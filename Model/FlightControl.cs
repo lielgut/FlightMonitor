@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using OxyPlot;
-using OxyPlot.Annotations;
+using OxyPlot.Wpf;
 using OxyPlot.Series;
 
 namespace ex1.Model
@@ -60,6 +60,7 @@ namespace ex1.Model
                     PropertyChangedNotify("SideSlipDeg");
                     PropertyChangedNotify("FeaturePoints");
                     PropertyChangedNotify("SecondFeaturePoints");
+                    PropertyChangedNotify("CorrFeaturesPoints");
                 }
             }
         }
@@ -242,31 +243,7 @@ namespace ex1.Model
             return research.getDataPoints(Timestep, featureName);
         }
 
-        /*public PlotModel getCurrentPlot(String featureName)
-        {
-            if(featureName == null) { return null;  }
-            PlotModel pm = research.getPlotModel(featureName);
-            if(pm == null) { return null; }
-
-            int t = Timestep;
-            String cor = research.getCorrelative(featureName);
-            for (int i=t; i > PrevTimestep; i--)
-            {
-                ScatterSeries s = (ScatterSeries)pm.Series[0];
-                s.Points.Add(new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4));
-
-                pm.Annotations.Add(new PointAnnotation
-                {
-                    X = research.getValue(i, featureName),
-                    Y = research.getValue(i, cor),
-                    Size = 4,
-                    Fill = OxyColors.Pink
-                }) ;
-            }
-            return pm;
-        }*/
-
-        /*public List<ScatterPoint> getRecentScatterPoints(String featureName)
+        public List<ScatterPoint> getRecentScatterPoints(String featureName)
         {
             List<ScatterPoint> l = new List<ScatterPoint>();
             String cor = research.getCorrelative(featureName);
@@ -277,11 +254,10 @@ namespace ex1.Model
             return l;
         }
 
-        public OxyPlot.Wpf.Annotation getAnnotation()
+        public Annotation getFeatureAnnotation(String featureName)
         {
-            return research.getAnnotation();
+            return research.getFeatureAnnotation(featureName);
         }
-        */
 
     }
 }

@@ -31,11 +31,11 @@
             </oxy:Plot.Series>
         </oxy:Plot>
 
-        <!--<oxy:Plot x:Name="featuresPoints" Margin="156,179,156,10" Background="Transparent">
+        <oxy:Plot x:Name="featuresPoints" Margin="156,179,156,10" Background="Transparent">
             <oxy:Plot.Series>
                 <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
             </oxy:Plot.Series>
-        </oxy:Plot>-->
+        </oxy:Plot>
 
         <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
 

@@ -23,7 +23,6 @@ namespace ex1.ViewModels
                 selectedFeature = value;
                 PropertyChangedNotify("VM_SelectedFeature");
                 PropertyChangedNotify("VM_CorrFeature");
-                PropertyChangedNotify("VM_Plot");
             }
         }
 
@@ -83,27 +82,21 @@ namespace ex1.ViewModels
             }
         }
 
-        /*public List<ScatterPoint> VM_CorrFeaturesPoints
+        public List<ScatterPoint> VM_CorrFeaturesPoints
         {
             get
             {
+                if(selectedFeature == "throttle2")
+                {
+                    Console.WriteLine("...");
+                }
                 if (VM_CorrFeature == null || VM_CorrFeature == "no correlative feature")
                 {
                     return null;
                 }        
                 return fc.getRecentScatterPoints(selectedFeature);
             }
-        }*/
-
-
-
-        /*public PlotModel VM_Plot
-        {
-            get
-            {
-                return fc.getCurrentPlot(selectedFeature);
-            }
-        }*/
+        }
 
     }
 }
