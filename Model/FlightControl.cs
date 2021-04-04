@@ -266,7 +266,7 @@ namespace ex1.Model
             return pm;
         }*/
 
-        public List<ScatterPoint> getRecentScatterPoints(String featureName)
+        /*public List<ScatterPoint> getRecentScatterPoints(String featureName)
         {
             List<ScatterPoint> l = new List<ScatterPoint>();
             String cor = research.getCorrelative(featureName);
@@ -281,7 +281,7 @@ namespace ex1.Model
         {
             return research.getAnnotation();
         }
-
+        */
 
     }
 }
