@@ -7,34 +7,76 @@
         mc:Ignorable="d"
         TextElement.FontSize="10"
         Title="FlightStat" Height="481" Width="654" ResizeMode="NoResize">
+    <Window.Resources>
+        <!--make all textboxes have the same style-->
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="121*"/>
-            <ColumnDefinition Width="212*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="FlightGear installation folder:" HorizontalAlignment="Left" Margin="20,62,0,0" VerticalAlignment="Top" Width="170" Height="28"/>
-        <TextBox x:Name="fgPath" HorizontalAlignment="Left" Margin="25,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Height="18" Click="BrowseFgPath_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="load normal flight CSV:" HorizontalAlignment="Left" Margin="20,102,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
-        <TextBox x:Name="normalFlightPath" HorizontalAlignment="Left" Margin="25,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="2"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNormal_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="load new flight CSV:" HorizontalAlignment="Left" Margin="20,142,0,0" VerticalAlignment="Top" Width="144" Height="28"/>
-        <TextBox x:Name="newFlightPath" HorizontalAlignment="Left" Margin="25,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Height="18" Click="BrowseNew_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="load anomaly detection dll:" HorizontalAlignment="Left" Margin="20,185,0,0" VerticalAlignment="Top" Width="164" Height="28"/>
-        <TextBox x:Name="anomalyDetPath" HorizontalAlignment="Left" Margin="25,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" />
-        <Button Content="browse" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Height="18" Click="BrowseAnomaly_Click" Grid.Column="1" FontSize="8"/>
-        <Label Content="choose port number:" HorizontalAlignment="Left" Margin="20,258,0,0" VerticalAlignment="Top" Width="145" Height="28"/>
-        <TextBox x:Name="portnum" HorizontalAlignment="Left" Margin="144,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="84" TextChanged="portnum_TextChanged" Height="20"/>
-        <Label Content="copy the following settings to FlightGear and press fly:" HorizontalAlignment="Left" Margin="20,286,0,0" VerticalAlignment="Top" Width="281" Height="27" FontSize="11" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="fgSetting" HorizontalAlignment="Left" Margin="19,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="321" Height="46" Grid.ColumnSpan="2"/>
-        <Button ToolTip="Copy to clipboard" HorizontalAlignment="Left" Margin="216,369,0,0" VerticalAlignment="Top" Width="124" Click="CopyToClipboard_Click" Grid.ColumnSpan="2" FontSize="10">
-            <materialDesign:PackIcon Kind="ContentCopy"/>
-        </Button>
-        <Label x:Name="copied" Content="copied!" HorizontalAlignment="Left" Margin="169,366,0,0" VerticalAlignment="Top" Width="52" Height="27" FontSize="11" Visibility="Hidden"/>
-        <Image Source="/images/flightgear.png" Grid.Column="1" HorizontalAlignment="Left" Height="444" Margin="128,0,0,0" VerticalAlignment="Center" Width="284" Stretch="UniformToFill"/>
-        <Button Content="Done" HorizontalAlignment="Left" Margin="320,396,0,0" VerticalAlignment="Top" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
-        <Label Content="Configurations:" HorizontalAlignment="Left" Margin="20,29,0,0" VerticalAlignment="Top" Width="144" Height="28" FontSize="14"/>
+        <StackPanel>
+
+            <TextBlock Text="Configurations:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <TextBox x:Name="fgPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="FlightGear installation folder" Width="200" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Content="browse" Height="50" Click="BrowseFgPath_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <TextBox x:Name="normalFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load normal flight CSV" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Content="browse" Height="50" Click="BrowseNormal_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <TextBox x:Name="newFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load new flight CSV" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Content="browse" Height="50" Click="BrowseNew_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Content="browse" Height="50" Click="BrowseAnomaly_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+
+                <Label Content="Choose port number:" VerticalAlignment="Bottom"/>
+                <TextBox x:Name="portnum" TextChanged="portnum_TextChanged" materialDesign:HintAssist.Hint="Port Number"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <Label Content="Copy the following lines into the settings tab in FlightGear and press fly:" Margin="0 10 0 0" Height="27" FontSize="11"/>
+            <StackPanel Orientation="Horizontal">
+
+                <TextBox x:Name="fgSetting" Margin="5 0 0 0" TextWrapping="Wrap" Width="320" Height="65" VerticalScrollBarVisibility="Auto"/>
+
+                <StackPanel Margin="5">
+
+                    <Button ToolTip="Copy to clipboard" Click="CopyToClipboard_Click" FontSize="10">
+                        <materialDesign:PackIcon Kind="ContentCopy"/>
+                    </Button>
+
+                    <Label x:Name="copied" Content="copied!" HorizontalAlignment="Center" FontSize="11" Visibility="Hidden"/>
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+        <Image Source="/images/flightgear.png" Grid.Column="1" Height="444" VerticalAlignment="Center" Width="284" Stretch="UniformToFill"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1">
+            <ProgressBar x:Name="DoneProgressBar" Margin="0 0 10 0" Style="{DynamicResource MaterialDesignCircularProgressBar}"
+          IsIndeterminate="True" Value="0" Visibility="Hidden"/>
+            <Button Content="Done" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
+        </StackPanel>
 
     </Grid>
 </Window>
