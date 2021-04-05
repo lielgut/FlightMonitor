@@ -4,8 +4,10 @@ using System.Text;
 using System.Reflection;
 using OxyPlot;
 using OxyPlot.Wpf;
+using OxyPlot.Series;
 using System.Windows.Media;
 using System.IO;
+using System.Linq;
 
 namespace ex1.Model
 {
@@ -14,13 +16,17 @@ namespace ex1.Model
         class ResearchData
         {
             public String Correlated { get; set; }
-            public List<float> DataVector { get; set; }
+            // public List<float> DataVector { get; set; }
+            public List<DataPoint> DataPoints { get; set; }
+            public List<ScatterPoint> CorrPoints { get; set; }
             public List<bool> Anomalies { get; set; }
             public Annotation PlotAnnotation { get; set; }
             public ResearchData()
             {
                 Correlated = null;
-                DataVector = new List<float>();
+                // DataVector = new List<float>();
+                DataPoints = new List<DataPoint>();
+                CorrPoints = new List<ScatterPoint>();
                 Anomalies = new List<bool>();               
                 PlotAnnotation = null;
             }
@@ -49,7 +55,9 @@ namespace ex1.Model
 
         public void addData(int featureNum, float val)
         {
-            dataDict[features[featureNum]].DataVector.Add(val);
+            // dataDict[features[featureNum]].DataVector.Add(val);
+            List<DataPoint> l = dataDict[features[featureNum]].DataPoints;
+            l.Add(new DataPoint(l.Count, val));
         }
 
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
@@ -115,14 +123,11 @@ namespace ex1.Model
             MethodInfo getCorrFeature = detectorType.GetMethod("getCorrFeature");
             MethodInfo getAnnotation = detectorType.GetMethod("getAnnotation");
             MethodInfo isFeatureAnomalous = detectorType.GetMethod("isFeatureAnomalous");
-            int len = dataDict[features[0]].DataVector.Count;
+            int len = dataDict[features[0]].DataPoints.Count;
             foreach (String featureName in features)
             {                
                 String correlated = getCorrFeature.Invoke(detector, new object[] { featureName }) as String;
-                // corrFeatures[featureName] = correlated as String;
-                dataDict[featureName].Correlated = correlated;
-
-                List<float> featureData = dataDict[featureName].DataVector;
+                dataDict[featureName].Correlated = correlated;                
                 
 
                 if (correlated != null)
@@ -131,6 +136,8 @@ namespace ex1.Model
                     {
                         object isAnom = isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
                         dataDict[featureName].Anomalies.Add((bool)isAnom);
+
+                        dataDict[featureName].CorrPoints.Add(new ScatterPoint(getValue(i,featureName), getValue(i,correlated), 2));
                     }
 
                     Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as Annotation;                                      
@@ -138,6 +145,7 @@ namespace ex1.Model
                 }
                 else
                 {
+                    dataDict[featureName].CorrPoints = null;
                     dataDict[featureName].Anomalies = null;
                 }                                
             }
@@ -164,7 +172,7 @@ namespace ex1.Model
 
         public float getValue(int timestep, String featureName)
         {
-            return dataDict[featureName].DataVector[timestep];
+            return (float)dataDict[featureName].DataPoints[timestep].Y;
         }
 
         public List<DataPoint> getDataPoints(int timestep, String featureName)
@@ -173,13 +181,23 @@ namespace ex1.Model
             {
                 return null;
             }
-            List<DataPoint> l = new List<DataPoint>();
+            return new List<DataPoint>(dataDict[featureName].DataPoints.Take(timestep));
+            /*List<DataPoint> l = new List<DataPoint>();
             List<float> values = dataDict[featureName].DataVector; 
             for(int i=0; i < timestep; i++)
             {
                 l.Add(new DataPoint(i, values[i]));
             }
-            return l;
+            return l;*/
+        }
+
+        public List<ScatterPoint> getRecentScatterPoints(int timestep, String featureName)
+        {
+            if (featureName == null)
+            {
+                return null;
+            }
+            return new List<ScatterPoint>(dataDict[featureName].CorrPoints.Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0));
         }
 
         public Annotation getFeatureAnnotation(String featureName)

@@ -245,16 +245,7 @@ namespace ex1.Model
 
         public List<ScatterPoint> getRecentScatterPoints(String featureName)
         {
-            List<ScatterPoint> l = new List<ScatterPoint>();
-            String cor = research.getCorrelative(featureName);
-            for (int i=Timestep; i >= 0 && i > Timestep - 300; i--)
-            {
-                ScatterPoint pt = new ScatterPoint(research.getValue(i, featureName), research.getValue(i, cor), 4);
-                if (research.isAnomalous(i, featureName))
-                    pt.Size = 10; // find another way to show anomalies
-                l.Add(pt);
-            }
-            return l;
+            return research.getRecentScatterPoints(Timestep, featureName);
         }
 
         public Annotation getFeatureAnnotation(String featureName)

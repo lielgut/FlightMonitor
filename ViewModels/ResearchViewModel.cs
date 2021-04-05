@@ -60,7 +60,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }
-                return new List<DataPoint>(l);
+                return l;
             }
         }
 

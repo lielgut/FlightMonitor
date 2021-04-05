@@ -37,10 +37,7 @@
             </oxy:Plot.Series>
         </oxy:Plot>
 
-        <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
-
-        <Label Content="{Binding VM_SelectedFeature}" HorizontalAlignment="Left" Margin="546,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding VM_CorrFeature}" HorizontalAlignment="Left" Margin="527,322,0,0" VerticalAlignment="Top"/>
+        <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->       
 
     </Grid>
 </UserControl>
