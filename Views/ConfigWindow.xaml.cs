@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using ex1.Model;
+using BespokeFusion;
 
 namespace ex1.Views
 {
@@ -25,60 +26,60 @@ namespace ex1.Views
         public ConfigWindow()
         {
             this.fc = new FlightControl();
-            InitializeComponent();                                    
+            InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-             if(fgPath.Text == "")
+
+            if (fgPath.Text == "")
             {
-                MessageBox.Show("Please select FlightGear installation folder.");
+                MaterialMessageBox.ShowError("Please select FlightGear installation folder");
                 return;
             }
-             if(!File.Exists(fgPath.Text + "//data//Protocol//playback_small.xml"))
+            if (!File.Exists(fgPath.Text + "//data//Protocol//playback_small.xml"))
             {
-                MessageBox.Show("playback_small.xml not found in FlightGear directory.\r\nPlease add the file to data/Protocol folder.");
+                MaterialMessageBox.ShowError("playback_small.xml not found in FlightGear directory.\r\nPlease add the file to data/Protocol folder");
                 return;
             }
 
             if (normalFlightPath.Text == "" || !File.Exists(normalFlightPath.Text))
             {
-                MessageBox.Show("Please select normal flight CSV file.");
+                MaterialMessageBox.ShowError("Please select normal flight CSV file");
                 return;
             }
 
             if (newFlightPath.Text == "" || !File.Exists(newFlightPath.Text))
             {
-                MessageBox.Show("Please select new flight CSV file.");
+                MaterialMessageBox.ShowError("Please select new flight CSV file");
                 return;
-            }                        
-            
+            }
+
             if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
             {
-                MessageBox.Show("Please select anomaly detection dll.");
+                MaterialMessageBox.ShowError("Please select anomaly detection dll");
                 return;
             }
 
             try
             {
                 int pn = Int32.Parse(portnum.Text);
-                if(pn < 1024 || pn > 65535)
+                if (pn < 1024 || pn > 65535)
                 {
-                    MessageBox.Show("Invalid port number.");
+                    MaterialMessageBox.ShowError("Invalid port number");
                     return;
                 }
                 fc.changePort(pn);
             }
             catch (System.FormatException)
             {
-                MessageBox.Show("Invalid port number.");
+                MaterialMessageBox.ShowError("Invalid port number");
                 return;
             }
 
-            if(!fc.startClient())
+            if (!fc.startClient())
             {
-                MessageBox.Show("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings.");
+                MaterialMessageBox.ShowError("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings");
                 return;
             }
             DoneProgressBar.Visibility = Visibility.Visible;
@@ -91,7 +92,7 @@ namespace ex1.Views
             MainWindow mw = new MainWindow(fc);
             mw.Show();
             this.Close();
-                    
+
             // mw.Visibility = Visibility.Visible;
         }
 
@@ -117,6 +118,7 @@ namespace ex1.Views
         private void BrowseNormal_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
+            browser.Filter = "CSV file (*.csv)|*.csv";
             browser.ShowDialog();
             normalFlightPath.Text = browser.FileName;
         }
@@ -124,6 +126,7 @@ namespace ex1.Views
         private void BrowseNew_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
+            browser.Filter = "CSV file (*.csv)|*.csv";
             browser.ShowDialog();
             newFlightPath.Text = browser.FileName;
         }
@@ -131,8 +134,9 @@ namespace ex1.Views
         private void BrowseAnomaly_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
+            browser.Filter = "Plugin file (*.dll)|*.dll";
             browser.ShowDialog();
-            anomalyDetPath.Text = browser.FileName;            
+            anomalyDetPath.Text = browser.FileName;
         }
     }
 }

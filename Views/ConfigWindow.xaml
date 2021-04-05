@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.FontSize="10"
-        Title="FlightStat" Height="481" Width="654" ResizeMode="NoResize">
+        Title="FlightStat" Height="480" Width="655" ResizeMode="CanResize">
     <Window.Resources>
         <!--make all textboxes have the same style-->
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>
@@ -23,29 +23,37 @@
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="fgPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
-                         materialDesign:HintAssist.Hint="FlightGear installation folder" Width="200" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
-                <Button Content="browse" Height="50" Click="BrowseFgPath_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+                         materialDesign:HintAssist.Hint="FlightGear installation folder" Width="300" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Height="50" Click="BrowseFgPath_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:PackIcon Kind="FolderOpen" Width="30" Height="30"/>
+                </Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="normalFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
-                         materialDesign:HintAssist.Hint="Load normal flight CSV" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
-                <Button Content="browse" Height="50" Click="BrowseNormal_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+                         materialDesign:HintAssist.Hint="Load normal flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Height="50" Click="BrowseNormal_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:PackIcon Kind="FileExcel" Width="30" Height="30"/>
+                </Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="newFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
-                         materialDesign:HintAssist.Hint="Load new flight CSV" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
-                <Button Content="browse" Height="50" Click="BrowseNew_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+                         materialDesign:HintAssist.Hint="Load new flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Height="50" Click="BrowseNew_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:PackIcon Kind="FileExcel" Width="30" Height="30"/>
+                </Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
-                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="200"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
-                <Button Content="browse" Height="50" Click="BrowseAnomaly_Click" FontSize="8" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Height="50" Click="BrowseAnomaly_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:PackIcon Kind="FileCog" Width="30" Height="30"/>
+                </Button>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="5">
@@ -55,10 +63,10 @@
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"/>
             </StackPanel>
 
-            <Label Content="Copy the following lines into the settings tab in FlightGear and press fly:" Margin="0 10 0 0" Height="27" FontSize="11"/>
-            <StackPanel Orientation="Horizontal">
+            <Label Content="Copy the following lines into the settings tab in FlightGear and press fly:" Margin="5 10 0 0" Height="27" FontSize="11"/>
+            <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
 
-                <TextBox x:Name="fgSetting" Margin="5 0 0 0" TextWrapping="Wrap" Width="320" Height="65" VerticalScrollBarVisibility="Auto"/>
+                <TextBox x:Name="fgSetting"  TextWrapping="Wrap" Width="320" Height="65" VerticalScrollBarVisibility="Auto"/>
 
                 <StackPanel Margin="5">
 
@@ -71,7 +79,7 @@
 
             </StackPanel>
         </StackPanel>
-        <Image Source="/images/flightgear.png" Grid.Column="1" Height="444" VerticalAlignment="Center" Width="284" Stretch="UniformToFill"/>
+        <Image Source="/images/flightgear.png" Grid.Column="1" VerticalAlignment="Center" Stretch="UniformToFill"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1">
             <ProgressBar x:Name="DoneProgressBar" Margin="0 0 10 0" Style="{DynamicResource MaterialDesignCircularProgressBar}"
           IsIndeterminate="True" Value="0" Visibility="Hidden"/>
