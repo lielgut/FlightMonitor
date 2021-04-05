@@ -23,7 +23,6 @@ namespace ex1.ViewModels
                 selectedFeature = value;
                 PropertyChangedNotify("VM_SelectedFeature");
                 PropertyChangedNotify("VM_CorrFeature");
-                PropertyChangedNotify("VM_Plot");
             }
         }
 
@@ -61,7 +60,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }
-                return new List<DataPoint>(l);
+                return l;
             }
         }
 
@@ -83,7 +82,7 @@ namespace ex1.ViewModels
             }
         }
 
-        /*public List<ScatterPoint> VM_CorrFeaturesPoints
+        public List<ScatterPoint> VM_CorrFeaturesPoints
         {
             get
             {
@@ -93,17 +92,7 @@ namespace ex1.ViewModels
                 }        
                 return fc.getRecentScatterPoints(selectedFeature);
             }
-        }*/
-
-
-
-        /*public PlotModel VM_Plot
-        {
-            get
-            {
-                return fc.getCurrentPlot(selectedFeature);
-            }
-        }*/
+        }
 
     }
 }

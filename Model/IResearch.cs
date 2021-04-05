@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Shapes;
 using OxyPlot;
+using OxyPlot.Wpf;
+using OxyPlot.Series;
 
 namespace ex1.Model
 {
@@ -14,11 +16,10 @@ namespace ex1.Model
         public String getCorrelative(String featureName);
         public void addData(int featureNum, float val);
         public List<String> getFeaturesList();
-        // public PlotModel getPlotModel(string featureName);
         public bool isAnomalous(int timestep, string featureName);
         public float getValue(int timestep, String featureName);
         public List<DataPoint> getDataPoints(int timestep, String featureName);
-        //public OxyPlot.Wpf.Annotation getAnnotation();
-
+        public List<ScatterPoint> getRecentScatterPoints(int timestep, String featureName);
+        public Annotation getFeatureAnnotation(String featureName);
     }
 }

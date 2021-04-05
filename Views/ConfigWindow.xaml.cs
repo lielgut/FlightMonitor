@@ -82,12 +82,11 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings");
                 return;
             }
-            DoneProgressBar.Visibility = Visibility.Visible;
+
             fc.loadFeatures("..//..//..//playback_small.xml");
             fc.loadData(newFlightPath.Text);
             fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
 
-            // fc.start();
 
             MainWindow mw = new MainWindow(fc);
             mw.Show();
