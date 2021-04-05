@@ -17,9 +17,10 @@
         SizeToContent="WidthAndHeight"
         Title="FlightStat" Height="auto" Width="auto"
         ResizeMode="NoResize" Visibility="Visible">
-    
+
     <Grid Margin="10,10,10,10" Background="LightGray">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -28,11 +29,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <views:PlayerView x:Name="playerView" Grid.Row="1" Grid.ColumnSpan="2" Margin="2"/>
+        <TabControl Grid.Row="0" Grid.Column="1" Margin="2">
+            <TabItem x:Name="dataTab" Header="Data" Selector.Selected="TabSelected">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="researchTab" Header="Research" Selector.Selected="TabSelected">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
-        <views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <ContentControl x:Name="selectedView" Grid.Row="1" Grid.Column="1" Margin="2">
+            <views:DataView x:Name="dataView"/>
+        </ContentControl>
 
-        <views:DataView x:Name="dataView" Margin="2" />
+        <views:PlayerView x:Name="playerView" Grid.Row="2" Grid.ColumnSpan="2" Margin="2"/>
+        
+        <!--<views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
+
+        <views:DataView x:Name="dataView" Margin="2" />-->
 
 
     </Grid>

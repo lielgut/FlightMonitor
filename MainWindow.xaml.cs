@@ -24,6 +24,7 @@ namespace ex1
     public partial class MainWindow : Window
     {
         IFlightControl fc;
+        ResearchView researchView;
         internal MainWindow(IFlightControl fc)
         {
             this.fc = fc;
@@ -35,17 +36,37 @@ namespace ex1
             playerView.PlayerVM = pvm;
             playerView.DataContext = pvm;
 
-            DataViewModel dvm = new DataViewModel(fc); ;
+            DataViewModel dvm = new DataViewModel(fc);
             dataView.DataVM = dvm;
             dataView.DataContext = dvm;
 
-            ResearchViewModel rvm = new ResearchViewModel(fc); ;
+            ResearchViewModel rvm = new ResearchViewModel(fc);
+            researchView = new ResearchView();
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
+
+            selectedView.Content = dataView;
 
             //Visibility = Visibility.Hidden;
 
             //fc.start();
+        }
+
+        private void TabSelected(object sender, RoutedEventArgs e)
+        {
+            TabItem selectedTab = sender as TabItem;
+            if(selectedTab != null)
+            {
+                switch(selectedTab.Name)
+                {
+                    case "dataTab":
+                        selectedView.Content = dataView;
+                        break;
+                    case "researchTab":
+                        selectedView.Content = researchView;
+                        break;
+                }
+            }
         }
     }
 }
