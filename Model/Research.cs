@@ -172,6 +172,8 @@ namespace ex1.Model
 
         public float getValue(int timestep, String featureName)
         {
+            if (featureName == null || timestep == dataDict[featureName].DataPoints.Count)
+                return 0;
             return (float)dataDict[featureName].DataPoints[timestep].Y;
         }
 

@@ -22,7 +22,8 @@ namespace ex1.Model
 
         public float getValue(string featureName, int timestep)
         {
-            // fix exception reaches timestep 2174
+            if (timestep == features.Count || featureName == null)
+                return 0;
             return data[timestep][features[featureName]];
         }
         public void addFeature(string featureName, int column)
