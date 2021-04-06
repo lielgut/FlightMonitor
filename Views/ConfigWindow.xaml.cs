@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using System.IO;
 using ex1.Model;
 using BespokeFusion;
+using System.Threading;
+using System.Diagnostics;
 
 namespace ex1.Views
 {
@@ -34,7 +36,7 @@ namespace ex1.Views
 
             if (fgPath.Text == "")
             {
-                MaterialMessageBox.ShowError("Please select FlightGear installation folder");
+                MaterialMessageBox.ShowError("Please select FlightGear installation folder.");
                 return;
             }
             if (!File.Exists(fgPath.Text + "//data//Protocol//playback_small.xml"))
@@ -45,19 +47,19 @@ namespace ex1.Views
 
             if (normalFlightPath.Text == "" || !File.Exists(normalFlightPath.Text))
             {
-                MaterialMessageBox.ShowError("Please select normal flight CSV file");
+                MaterialMessageBox.ShowError("Please select normal flight CSV file.");
                 return;
             }
 
             if (newFlightPath.Text == "" || !File.Exists(newFlightPath.Text))
             {
-                MaterialMessageBox.ShowError("Please select new flight CSV file");
+                MaterialMessageBox.ShowError("Please select new flight CSV file.");
                 return;
             }
 
             if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
             {
-                MaterialMessageBox.ShowError("Please select anomaly detection dll");
+                MaterialMessageBox.ShowError("Please select anomaly detection dll.");
                 return;
             }
 
@@ -66,22 +68,29 @@ namespace ex1.Views
                 int pn = Int32.Parse(portnum.Text);
                 if (pn < 1024 || pn > 65535)
                 {
-                    MaterialMessageBox.ShowError("Invalid port number");
+                    MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
                 }
                 fc.changePort(pn);
             }
             catch (System.FormatException)
             {
-                MaterialMessageBox.ShowError("Invalid port number");
+                MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                 return;
             }
-
-            if (!fc.startClient())
+            Process[] pname = Process.GetProcessesByName("fgfs");
+            if (pname.Length == 0)
+            {
+                MaterialMessageBox.ShowError("FlightGear isn't running.");
+                return;
+                
+            }
+                if (!fc.startClient())
             {
                 MaterialMessageBox.ShowError("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings");
                 return;
             }
+
 
             fc.loadFeatures("..//..//..//Resources//playback_small.xml");
             fc.loadData(newFlightPath.Text);
@@ -92,7 +101,6 @@ namespace ex1.Views
             mw.Show();
             this.Close();
 
-            // mw.Visibility = Visibility.Visible;
         }
 
         private void portnum_TextChanged(object sender, TextChangedEventArgs e)
@@ -136,6 +144,39 @@ namespace ex1.Views
             browser.Filter = "Plugin file (*.dll)|*.dll";
             browser.ShowDialog();
             anomalyDetPath.Text = browser.FileName;
+        }
+
+        private void LaunchFG_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(fgPath.Text + @"\bin\fgfs.exe"))
+            {
+                MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in the FlightGear installation folder.");
+                return;
+            }
+            int pn = Int32.Parse(portnum.Text);
+            if (pn < 1024 || pn > 65535)
+            {
+                MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                return;
+            }
+            Process[] pname = Process.GetProcessesByName("fgfs");
+            if (pname.Length > 0)
+            {
+                MaterialMessageBox.ShowError("FlightGear is already running!");
+                return;
+            }
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo(fgPath.Text + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum + ",tcp,playback_small --fdm=null");
+                psi.WorkingDirectory = fgPath.Text + @"\data";
+                Process.Start(psi);
+
+            }
+            catch(Exception exception)
+            {
+                MaterialMessageBox.ShowError("An error has occured, please make sure that FlightGear is installed properly.");
+            }
+            
         }
     }
 }

@@ -170,6 +170,8 @@ namespace ex1.Model
 
         public float getValue(int timestep, String featureName)
         {
+            if (featureName == null || timestep == dataDict[featureName].DataPoints.Count)
+                return 0;
             return (float)dataDict[featureName].DataPoints[timestep].Y;
         }
 
@@ -193,6 +195,10 @@ namespace ex1.Model
 
         public Annotation getFeatureAnnotation(String featureName)
         {
+            if(featureName == null)
+            {
+                return null;
+            }
             return dataDict[featureName].PlotAnnotation;
         }
     }

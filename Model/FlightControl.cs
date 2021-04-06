@@ -126,12 +126,13 @@ namespace ex1.Model
             {
                 while (!stop)
                 {
-                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    pilot.sendCurrentData(Timestep);
+
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
                     {
                         stop = true;
                         break;
                     }
-                    pilot.sendCurrentData(Timestep);
                     Timestep += (IsReverse ? -1 : 1);
                     Thread.Sleep((int)(100f / Math.Abs(Speed)));
                 }
