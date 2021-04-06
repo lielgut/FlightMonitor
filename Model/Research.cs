@@ -204,6 +204,10 @@ namespace ex1.Model
 
         public Annotation getFeatureAnnotation(String featureName)
         {
+            if(featureName == null)
+            {
+                return null;
+            }
             return dataDict[featureName].PlotAnnotation;
         }
     }

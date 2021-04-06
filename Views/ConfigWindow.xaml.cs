@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.IO;
 using ex1.Model;
 using BespokeFusion;
+using System.Threading;
 
 namespace ex1.Views
 {
@@ -22,6 +23,7 @@ namespace ex1.Views
     {
         // private MainWindow mw;
         private IFlightControl fc;
+        volatile bool done = false;
 
         public ConfigWindow()
         {
@@ -83,10 +85,26 @@ namespace ex1.Views
                 return;
             }
 
+            done = true;
+
+            Thread t = new Thread(delegate ()
+           {
+               /*CustomMaterialMessageBox m = new CustomMaterialMessageBox();
+               m.Title = "bla bla";
+               m.Show();*/
+               while (!done) { System.Diagnostics.Debug.WriteLine("waiting..."); }
+               //m.Close()
+               //;
+           });
+            t.Start();
+            
+
             fc.loadFeatures("..//..//..//playback_small.xml");
             fc.loadData(newFlightPath.Text);
             fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
 
+            done = true;
+            t.Join();
 
             MainWindow mw = new MainWindow(fc);
             mw.Show();

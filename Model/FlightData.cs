@@ -22,7 +22,7 @@ namespace ex1.Model
 
         public float getValue(string featureName, int timestep)
         {
-            if (timestep == features.Count || featureName == null)
+            if (timestep == data.Count || featureName == null)
                 return 0;
             return data[timestep][features[featureName]];
         }
