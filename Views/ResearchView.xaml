@@ -8,7 +8,11 @@
              Height="400"
              Width="600"       >
     <Grid Background="WhiteSmoke">
-        <ListBox x:Name="listBox" Margin="10,0,466,0" Background="White" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBox" Grid.Column="0" Background="White" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -18,26 +22,34 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
-        <oxy:Plot Title="{Binding VM_SelectedFeature}" TitleFontSize="10" Margin="155,20,237,233" Background="Transparent">
-            <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+                <oxy:Plot Title="{Binding VM_SelectedFeature}" Margin="0 0 10 0" Width="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
 
-        <oxy:Plot Title="{Binding VM_CorrFeature}" TitleFontSize="10" Margin="375,20,17,233" Background="Transparent">
-            <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+                <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+            </StackPanel>
 
-        <oxy:Plot x:Name="featuresPoints" Margin="156,179,156,10" Background="Transparent">
-            <oxy:Plot.Series>
-                <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+            <oxy:Plot Grid.Row="1" x:Name="featuresPoints" Background="Transparent">
+                <oxy:Plot.Series>
+                    <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
+                </oxy:Plot.Series>
+            </oxy:Plot>
 
-        <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->       
+            <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
+        </Grid>
 
     </Grid>
 </UserControl>
