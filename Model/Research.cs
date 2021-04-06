@@ -62,15 +62,7 @@ namespace ex1.Model
 
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
         {
-            // load dll
-            Assembly asm = Assembly.LoadFile(anomalyDetPath);
-            Type detectorType = asm.GetType("Detector.Detector");
-
-            // create instance of the Detector class from dll
-            object detector = Activator.CreateInstance(detectorType);
-
-
-            // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
+                        
             // append feature names to files
 
             string featuresStr = "";
@@ -112,8 +104,12 @@ namespace ex1.Model
 
             // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
+            // load dll
+            Assembly asm = Assembly.LoadFile(anomalyDetPath);
+            Type detectorType = asm.GetType("Detector.Detector");
 
-
+            // create instance of the Detector class from dll
+            object detector = Activator.CreateInstance(detectorType);
 
             // load and analyze data from CSV files
             MethodInfo loadFlightData = detectorType.GetMethod("loadFlightData");
@@ -127,7 +123,9 @@ namespace ex1.Model
             foreach (String featureName in features)
             {                
                 String correlated = getCorrFeature.Invoke(detector, new object[] { featureName }) as String;
-                dataDict[featureName].Correlated = correlated;                
+                dataDict[featureName].Correlated = correlated;
+
+                System.Diagnostics.Debug.WriteLine(featureName + ", " + correlated);
                 
 
                 if (correlated != null)
@@ -182,13 +180,6 @@ namespace ex1.Model
                 return null;
             }
             return new List<DataPoint>(dataDict[featureName].DataPoints.Take(timestep));
-            /*List<DataPoint> l = new List<DataPoint>();
-            List<float> values = dataDict[featureName].DataVector; 
-            for(int i=0; i < timestep; i++)
-            {
-                l.Add(new DataPoint(i, values[i]));
-            }
-            return l;*/
         }
 
         public List<ScatterPoint> getRecentScatterPoints(int timestep, String featureName)
