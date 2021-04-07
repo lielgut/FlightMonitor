@@ -30,6 +30,7 @@ namespace ex1.Model
         public List<String> getFeaturesList();
         public List<DataPoint> getDataPoints(String featureName);
         public List<ScatterPoint> getRecentScatterPoints(String featureName);
+        public List<ScatterPoint> getRecentAnomalousPoints(String featureName);
         public Annotation getFeatureAnnotation(String featureName);
         public double getMinX(String featureName);
         public double getMaxX(String featureName);

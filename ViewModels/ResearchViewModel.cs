@@ -94,5 +94,17 @@ namespace ex1.ViewModels
             }
         }
 
+        public List<ScatterPoint> VM_AnomalousPoints
+        {
+            get
+            {
+                if (VM_CorrFeature == null || VM_CorrFeature == "no correlative feature")
+                {
+                    return null;
+                }
+                return fc.getRecentAnomalousPoints(selectedFeature);
+            }
+        }
+
     }
 }

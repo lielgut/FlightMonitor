@@ -16,10 +16,10 @@ namespace ex1.Model
         class ResearchData
         {
             public String Correlated { get; set; }
-            // public List<float> DataVector { get; set; }
             public List<DataPoint> DataPoints { get; set; }
+            public List<ScatterPoint> Anomalies { get; set; }
             public List<ScatterPoint> CorrPoints { get; set; }
-            public List<bool> Anomalies { get; set; }
+            // public List<bool> Anomalies { get; set; }
             public Annotation PlotAnnotation { get; set; }
             public float MinX { get; set; }
             public float MinY { get; set; }
@@ -28,10 +28,10 @@ namespace ex1.Model
             public ResearchData()
             {
                 Correlated = null;
-                // DataVector = new List<float>();
                 DataPoints = new List<DataPoint>();
                 CorrPoints = new List<ScatterPoint>();
-                Anomalies = new List<bool>();               
+                Anomalies = new List<ScatterPoint>();               
+                // Anomalies = new List<bool>();               
                 PlotAnnotation = null;
             }
         }
@@ -138,11 +138,18 @@ namespace ex1.Model
                     float minX = 0, minY = 0, maxX = 0, maxY = 0;
                     for (i = 0; i < len; i++)
                     {
-                        object isAnom = isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
-                        rd.Anomalies.Add((bool)isAnom);
-
                         float x = getValue(i, featureName), y = getValue(i, correlated);
-                        rd.CorrPoints.Add(new ScatterPoint(x, y, 2));
+
+                        bool isAnom = (bool) isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
+                        if (isAnom)
+                        {
+                            rd.CorrPoints.Add(null);
+                            rd.Anomalies.Add(new ScatterPoint(x, y, 2));
+                        } else
+                        {
+                            rd.CorrPoints.Add(new ScatterPoint(x, y, 2));
+                            rd.Anomalies.Add(null);
+                        }                                                                      
 
                         if (x < minX)
                             minX = x;
@@ -183,10 +190,10 @@ namespace ex1.Model
             return features;
         }
          
-        public bool isAnomalous(int timestep, string featureName)
+        /*public bool isAnomalous(int timestep, string featureName)
         {
             return dataDict[featureName].Anomalies[timestep];
-        }
+        }*/
 
         public float getValue(int timestep, String featureName)
         {
@@ -210,7 +217,18 @@ namespace ex1.Model
             {
                 return null;
             }
-            return new List<ScatterPoint>(dataDict[featureName].CorrPoints.Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0));
+            return new List<ScatterPoint>(dataDict[featureName].CorrPoints
+                .Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0).Where(point => point != null));
+        }
+
+        public List<ScatterPoint> getRecentAnomalousPoints(int timestep, String featureName)
+        {
+            if (featureName == null)
+            {
+                return null;
+            }
+            return new List<ScatterPoint>(dataDict[featureName].Anomalies
+                .Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0).Where(point => point != null)); ;
         }
 
         public Annotation getFeatureAnnotation(String featureName)

@@ -61,6 +61,7 @@ namespace ex1.Model
                     PropertyChangedNotify("FeaturePoints");
                     PropertyChangedNotify("SecondFeaturePoints");
                     PropertyChangedNotify("CorrFeaturesPoints");
+                    PropertyChangedNotify("AnomalousPoints");
                 }
             }
         }
@@ -247,6 +248,11 @@ namespace ex1.Model
         public List<ScatterPoint> getRecentScatterPoints(String featureName)
         {
             return research.getRecentScatterPoints(Timestep, featureName);
+        }
+
+        public List<ScatterPoint> getRecentAnomalousPoints(String featureName)
+        {
+            return research.getRecentAnomalousPoints(Timestep, featureName);
         }
 
         public Annotation getFeatureAnnotation(String featureName)
