@@ -52,10 +52,11 @@ namespace ex1.Views
             if(a != null)
             {
                 featuresPoints.Annotations.Add(a);                
-                featuresPoints.Axes[0].Minimum = researchVM.fc.getMinX(selected) - 0.1;
-                featuresPoints.Axes[0].Maximum = researchVM.fc.getMaxX(selected) + 0.1;
-                featuresPoints.Axes[1].Minimum = researchVM.fc.getMinY(selected) - 0.1;
-                featuresPoints.Axes[1].Maximum = researchVM.fc.getMaxY(selected) + 0.1;
+                featuresPoints.Axes[0].Minimum = researchVM.fc.getMinX(selected) - 1;
+                featuresPoints.Axes[0].Maximum = researchVM.fc.getMaxX(selected) + 1;
+                featuresPoints.Axes[1].Minimum = researchVM.fc.getMinY(selected) - 1;
+                featuresPoints.Axes[1].Maximum = researchVM.fc.getMaxY(selected) + 1;
+                featuresPoints.ResetAllAxes();
             }                 
 
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
