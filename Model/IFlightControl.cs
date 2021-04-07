@@ -31,5 +31,9 @@ namespace ex1.Model
         public List<DataPoint> getDataPoints(String featureName);
         public List<ScatterPoint> getRecentScatterPoints(String featureName);
         public Annotation getFeatureAnnotation(String featureName);
+        public double getMinX(String featureName);
+        public double getMaxX(String featureName);
+        public double getMinY(String featureName);
+        public double getMaxY(String featureName);
     }
 }

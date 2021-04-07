@@ -36,6 +36,8 @@ namespace ex1.Views
         {
             InitializeComponent();
             DataContext = researchVM;
+            featuresPoints.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 10, Position = OxyPlot.Axes.AxisPosition.Bottom });
+            featuresPoints.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 10, Position = OxyPlot.Axes.AxisPosition.Left });
         }
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,10 +46,17 @@ namespace ex1.Views
             researchVM.VM_SelectedFeature = selected;
 
             Annotation a = researchVM.fc.getFeatureAnnotation(selected);
-            if(featuresPoints.Annotations.Count != 0)
+            a.Layer = OxyPlot.Annotations.AnnotationLayer.BelowSeries;
+            if (featuresPoints.Annotations.Count != 0)
                 featuresPoints.Annotations.RemoveAt(0);
             if(a != null)
-                featuresPoints.Annotations.Add(a);
+            {
+                featuresPoints.Annotations.Add(a);                
+                featuresPoints.Axes[0].Minimum = researchVM.fc.getMinX(selected) - 0.1;
+                featuresPoints.Axes[0].Maximum = researchVM.fc.getMaxX(selected) + 0.1;
+                featuresPoints.Axes[1].Minimum = researchVM.fc.getMinY(selected) - 0.1;
+                featuresPoints.Axes[1].Maximum = researchVM.fc.getMaxY(selected) + 0.1;
+            }                 
 
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
             researchVM.PropertyChangedNotify("VM_SecondFeaturePoints");

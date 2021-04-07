@@ -21,6 +21,10 @@ namespace ex1.Model
             public List<ScatterPoint> CorrPoints { get; set; }
             public List<bool> Anomalies { get; set; }
             public Annotation PlotAnnotation { get; set; }
+            public float MinX { get; set; }
+            public float MinY { get; set; }
+            public float MaxX { get; set; }
+            public float MaxY { get; set; }
             public ResearchData()
             {
                 Correlated = null;
@@ -121,30 +125,46 @@ namespace ex1.Model
             MethodInfo isFeatureAnomalous = detectorType.GetMethod("isFeatureAnomalous");
             int len = dataDict[features[0]].DataPoints.Count;
             foreach (String featureName in features)
-            {                
+            {
+                ResearchData rd = dataDict[featureName];
                 String correlated = getCorrFeature.Invoke(detector, new object[] { featureName }) as String;
-                dataDict[featureName].Correlated = correlated;
+                rd.Correlated = correlated;
 
                 System.Diagnostics.Debug.WriteLine(featureName + ", " + correlated);
                 
 
                 if (correlated != null)
-                {     
+                {
+                    float minX = 0, minY = 0, maxX = 0, maxY = 0;
                     for (i = 0; i < len; i++)
                     {
                         object isAnom = isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
-                        dataDict[featureName].Anomalies.Add((bool)isAnom);
+                        rd.Anomalies.Add((bool)isAnom);
 
-                        dataDict[featureName].CorrPoints.Add(new ScatterPoint(getValue(i,featureName), getValue(i,correlated), 2));
+                        float x = getValue(i, featureName), y = getValue(i, correlated);
+                        rd.CorrPoints.Add(new ScatterPoint(x, y, 2));
+
+                        if (x < minX)
+                            minX = x;
+                        else if (x > maxX)
+                            maxX = x;
+                        if (y < minY)
+                            minY = y;
+                        else if (y > maxY)
+                            maxY = y;                        
                     }
 
                     Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as Annotation;                                      
-                    dataDict[featureName].PlotAnnotation = annot;
+                    rd.PlotAnnotation = annot;
+                    rd.MinX = minX;
+                    rd.MaxX = maxX;
+                    rd.MinY = minY;
+                    rd.MaxY = maxY;
                 }
                 else
                 {
-                    dataDict[featureName].CorrPoints = null;
-                    dataDict[featureName].Anomalies = null;
+                    rd.CorrPoints = null;
+                    rd.Anomalies = null;
                 }                                
             }
             
@@ -200,6 +220,26 @@ namespace ex1.Model
                 return null;
             }
             return dataDict[featureName].PlotAnnotation;
+        }
+
+        public double getMinX(String featureName)
+        {
+            return dataDict[featureName].MinX;
+        }
+
+        public double getMaxX(String featureName)
+        {
+            return dataDict[featureName].MaxX;
+        }
+
+        public double getMinY(String featureName)
+        {
+            return dataDict[featureName].MinY;
+        }
+
+        public double getMaxY(String featureName)
+        {
+            return dataDict[featureName].MaxY;
         }
     }
 }

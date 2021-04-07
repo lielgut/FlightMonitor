@@ -149,7 +149,7 @@ namespace ex1.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-        
+
 
         public void loadFeatures(string xmlPath)
         {
@@ -254,5 +254,24 @@ namespace ex1.Model
             return research.getFeatureAnnotation(featureName);
         }
 
+        public double getMinX(String featureName)
+        {
+            return research.getMinX(featureName);
+        }
+
+        public double getMaxX(String featureName)
+        {
+            return research.getMaxX(featureName);
+        }
+
+        public double getMinY(String featureName)
+        {
+            return research.getMinY(featureName);
+        }
+
+        public double getMaxY(String featureName)
+        {
+            return research.getMaxY(featureName);
+        }
     }
 }
