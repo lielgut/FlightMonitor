@@ -119,7 +119,7 @@ namespace ex1.Views
                 Process.Start(psi);
 
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 MaterialMessageBox.ShowError("An error has occured, please make sure that FlightGear is installed properly.");
             }

@@ -109,7 +109,7 @@ namespace ex1.Views
 
         private void portnum_TextChanged(object sender, TextChangedEventArgs e)
         {
-            fgSetting.Text = "--generic=socket,in,10,127.0.0.1," + portnum.Text + ",tcp,playback_small\r\n--fdm=null";
+            fgSetting.Text = "--generic=socket,in,10,127.0.0.1," + portnum.Text + ",tcp,playback_small\r\n--fdm=null --timeofday=morning";
             copied.Visibility = Visibility.Hidden;
         }
 
@@ -185,16 +185,17 @@ namespace ex1.Views
             }
             try
             {
-                ProcessStartInfo psi = new ProcessStartInfo(fgPath.Text + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum.Text + ",tcp,playback_small --fdm=null");
+                ProcessStartInfo psi = new ProcessStartInfo(fgPath.Text + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum.Text + ",tcp,playback_small --fdm=null --timeofday=morning");
                 psi.WorkingDirectory = fgPath.Text + @"\data";
                 Process.Start(psi);
 
             }
-            catch(Exception exception)
+            catch(Exception)
             {
                 MaterialMessageBox.ShowError("An error has occured, please make sure that FlightGear is installed properly.");
             }
             
         }
+
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.FontSize="10"
-        Title="FlightStat" Height="480" Width="655" ResizeMode="CanResize">
+        Title="FlightStat" Height="500" Width="670" ResizeMode="CanResize">
     <Window.Resources>
         <!--make all textboxes have the same style-->
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>
@@ -47,7 +47,7 @@
                 </Button>
             </StackPanel>
 
-            
+
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="fgPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
@@ -56,7 +56,6 @@
                     <materialDesign:PackIcon Kind="FolderOpen" Width="30" Height="30"/>
                 </Button>
             </StackPanel>
-
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <Label Content="Choose port number:" VerticalAlignment="Bottom"/>
@@ -83,8 +82,8 @@
 
                     <Label x:Name="copied" Content="copied!" HorizontalAlignment="Center" FontSize="11" Visibility="Hidden"/>
                 </StackPanel>
-
             </StackPanel>
+
         </StackPanel>
         <Image Source="/images/flightgear.png" Grid.Column="1" VerticalAlignment="Center" Stretch="UniformToFill"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1">
