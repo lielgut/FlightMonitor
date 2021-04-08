@@ -63,12 +63,15 @@ namespace ex1
                 {
                     case "dataTab":
                         selectedView.Content = dataView;
+                        playerView.Visibility = Visibility.Visible;
                         break;
                     case "researchTab":
                         selectedView.Content = researchView;
+                        playerView.Visibility = Visibility.Visible;
                         break;
                     case "settingsTab":
                         selectedView.Content = settingsView;
+                        playerView.Visibility = Visibility.Hidden;
                         break;
                 }
             }

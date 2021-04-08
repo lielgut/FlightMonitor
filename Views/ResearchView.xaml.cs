@@ -46,24 +46,21 @@ namespace ex1.Views
             researchVM.VM_SelectedFeature = selected;
 
             Annotation a = researchVM.fc.getFeatureAnnotation(selected);
-            if (a == null)
+            featuresPoints.Annotations.Clear();
+            if (a != null)
             {
-                return;
-            }
-            a.Layer = OxyPlot.Annotations.AnnotationLayer.BelowSeries;
-            if (featuresPoints.Annotations.Count != 0)
-                featuresPoints.Annotations.RemoveAt(0);
-            if(a != null)
-            {
+                a.Layer = OxyPlot.Annotations.AnnotationLayer.BelowSeries;                
                 featuresPoints.Annotations.Add(a);
+
                 double min = Math.Min(researchVM.fc.getMinX(selected), researchVM.fc.getMinY(selected));
                 double max = Math.Max(researchVM.fc.getMaxX(selected), researchVM.fc.getMaxY(selected));
-                featuresPoints.Axes[0].Minimum = min - 1;
-                featuresPoints.Axes[0].Maximum = max + 1;
-                featuresPoints.Axes[1].Minimum = min - 1;
-                featuresPoints.Axes[1].Maximum = max + 1;
+                double dist = max - min;
+                featuresPoints.Axes[0].Minimum = min - 0.25 * dist;
+                featuresPoints.Axes[0].Maximum = max + 0.25 * dist;
+                featuresPoints.Axes[1].Minimum = min - 0.25 * dist;
+                featuresPoints.Axes[1].Maximum = max + 0.25 * dist;
                 featuresPoints.ResetAllAxes();
-            }                 
+            }
 
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
             researchVM.PropertyChangedNotify("VM_AnomaliesList");            
@@ -89,8 +86,9 @@ namespace ex1.Views
 
         private void anomalies_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int selectedTime = (int) (sender as ListBox).SelectedItem;
-            researchVM.fc.Timestep = selectedTime;
+            object selectedTime = (sender as ListBox).SelectedItem;
+            if(selectedTime != null)
+                researchVM.fc.Timestep = (int) selectedTime;
         }
     }
 }
