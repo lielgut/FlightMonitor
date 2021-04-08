@@ -106,6 +106,19 @@ namespace ex1.Model
         {
             get { return paths; }
         }
+        private bool isConnected = false;
+        public bool IsConnected
+        {
+            get
+            {
+                return isConnected;
+            }
+            set
+            {
+                isConnected = value;
+                PropertyChangedNotify("IsConnected");
+            }
+        }
 
         private Pilot pilot;
         private IFlightData flightdata;
@@ -134,10 +147,9 @@ namespace ex1.Model
             {
                 while (!stop)
                 {
-                    pilot.sendCurrentData(Timestep);
-
-                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse) || !pilot.sendCurrentData(Timestep))
                     {
+                        IsConnected = false;
                         stop = true;
                         break;
                     }
@@ -223,9 +235,9 @@ namespace ex1.Model
         {
             return flightdata.getValue(feature, timestep);
         }
-        public void SendCurrentData()
+        public bool SendCurrentData()
         {
-            pilot.sendCurrentData(Timestep);
+            return pilot.sendCurrentData(Timestep);
         }
         public bool startClient()
         {

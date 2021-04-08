@@ -16,6 +16,7 @@ namespace ex1.Model
         int NumLines { get; set; }
         bool IsReverse { get; set; }
         bool Stop { get; set; }
+        bool IsConnected { get; set; }
         PathInfo Paths { get; }
         public void start();
         public void stop();
@@ -24,7 +25,7 @@ namespace ex1.Model
         public void changePort(int destPort);
         public int getCurrentPort();
         public float getCurrentData(String feature);
-        public void SendCurrentData();
+        public bool SendCurrentData();
         public bool startClient();
         public void endClient();
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);

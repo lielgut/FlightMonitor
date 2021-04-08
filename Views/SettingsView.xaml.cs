@@ -158,6 +158,26 @@ namespace ex1.Views
 
         }
 
+        private void ApplyPort_Click(object sender, RoutedEventArgs e)
+        {
+            settingsVM.fc.endClient();
+            try
+            {
+                int pn = Int32.Parse(portnum.Text);
+                if (pn < 1024 || pn > 65535)
+                {
+                    MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                    return;
+                }
+                settingsVM.fc.changePort(pn);
+            }
+            catch (System.FormatException)
+            {
+                MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                return;
+            }
+            settingsVM.fc.startClient();
+        }
         private void reset()
         {
             settingsVM.fc.reset();
@@ -165,8 +185,6 @@ namespace ex1.Views
             settingsVM.fc.analyzeData(settingsVM.fc.Paths.NormalCSVPath, settingsVM.fc.Paths.NewCSVPath, settingsVM.fc.Paths.DLLPath);
 
         }
-
-
 
     }
 }

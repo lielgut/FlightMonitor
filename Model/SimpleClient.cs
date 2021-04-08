@@ -46,12 +46,20 @@ namespace ex1.Model
             }
         }
 
-        public void send(string data)
+        public bool send(string data)
         {
-            string s = data + "\r\n";
-            byte[] msg = enc.GetBytes(s);
-            stream.Write(msg, 0, msg.Length);
+            try
+            {
+                string s = data + "\r\n";
+                byte[] msg = enc.GetBytes(s);
+                stream.Write(msg, 0, msg.Length);
+                return true;
+            }
             // catch exception if server closes
+            catch
+            {
+                return false;
+            }
         }
 
         public void close()

@@ -19,7 +19,6 @@
 
             <TextBlock Text="Settings:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
 
-
             <!--Load CSV files-->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -92,8 +91,14 @@
 
                     <TextBox x:Name="portnum" Text="{Binding VM_Port, Mode=OneTime}" Width="200" materialDesign:HintAssist.Hint="Change port number"
                  VerticalAlignment="Center" materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
+            <Button x:Name="LaunchFGButton" Margin="15" Click="LaunchFG_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Launch FlightGear" FontSize="12" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Margin="10 0 0 0" Kind="AirplaneTakeoff" Width="25" Height="25" VerticalAlignment="Center"/>
                 </StackPanel>
-                <Button Grid.Column="1" Margin="10 0" Click="ApplyDLL_Click">
+            </Button>
+                </StackPanel>
+                <Button Grid.Column="1" Margin="10 0" Click="ApplyPort_Click">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock Text="Apply" VerticalAlignment="Center"/>
@@ -103,12 +108,6 @@
             </Grid>
             <!--Separator-->
             <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
-            <Button x:Name="LaunchFGButton" Margin="15" Click="LaunchFG_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Launch FlightGear" FontSize="12" VerticalAlignment="Center"/>
-                    <materialDesign:PackIcon Margin="10 0 0 0" Kind="AirplaneTakeoff" Width="25" Height="25" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
