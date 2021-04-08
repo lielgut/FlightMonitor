@@ -101,6 +101,12 @@ namespace ex1.Model
             set { stop = value; }
         }
 
+        private PathInfo paths;
+        public PathInfo Paths
+        {
+            get { return paths; }
+        }
+
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -117,6 +123,7 @@ namespace ex1.Model
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
             this.research = new Research();
+            this.paths = new PathInfo();
         }
 
 
@@ -207,6 +214,11 @@ namespace ex1.Model
             this.pilot.changePort(destPort);
         }
 
+        public int getCurrentPort()
+        {
+            return this.pilot.getCurrentPort();
+        }
+
         public float getCurrentData(String feature)
         {
             return flightdata.getValue(feature, timestep);
@@ -278,6 +290,14 @@ namespace ex1.Model
         public double getMaxY(String featureName)
         {
             return research.getMaxY(featureName);
+        }
+
+        public void reset()
+        {
+            flightdata.reset();
+            pilot.reset();
+            research.reset();
+            Timestep = 0;
         }
     }
 }

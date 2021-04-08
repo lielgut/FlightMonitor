@@ -26,5 +26,6 @@ namespace ex1.Model
         public double getMaxX(String featureName);
         public double getMinY(String featureName);
         public double getMaxY(String featureName);
+        public void reset();
     }
 }

@@ -14,5 +14,7 @@ namespace ex1.Model
         public void addFeature(string featureName, int column);
         // returns if feature names contain given name
         public bool containsFeature(string featureName);
+        // reset all data collected
+        public void reset();
     }
 }

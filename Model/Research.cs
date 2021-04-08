@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 using OxyPlot;
 using OxyPlot.Wpf;
 using OxyPlot.Series;
-using System.Windows.Media;
 using System.IO;
 using System.Linq;
 
@@ -129,8 +127,6 @@ namespace ex1.Model
                 ResearchData rd = dataDict[featureName];
                 String correlated = getCorrFeature.Invoke(detector, new object[] { featureName }) as String;
                 rd.Correlated = correlated;
-
-                System.Diagnostics.Debug.WriteLine(featureName + ", " + correlated);
                 
 
                 if (correlated != null)
@@ -258,6 +254,18 @@ namespace ex1.Model
         public double getMaxY(String featureName)
         {
             return dataDict[featureName].MaxY;
+        }
+
+        public void reset()
+        {
+            foreach (KeyValuePair<string, ResearchData> entry in dataDict)
+            {
+                entry.Value.Correlated = null;
+                entry.Value.DataPoints.Clear();
+                entry.Value.CorrPoints.Clear();
+                entry.Value.Anomalies.Clear();
+                entry.Value.PlotAnnotation = null;
+            }
         }
     }
 }

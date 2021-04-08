@@ -36,6 +36,9 @@
             <TabItem x:Name="researchTab" Header="Research" Selector.Selected="TabSelected">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
+            <TabItem x:Name="settingsTab" Header="Settings" Selector.Selected="TabSelected">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
         </TabControl>
 
         <ContentControl x:Name="selectedView" Grid.Row="1" Grid.Column="1" Margin="2">
@@ -43,11 +46,6 @@
         </ContentControl>
 
         <views:PlayerView x:Name="playerView" Grid.Row="2" Grid.ColumnSpan="2" Margin="2"/>
-        
-        <!--<views:ResearchView x:Name="researchView" Grid.Row="0" Grid.Column="1" Margin="2"/>
-
-        <views:DataView x:Name="dataView" Margin="2" />-->
-
 
     </Grid>
 

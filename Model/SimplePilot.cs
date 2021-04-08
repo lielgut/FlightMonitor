@@ -26,5 +26,10 @@ namespace ex1.Model
         {
             cl.send(dataLines[timestep]);
         }
+
+        public override void reset()
+        {
+            dataLines.Clear();
+        }
     }
 }
