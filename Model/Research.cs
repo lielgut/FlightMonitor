@@ -164,12 +164,7 @@ namespace ex1.Model
                     rd.MaxX = maxX;
                     rd.MinY = minY;
                     rd.MaxY = maxY;
-                }
-                else
-                {
-                    rd.CorrPoints = null;
-                    rd.Anomalies = null;
-                }                                
+                }                               
             }
             
             MethodInfo deleteAH = detectorType.GetMethod("deleteAnomalyHelper");
@@ -274,6 +269,7 @@ namespace ex1.Model
                 entry.Value.DataPoints.Clear();
                 entry.Value.CorrPoints.Clear();
                 entry.Value.Anomalies.Clear();
+                entry.Value.AnomaliesTimesteps.Clear();
                 entry.Value.PlotAnnotation = null;
             }
         }
