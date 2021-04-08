@@ -13,6 +13,11 @@ namespace ex1.ViewModels
             set { fc.changePort(value); }
         }
 
+        public bool VM_IsConnected
+        {
+            get { return fc.IsConnected; }
+        }
+
         public SettingsViewModel(IFlightControl fc) : base(fc) { }
     }
 }

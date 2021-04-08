@@ -40,7 +40,7 @@ namespace ex1.Model
                 this.stream = cl.GetStream();
                 return true;
             }
-            catch (SocketException)
+            catch (Exception)
             {
                 return false;
             }
@@ -56,7 +56,7 @@ namespace ex1.Model
                 return true;
             }
             // catch exception if server closes
-            catch
+            catch (Exception)
             {
                 return false;
             }

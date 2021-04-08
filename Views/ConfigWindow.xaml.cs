@@ -152,6 +152,11 @@ namespace ex1.Views
 
         private void LaunchFG_Click(object sender, RoutedEventArgs e)
         {
+            if (fgPath.Text == "")
+            {
+                MaterialMessageBox.ShowError("Please select FlightGear installation folder.");
+                return;
+            }
             if (!File.Exists(fgPath.Text + @"\bin\fgfs.exe"))
             {
                 MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in the FlightGear installation folder.");

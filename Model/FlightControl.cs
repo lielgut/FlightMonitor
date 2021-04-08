@@ -147,9 +147,14 @@ namespace ex1.Model
             {
                 while (!stop)
                 {
-                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse) || !pilot.sendCurrentData(Timestep))
+                    if(!pilot.sendCurrentData(Timestep))
                     {
                         IsConnected = false;
+                        stop = true;
+                        break;
+                    }
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
+                    {
                         stop = true;
                         break;
                     }
@@ -241,7 +246,8 @@ namespace ex1.Model
         }
         public bool startClient()
         {
-            return pilot.startClient();
+            IsConnected = pilot.startClient();
+            return IsConnected;
         }
 
         public void endClient()
