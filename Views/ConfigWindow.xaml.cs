@@ -91,6 +91,10 @@ namespace ex1.Views
                 return;
             }
 
+            fc.Paths.FGPath = fgPath.Text;
+            fc.Paths.NormalCSVPath = normalFlightPath.Text;
+            fc.Paths.NewCSVPath = newFlightPath.Text;
+            fc.Paths.DLLPath = anomalyDetPath.Text;
 
             fc.loadFeatures("..//..//..//Resources//playback_small.xml");
             fc.loadData(newFlightPath.Text);
@@ -153,8 +157,17 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in the FlightGear installation folder.");
                 return;
             }
-            int pn = Int32.Parse(portnum.Text);
-            if (pn < 1024 || pn > 65535)
+            try
+            {
+                int pn = Int32.Parse(portnum.Text);
+                if (pn < 1024 || pn > 65535)
+                {
+                    MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                    return;
+                }
+                fc.changePort(pn);
+            }
+            catch (System.FormatException)
             {
                 MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                 return;
@@ -167,7 +180,7 @@ namespace ex1.Views
             }
             try
             {
-                ProcessStartInfo psi = new ProcessStartInfo(fgPath.Text + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum + ",tcp,playback_small --fdm=null");
+                ProcessStartInfo psi = new ProcessStartInfo(fgPath.Text + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum.Text + ",tcp,playback_small --fdm=null");
                 psi.WorkingDirectory = fgPath.Text + @"\data";
                 Process.Start(psi);
 

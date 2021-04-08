@@ -25,6 +25,7 @@ namespace ex1
     {
         IFlightControl fc;
         ResearchView researchView;
+        SettingsView settingsView;
         internal MainWindow(IFlightControl fc)
         {
             this.fc = fc;
@@ -45,11 +46,12 @@ namespace ex1
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
 
+            SettingsViewModel svm = new SettingsViewModel(fc);
+            settingsView = new SettingsView();
+            settingsView.SettingsVM = svm;
+            selectedView.DataContext = rvm;
+
             selectedView.Content = dataView;
-
-            //Visibility = Visibility.Hidden;
-
-            //fc.start();
         }
 
         private void TabSelected(object sender, RoutedEventArgs e)
@@ -64,6 +66,9 @@ namespace ex1
                         break;
                     case "researchTab":
                         selectedView.Content = researchView;
+                        break;
+                    case "settingsTab":
+                        selectedView.Content = settingsView;
                         break;
                 }
             }

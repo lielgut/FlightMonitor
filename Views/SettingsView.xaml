@@ -1,0 +1,114 @@
+﻿ <UserControl x:Class="ex1.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             Height="400"
+             Width="600"
+             Background="WhiteSmoke">
+    <UserControl.Resources>
+        <!--make all textboxes have the same style-->
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+
+            <TextBlock Text="Settings:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
+
+
+            <!--Load CSV files-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+
+                        <TextBox x:Name="normalFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load normal flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                        <Button Height="50" Click="BrowseNormal_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                            <materialDesign:PackIcon Kind="FileExcel" Width="30" Height="30"/>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+
+                        <TextBox x:Name="newFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load new flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                        <Button Height="50" Click="BrowseNew_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                            <materialDesign:PackIcon Kind="FileExcel" Width="30" Height="30"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Column="1" Margin="10 0" Click="ApplyCSV_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Apply" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="CheckBold" Margin="5 0 0 0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
+
+            <!--Load Anomaly Detection-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="5">
+
+                    <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
+                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                    <Button Height="50" Click="BrowseAnomaly_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <materialDesign:PackIcon Kind="FileCog" Width="30" Height="30"/>
+                    </Button>
+
+                </StackPanel>
+                <Button Grid.Column="1" Margin="10 0" Click="ApplyDLL_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Apply" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="CheckBold" Margin="5 0 0 0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!--Separator-->
+            <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="5">
+
+                    <TextBox x:Name="portnum" Text="{Binding VM_Port, Mode=OneTime}" Width="200" materialDesign:HintAssist.Hint="Change port number"
+                 VerticalAlignment="Center" materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
+                </StackPanel>
+                <Button Grid.Column="1" Margin="10 0" Click="ApplyDLL_Click">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Apply" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="CheckBold" Margin="5 0 0 0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <!--Separator-->
+            <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
+            <Button x:Name="LaunchFGButton" Margin="15" Click="LaunchFG_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Launch FlightGear" FontSize="12" VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Margin="10 0 0 0" Kind="AirplaneTakeoff" Width="25" Height="25" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

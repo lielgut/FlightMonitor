@@ -35,5 +35,10 @@ namespace ex1.Model
         {
             return features.ContainsKey(featureName);
         }
+
+        public void reset()
+        {
+            data.Clear();
+        }
     }
 }
