@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ex1.Views"             
+             xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Height="400"
              Width="600"       >
@@ -38,17 +38,21 @@
                     <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
                 </oxy:Plot>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
 
-            <oxy:Plot Grid.Row="1" x:Name="featuresPoints" Background="Transparent" Margin="0,0,202,0">
-                <oxy:Plot.Series>
-                    <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
-                    <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
-                </oxy:Plot.Series>
-            </oxy:Plot>
-            <Button Content="zoom in" HorizontalAlignment="Left" Margin="248,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92"/>
-            <Button Content="zoom out" HorizontalAlignment="Left" Margin="248,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92"/>
-            <Button Content="refresh" HorizontalAlignment="Left" Margin="248,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="92" Click="Refresh_Clicked"/>
+                <oxy:Plot Width="300" x:Name="featuresPoints" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
+                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+                <StackPanel>
+                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Refresh_Clicked"/>
+                </StackPanel>
 
+            </StackPanel>
             <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
         </Grid>
 
