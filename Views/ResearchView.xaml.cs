@@ -51,17 +51,24 @@ namespace ex1.Views
                 featuresPoints.Annotations.RemoveAt(0);
             if(a != null)
             {
-                featuresPoints.Annotations.Add(a);                
-                featuresPoints.Axes[0].Minimum = researchVM.fc.getMinX(selected) - 1;
-                featuresPoints.Axes[0].Maximum = researchVM.fc.getMaxX(selected) + 1;
-                featuresPoints.Axes[1].Minimum = researchVM.fc.getMinY(selected) - 1;
-                featuresPoints.Axes[1].Maximum = researchVM.fc.getMaxY(selected) + 1;
+                featuresPoints.Annotations.Add(a);
+                double min = Math.Min(researchVM.fc.getMinX(selected), researchVM.fc.getMinY(selected));
+                double max = Math.Max(researchVM.fc.getMaxX(selected), researchVM.fc.getMaxY(selected));
+                featuresPoints.Axes[0].Minimum = min - 1;
+                featuresPoints.Axes[0].Maximum = max + 1;
+                featuresPoints.Axes[1].Minimum = min - 1;
+                featuresPoints.Axes[1].Maximum = max + 1;
                 featuresPoints.ResetAllAxes();
             }                 
 
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
             researchVM.PropertyChangedNotify("VM_SecondFeaturePoints");
             researchVM.PropertyChangedNotify("VM_CorrFeaturesPoints");            
+        }
+
+        private void Refresh_Clicked(object sender, RoutedEventArgs e)
+        {
+            listBox_SelectionChanged(listBox, null);
         }
     }
 }

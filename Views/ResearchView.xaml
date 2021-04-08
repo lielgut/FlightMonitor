@@ -29,16 +29,13 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
-                <oxy:Plot Title="{Binding VM_SelectedFeature}" Margin="0 0 10 0" Width="200" TitleFontSize="10" Background="Transparent">
-                    <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
-                    </oxy:Plot.Series>
-                </oxy:Plot>
-
-                <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" TitleFontSize="10" Background="Transparent">
+                <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
                     <oxy:Plot.Series>
                         <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}"/>
                     </oxy:Plot.Series>
+                </oxy:Plot>
+                <oxy:Plot Title="{Binding VM_SelectedFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
                 </oxy:Plot>
             </StackPanel>
 
@@ -48,6 +45,9 @@
                     <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
                 </oxy:Plot.Series>
             </oxy:Plot>
+            <Button Content="zoom in" HorizontalAlignment="Left" Margin="248,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92"/>
+            <Button Content="zoom out" HorizontalAlignment="Left" Margin="248,47,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92"/>
+            <Button Content="refresh" HorizontalAlignment="Left" Margin="248,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="92" Click="Refresh_Clicked"/>
 
             <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
         </Grid>
