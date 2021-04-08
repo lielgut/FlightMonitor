@@ -264,6 +264,11 @@ namespace ex1.Model
             return research.getFeaturesList();
         }
 
+        public List<int> getAnomaliesList(String featureName)
+        {
+            return research.getAnomaliesList(featureName);
+        }
+
         public List<DataPoint> getDataPoints(String featureName)
         {
             return research.getDataPoints(Timestep, featureName);

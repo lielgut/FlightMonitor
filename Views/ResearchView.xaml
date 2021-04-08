@@ -29,27 +29,43 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
+                <oxy:Plot Title="{Binding VM_SelectedFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
                 <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
                     <oxy:Plot.Series>
                         <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
-                <oxy:Plot Title="{Binding VM_SelectedFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
-                    <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
-                </oxy:Plot>
+
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
 
-                <oxy:Plot Width="300" x:Name="featuresPoints" Background="Transparent">
+                <oxy:Plot Width="305" x:Name="featuresPoints" Background="Transparent" Height="190">
                     <oxy:Plot.Series>
                         <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
                         <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
-                <StackPanel>
-                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <StackPanel Height="184">
+                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomIn_Click"/>
+                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomOut_Click"/>
                     <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Refresh_Clicked"/>
+                    <Label Content="drag right mouse&#xD;&#xA;button to move" FontSize="9" RenderTransformOrigin="0.489,0.551"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Anomalies" Height="25" FontSize="10"/>
+                    <ListBox x:Name="anomListbox" Grid.Column="0" Background="White" ItemsSource="{Binding VM_AnomaliesList, Mode=OneWay}" SelectionChanged="anomalies_SelectionChanged" Height="144" Width="62">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
 
             </StackPanel>

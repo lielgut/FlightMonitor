@@ -32,6 +32,7 @@ namespace ex1.Model
         public void reset();
         public String getCorrelative(String featureName);
         public List<String> getFeaturesList();
+        public List<int> getAnomaliesList(String featureName);
         public List<DataPoint> getDataPoints(String featureName);
         public List<ScatterPoint> getRecentScatterPoints(String featureName);
         public List<ScatterPoint> getRecentAnomalousPoints(String featureName);

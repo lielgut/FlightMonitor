@@ -16,8 +16,8 @@ namespace ex1.Model
             public String Correlated { get; set; }
             public List<DataPoint> DataPoints { get; set; }
             public List<ScatterPoint> Anomalies { get; set; }
+            public List<int> AnomaliesTimesteps { get; set; }
             public List<ScatterPoint> CorrPoints { get; set; }
-            // public List<bool> Anomalies { get; set; }
             public Annotation PlotAnnotation { get; set; }
             public float MinX { get; set; }
             public float MinY { get; set; }
@@ -28,8 +28,8 @@ namespace ex1.Model
                 Correlated = null;
                 DataPoints = new List<DataPoint>();
                 CorrPoints = new List<ScatterPoint>();
-                Anomalies = new List<ScatterPoint>();               
-                // Anomalies = new List<bool>();               
+                Anomalies = new List<ScatterPoint>();
+                AnomaliesTimesteps = new List<int>();             
                 PlotAnnotation = null;
             }
         }
@@ -141,6 +141,7 @@ namespace ex1.Model
                         {
                             rd.CorrPoints.Add(null);
                             rd.Anomalies.Add(new ScatterPoint(x, y, 2));
+                            rd.AnomaliesTimesteps.Add(i);
                         } else
                         {
                             rd.CorrPoints.Add(new ScatterPoint(x, y, 2));
@@ -185,7 +186,16 @@ namespace ex1.Model
         {
             return features;
         }
-         
+
+        public List<int> getAnomaliesList(String featureName)
+        {
+            if(featureName == null)
+            {
+                return null;
+            }
+            return dataDict[featureName].AnomaliesTimesteps;
+        }
+
         /*public bool isAnomalous(int timestep, string featureName)
         {
             return dataDict[featureName].Anomalies[timestep];

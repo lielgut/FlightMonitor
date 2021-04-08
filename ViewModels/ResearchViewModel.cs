@@ -51,6 +51,14 @@ namespace ex1.ViewModels
             }            
         }
 
+        public List<int> VM_AnomaliesList
+        {
+            get
+            {
+                return fc.getAnomaliesList(selectedFeature);
+            }
+        }
+
         public List<DataPoint> VM_FeaturePoints
         {
             get

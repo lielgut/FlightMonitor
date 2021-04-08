@@ -46,6 +46,10 @@ namespace ex1.Views
             researchVM.VM_SelectedFeature = selected;
 
             Annotation a = researchVM.fc.getFeatureAnnotation(selected);
+            if (a == null)
+            {
+                return;
+            }
             a.Layer = OxyPlot.Annotations.AnnotationLayer.BelowSeries;
             if (featuresPoints.Annotations.Count != 0)
                 featuresPoints.Annotations.RemoveAt(0);
@@ -62,13 +66,31 @@ namespace ex1.Views
             }                 
 
             researchVM.PropertyChangedNotify("VM_FeaturePoints");
+            researchVM.PropertyChangedNotify("VM_AnomaliesList");            
             researchVM.PropertyChangedNotify("VM_SecondFeaturePoints");
-            researchVM.PropertyChangedNotify("VM_CorrFeaturesPoints");            
+            researchVM.PropertyChangedNotify("VM_CorrFeaturesPoints");
+            researchVM.PropertyChangedNotify("VM_AnomalousPoints");
         }
 
         private void Refresh_Clicked(object sender, RoutedEventArgs e)
         {
             listBox_SelectionChanged(listBox, null);
+        }
+
+        private void ZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            featuresPoints.ZoomAllAxes(1.5);
+        }
+
+        private void ZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            featuresPoints.ZoomAllAxes(0.5);
+        }
+
+        private void anomalies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedTime = (int) (sender as ListBox).SelectedItem;
+            researchVM.fc.Timestep = selectedTime;
         }
     }
 }
