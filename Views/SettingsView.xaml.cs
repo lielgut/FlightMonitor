@@ -145,6 +145,7 @@ namespace ex1.Views
             settingsVM.fc.Paths.NormalCSVPath = normalFlightPath.Text;
             settingsVM.fc.Paths.NewCSVPath = newFlightPath.Text;
             reset();
+            MaterialMessageBox.Show("new files loaded succesfully");
         }
         private void ApplyDLL_Click(object sender, RoutedEventArgs e)
         {
@@ -155,7 +156,7 @@ namespace ex1.Views
             }
             settingsVM.fc.Paths.DLLPath = anomalyDetPath.Text;
             reset();
-
+            MaterialMessageBox.Show("new plugin loaded succesfully");
         }
 
         private void ApplyPort_Click(object sender, RoutedEventArgs e)
@@ -177,6 +178,7 @@ namespace ex1.Views
                 return;
             }
             settingsVM.fc.startClient();
+            MaterialMessageBox.Show("changed to new port");
         }
         private void reset()
         {

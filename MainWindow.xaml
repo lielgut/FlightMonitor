@@ -20,32 +20,29 @@
 
     <Grid Margin="10,10,10,10" Background="LightGray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
-        <TabControl Grid.Row="0" Grid.Column="1" Margin="2">
-            <TabItem x:Name="dataTab" Header="Data" Selector.Selected="TabSelected">
-                <Grid Background="#FFE5E5E5"/>
+        <TabControl Grid.Row="0" Margin="0" Background="WhiteSmoke" FontSize="15">
+            <TabItem x:Name="dataTab" Header="Data" Selector.Selected="TabSelected" Width="80">
+                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                    <views:DataView x:Name="dataView"/>
+                </Grid>
             </TabItem>
-            <TabItem x:Name="researchTab" Header="Research" Selector.Selected="TabSelected">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="researchTab" Header="Research" Selector.Selected="TabSelected" Width="80">
+                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                    <views:ResearchView x:Name="researchView"/>
+                </Grid>
             </TabItem>
-            <TabItem x:Name="settingsTab" Header="Settings" Selector.Selected="TabSelected">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem x:Name="settingsTab" Header="Settings" Selector.Selected="TabSelected" Width="80">
+                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                    <views:SettingsView x:Name="settingsView"/>
+                </Grid>
             </TabItem>
         </TabControl>
 
-        <ContentControl x:Name="selectedView" Grid.Row="1" Grid.Column="1" Margin="2">
-            <views:DataView x:Name="dataView"/>
-        </ContentControl>
-
-        <views:PlayerView x:Name="playerView" Grid.Row="2" Grid.ColumnSpan="2" Margin="2"/>
+        <views:PlayerView x:Name="playerView" Grid.Row="1" Margin="2"/>
 
     </Grid>
 
