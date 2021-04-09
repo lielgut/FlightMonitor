@@ -182,7 +182,7 @@
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <TextBlock Text="Elevator" Grid.Column="2" HorizontalAlignment="Center" Margin="-55,5,0,39" RenderTransformOrigin="0.5,0.5">
+                <TextBlock Text="Throttle" Grid.Column="2" HorizontalAlignment="Center" Margin="-55,5,0,39" RenderTransformOrigin="0.5,0.5">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <RotateTransform Angle="-90"/>
@@ -332,8 +332,9 @@
         </Grid>
         <Canvas Grid.Column="0">
             <StackPanel Canvas.Left="3" Canvas.Top="17">
-                <ProgressBar Height="30" Width="350" Maximum="10000" Value="{Binding VM_Altimeter, Mode=OneWay}" Orientation="Vertical"/>
+                <ProgressBar Height="30" Width="326" Maximum="10000" Value="{Binding VM_Altimeter, Mode=OneWay}" Orientation="Vertical"/>
                 <TextBlock Text="Altimeter"/>
+                <TextBlock Text="{Binding VM_Altimeter, Mode=OneWay}"/>
             </StackPanel>
         </Canvas>
     </Grid>
