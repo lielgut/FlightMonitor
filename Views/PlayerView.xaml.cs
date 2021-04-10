@@ -45,14 +45,12 @@ namespace ex1.Views
             if (playerVM.VM_IsPlaying)
             {
                 playerVM.fc.stop();
-                //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             }
             else
             {
                 if (playerVM.VM_Timestep == playerVM.VM_Length)
                     playerVM.VM_Timestep = 0;
                 playerVM.fc.start();
-                //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
         }
         private void FForward5_Click(object sender, RoutedEventArgs e)
@@ -101,7 +99,6 @@ namespace ex1.Views
             if (!playerVM.VM_IsPlaying && playerVM.VM_Timestep != playerVM.VM_Length)
             {
                 playerVM.fc.start();
-                //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
             playerVM.VM_Speed *= 4f;
         }
@@ -111,7 +108,6 @@ namespace ex1.Views
             playerVM.VM_Speed /= 4f;
             if (playerVM.VM_IsPlaying)
                 playerVM.fc.stop();
-            //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
         private void SkipBackward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -121,7 +117,6 @@ namespace ex1.Views
             if (!playerVM.VM_IsPlaying)
             {
                 playerVM.fc.start();
-                //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
             }
             playerVM.VM_Speed *= 4f;
         }
@@ -131,7 +126,6 @@ namespace ex1.Views
             playerVM.VM_Speed /= 4f;
             playerVM.VM_IsReverse = false;
             playerVM.fc.stop();
-            //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -139,7 +133,6 @@ namespace ex1.Views
             playerVM.VM_Timestep = 0;
             playerVM.fc.SendCurrentData();
             playerVM.fc.stop();
-            //playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
 
         private void SendData_DragStarted(object sender, DragStartedEventArgs e)
@@ -154,10 +147,6 @@ namespace ex1.Views
         }
         private void SendData_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            /*if (TimestepSlider.Value == playerVM.VM_Length)
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;*/
-
-
             if (wasPaused)
                 playerVM.fc.stop();
             
@@ -168,7 +157,6 @@ namespace ex1.Views
             if (TimestepSlider.Value == playerVM.VM_Length && playerVM.VM_IsPlaying)
             {
                 playerVM.fc.stop();
-                // playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             }
         }
     }
