@@ -6,13 +6,14 @@
              xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Height="400"
-             Width="600"       >
-    <Grid Background="WhiteSmoke">
+             Width="600"
+             Background="WhiteSmoke">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="listBox" Grid.Column="0" Background="White" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
+        <ListBox x:Name="listBox" Grid.Column="0" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -49,15 +50,15 @@
                         <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
-                <StackPanel Height="184">
-                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomIn_Click"/>
-                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ZoomOut_Click"/>
-                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Refresh_Clicked"/>
-                    <Label Content="drag right mouse&#xD;&#xA;button to move" FontSize="9" RenderTransformOrigin="0.489,0.551"/>
-                </StackPanel>
                 <StackPanel>
+                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Center" Click="ZoomIn_Click"/>
+                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Center" Click="ZoomOut_Click"/>
+                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Center" Click="Refresh_Clicked"/>
+                    <TextBlock Text="drag right mouse&#xD;&#xA;button to move" FontSize="9"/>
+                </StackPanel>
+                <StackPanel Margin="10 0 0 0">
                     <Label Content="Anomalies" Height="25" FontSize="10"/>
-                    <ListBox x:Name="anomListbox" Grid.Column="0" Background="White" ItemsSource="{Binding VM_AnomaliesList, Mode=OneWay}" SelectionChanged="anomalies_SelectionChanged" Height="144" Width="62">
+                    <ListBox x:Name="anomListbox" Grid.Column="0" ItemsSource="{Binding VM_AnomaliesList, Mode=OneWay}" SelectionChanged="anomalies_SelectionChanged" Height="144">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

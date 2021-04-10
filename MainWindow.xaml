@@ -18,13 +18,13 @@
         Title="FlightStat" Height="auto" Width="auto"
         ResizeMode="NoResize" Visibility="Visible">
 
-    <Grid Margin="10,10,10,10" Background="LightGray">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="0" Margin="0" Background="WhiteSmoke" FontSize="15">
+        <TabControl Grid.Row="0" Margin="0" FontSize="15">
             <TabItem x:Name="dataTab" Header="Data" Selector.Selected="TabSelected" Width="80">
                 <Grid Background="WhiteSmoke" Width="600" Height="400">
                     <views:DataView x:Name="dataView"/>
