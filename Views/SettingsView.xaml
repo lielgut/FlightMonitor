@@ -17,7 +17,7 @@
     <Grid>
         <StackPanel>
 
-            <TextBlock Text="Settings:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
+            <TextBlock Text="Settings:" Height="28" Margin="15 15 0 0" FontSize="16" FontWeight="Medium"/>
 
             <!--Load CSV files-->
             <Grid>
@@ -27,7 +27,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5">
+                    <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
                         <TextBox x:Name="normalFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="Load normal flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -36,7 +36,7 @@
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5">
+                    <StackPanel Orientation="Horizontal" Margin="15 5 0 0">
 
                         <TextBox x:Name="newFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="Load new flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -57,10 +57,10 @@
             <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
 
             <!--Load Anomaly Detection-->
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
                 <Label Content="Choose correlation threshold between 0-1:" VerticalAlignment="Bottom"/>
                 <TextBox x:Name="thresholdText" Width="85" materialDesign:HintAssist.Hint="threshold"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Bottom"/>
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -69,11 +69,11 @@
                 </Grid.ColumnDefinitions>
 
 
-                <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
                     <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
-                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
-                    <Button Height="50" Click="BrowseAnomaly_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                         materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10" Margin="0 5 0 0"/>
+                    <Button Height="50" Click="BrowseAnomaly_Click" FontSize="8" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0"  Margin="0 5 0 0">
                         <materialDesign:PackIcon Kind="FileCog" Width="30" Height="30"/>
                     </Button>
 
@@ -95,7 +95,7 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
                     <TextBox x:Name="portnum" Text="{Binding VM_Port, Mode=OneTime}" Width="200" materialDesign:HintAssist.Hint="Change port number"
                  VerticalAlignment="Center" materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
