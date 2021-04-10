@@ -34,10 +34,10 @@ namespace ex1.Views
                 settingsVM = value;
             }
         }
+
         public SettingsView()
         {
             InitializeComponent();
-            DataContext = settingsVM;
         }
 
 
@@ -70,22 +70,23 @@ namespace ex1.Views
 
             if (!File.Exists(settingsVM.fc.Paths.FGPath + @"\bin\fgfs.exe"))
             {
-                MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in the FlightGear installation folder.");
+                MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in FlightGear installation folder.");
                 return;
             }
+            int pn;
             try
             {
-                int pn = Int32.Parse(portnum.Text);
+                pn = Int32.Parse(portnum.Text);
                 if (pn < 1024 || pn > 65535)
                 {
-                    MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                    MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535.");
                     return;
                 }
                 settingsVM.fc.changePort(pn);
             }
             catch (System.FormatException)
             {
-                MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
+                MaterialMessageBox.ShowError("Invalid input for port number.");
                 return;
             }
             Process[] pname = Process.GetProcessesByName("fgfs");
@@ -94,7 +95,7 @@ namespace ex1.Views
                 CustomMaterialMessageBox msg = new CustomMaterialMessageBox
                 {
                     TxtTitle = { Text = "Warning", Foreground = Brushes.White },
-                    TxtMessage = { Text = "We've detected that a FlightGear process (fgfs.exe) is already running, press \"Cancel\" and close the program or click \"Kill FG\"", Foreground = Brushes.Black },
+                    TxtMessage = { Text = "FlightGear is already running, please close it and try again.", Foreground = Brushes.Black },
                     BtnOk = { Content = "Kill FG" },
                     BtnCancel = { Content = "Cancel" },
                     MainContentControl = { Background = Brushes.WhiteSmoke },
@@ -114,7 +115,7 @@ namespace ex1.Views
             }
             try
             {
-                ProcessStartInfo psi = new ProcessStartInfo(settingsVM.fc.Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + portnum + ",tcp,playback_small --fdm=null");
+                ProcessStartInfo psi = new ProcessStartInfo(settingsVM.fc.Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + pn + ",tcp,playback_small --fdm=null --timeofday=morning");
                 psi.WorkingDirectory = settingsVM.fc.Paths.FGPath + @"\data";
                 Process.Start(psi);
 
@@ -184,24 +185,30 @@ namespace ex1.Views
 
         private void ApplyPort_Click(object sender, RoutedEventArgs e)
         {
-            settingsVM.fc.endClient();
+            int pn;
             try
             {
-                int pn = Int32.Parse(portnum.Text);
+                pn = Int32.Parse(portnum.Text);
                 if (pn < 1024 || pn > 65535)
                 {
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
                 }
-                settingsVM.fc.changePort(pn);
+                
             }
+
             catch (System.FormatException)
             {
                 MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                 return;
             }
-            settingsVM.fc.startClient();
-            MaterialMessageBox.Show("changed to new port");
+
+            settingsVM.fc.endClient();
+            settingsVM.fc.changePort(pn);
+            if(settingsVM.fc.startClient())
+                MaterialMessageBox.Show("Connected to new port");
+            else
+                MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");
         }
         private void reset()
         {

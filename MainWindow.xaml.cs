@@ -23,12 +23,8 @@ namespace ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        IFlightControl fc;
         internal MainWindow(IFlightControl fc)
-        {
-            this.fc = fc;
-            // ConfigWindow cw = new ConfigWindow(this, fc);
-            // cw.Show();
+        {    
             InitializeComponent();
 
             PlayerViewModel pvm = new PlayerViewModel(fc); ;
@@ -45,6 +41,7 @@ namespace ex1
 
             SettingsViewModel svm = new SettingsViewModel(fc);
             settingsView.SettingsVM = svm;
+            settingsView.DataContext = svm;
         }
 
         private void TabSelected(object sender, RoutedEventArgs e)

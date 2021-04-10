@@ -227,9 +227,8 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#FF21CECE"></Border>
                     <Image Source="/images/compass.png" Width="160" Height="160" RenderTransformOrigin="0.5,0.5"/>
-                    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="0 100" Foreground="White" FontSize="10">
+                    <TextBlock Grid.Row="0" TextAlignment="Center" Padding="0 100" Foreground="White" FontSize="12">
                         Heading<LineBreak/>Degree
-
                     </TextBlock>
                     <Image Grid.RowSpan="2" Margin="0 0 0 0" Source="/images/comapss_indicator.png" Width="110" Height="110" RenderTransformOrigin="0.5,0.5">
                         <Image.RenderTransform>

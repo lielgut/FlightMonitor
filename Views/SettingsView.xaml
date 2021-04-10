@@ -17,12 +17,12 @@
     <Grid>
         <StackPanel>
 
-            <TextBlock Text="Settings:" Height="28" Margin="15 15 0 0" FontSize="16" FontWeight="Medium"/>
+            <TextBlock Text="Settings" Height="28" Margin="15 15 0 0" FontSize="16" FontWeight="Medium"/>
 
             <!--Load CSV files-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel>
@@ -45,7 +45,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Column="1" Margin="10 0" Click="ApplyCSV_Click">
+                <Button Grid.Column="1" Margin="0 0 40 0" Click="ApplyCSV_Click">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock Text="Apply" VerticalAlignment="Center"/>
@@ -64,7 +64,7 @@
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -79,7 +79,7 @@
 
                 </StackPanel>
 
-                <Button Grid.Column="1" Margin="10 0" Click="ApplyDLL_Click">
+                <Button Grid.Column="1" Margin="0 0 40 0" Click="ApplyDLL_Click">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock Text="Apply" VerticalAlignment="Center"/>
@@ -92,30 +92,28 @@
             <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
-                    <TextBox x:Name="portnum" Text="{Binding VM_Port, Mode=OneTime}" Width="200" materialDesign:HintAssist.Hint="Change port number"
+                    <TextBox x:Name="portnum" Width="200" materialDesign:HintAssist.Hint="Change port number"
                  VerticalAlignment="Center" materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
-            <Button x:Name="LaunchFGButton" Margin="15" Click="LaunchFG_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Launch FlightGear" FontSize="12" VerticalAlignment="Center"/>
-                    <materialDesign:PackIcon Margin="10 0 0 0" Kind="AirplaneTakeoff" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="LaunchFGButton" Margin="15 0 0 0" Click="LaunchFG_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Launch FlightGear" FontSize="12" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Margin="10 0 0 0" Kind="AirplaneTakeoff" Width="25" Height="25" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
-            </Button>
-                </StackPanel>
-                <Button Grid.Column="1" Margin="10 0" Click="ApplyPort_Click">
+                <Button Grid.Column="1" Margin="0 0 40 0" Click="ApplyPort_Click" Background="SeaGreen" BorderBrush="DarkGreen">
                     <StackPanel Orientation="Horizontal">
 
-                        <TextBlock Text="Apply" VerticalAlignment="Center"/>
-                        <materialDesign:PackIcon Kind="CheckBold" Margin="5 0 0 0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Connect" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon Kind="ArrowRightCircle" Margin="5 0 0 0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </Grid>
-            <!--Separator-->
-            <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -19,15 +19,15 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2">
 
-            <TextBlock Text="Configurations:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
+            <TextBlock Text="Configurations" Height="28" Margin="15 15 0 0" FontSize="16" FontWeight="Medium"/>
 
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 0 15 5" Height="37">
                 <Label Content="Choose correlation threshold between 0-1:" VerticalAlignment="Bottom" FontSize="13"/>
                 <TextBox x:Name="thresholdText" Width="85" materialDesign:HintAssist.Hint="threshold"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Bottom"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
                 <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -36,7 +36,7 @@
                 </Button>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
 
                 <TextBox x:Name="normalFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="Load normal flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -45,7 +45,7 @@
                 </Button>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
 
                 <TextBox x:Name="newFlightPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="Load new flight CSV" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -55,7 +55,7 @@
             </StackPanel>
 
 
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
 
                 <TextBox x:Name="fgPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
                          materialDesign:HintAssist.Hint="FlightGear installation folder" Width="300" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -63,10 +63,10 @@
                     <materialDesign:PackIcon Kind="FolderOpen" Width="30" Height="30"/>
                 </Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="5">
+            <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
 
                 <Label Content="Choose port number:" VerticalAlignment="Bottom"/>
-                <TextBox x:Name="portnum" Width="60" TextChanged="portnum_TextChanged" materialDesign:HintAssist.Hint="Port number"
+                <TextBox x:Name="portnum" Width="60" TextChanged="portnum_TextChanged"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center"/>
                 <Button Margin="30 0 0 0" Click="LaunchFG_Click">
                     <StackPanel Orientation="Horizontal">
@@ -76,10 +76,10 @@
                 </Button>
             </StackPanel>
 
-            <Label Content="or copy the following lines into the settings tab in FlightGear and press fly:" Margin="5 10 0 0" Height="27" FontSize="11"/>
-            <StackPanel Orientation="Horizontal" Margin="5 0 0 0">
+            <Label Content="or copy the following settings to FlightGear and press fly:" Margin="5 10 0 0" Height="27" FontSize="11"/>
+            <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
 
-                <TextBox x:Name="fgSetting"  TextWrapping="Wrap" Width="320" Height="65" VerticalScrollBarVisibility="Auto"/>
+                <TextBox x:Name="fgSetting"  TextWrapping="Wrap" Width="307" Height="65" VerticalScrollBarVisibility="Auto"/>
 
                 <StackPanel Margin="5">
 

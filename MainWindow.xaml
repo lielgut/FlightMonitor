@@ -26,17 +26,17 @@
 
         <TabControl Grid.Row="0" Margin="0" FontSize="15">
             <TabItem x:Name="dataTab" Header="Data" Selector.Selected="TabSelected" Width="80">
-                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                <Grid Background="WhiteSmoke" Width="650" Height="450">
                     <views:DataView x:Name="dataView"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="researchTab" Header="Research" Selector.Selected="TabSelected" Width="80">
-                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                <Grid Background="WhiteSmoke" Width="650" Height="450">
                     <views:ResearchView x:Name="researchView"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="settingsTab" Header="Settings" Selector.Selected="TabSelected" Width="80">
-                <Grid Background="WhiteSmoke" Width="600" Height="400">
+                <Grid Background="WhiteSmoke" Width="650" Height="450">
                     <views:SettingsView x:Name="settingsView"/>
                 </Grid>
             </TabItem>

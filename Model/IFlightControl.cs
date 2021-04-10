@@ -12,11 +12,9 @@ namespace ex1.Model
     {
         float Speed { get; set; }
         int Timestep { get; set; }
-        int PrevTimestep { get; set; }
         int NumLines { get; set; }
         bool IsReverse { get; set; }
         bool Stop { get; set; }
-        bool IsConnected { get; set; }
         PathInfo Paths { get; }
         public void start();
         public void stop();

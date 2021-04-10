@@ -7,6 +7,7 @@ using System.Xml;
 using OxyPlot;
 using OxyPlot.Wpf;
 using OxyPlot.Series;
+using BespokeFusion;
 
 namespace ex1.Model
 {
@@ -35,7 +36,6 @@ namespace ex1.Model
             }
             set
             {
-                PrevTimestep = this.timestep;
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
@@ -65,8 +65,6 @@ namespace ex1.Model
                 }
             }
         }
-
-        public int PrevTimestep { get; set; }
 
         private int numLines;
         public int NumLines
@@ -114,19 +112,6 @@ namespace ex1.Model
         {
             get { return paths; }
         }
-        private bool isConnected = false;
-        public bool IsConnected
-        {
-            get
-            {
-                return isConnected;
-            }
-            set
-            {
-                isConnected = value;
-                PropertyChangedNotify("IsConnected");
-            }
-        }
 
         private Pilot pilot;
         private IFlightData flightdata;
@@ -157,8 +142,8 @@ namespace ex1.Model
                 {
                     if(!pilot.sendCurrentData(Timestep))
                     {
-                        IsConnected = false;
                         Stop = true;
+                        MaterialMessageBox.ShowError("disconnected from server. Please reconnect via settings.");
                         break;
                     }
                     if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
@@ -253,8 +238,7 @@ namespace ex1.Model
         }
         public bool startClient()
         {
-            IsConnected = pilot.startClient();
-            return IsConnected;
+            return pilot.startClient();
         }
 
         public void endClient()

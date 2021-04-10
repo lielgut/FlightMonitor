@@ -28,7 +28,7 @@ namespace ex1.Model
 
         public SimpleClient()
         {
-            this.cl = new TcpClient();
+            this.cl = null;
             this.enc = new ASCIIEncoding();
         }
 
@@ -36,6 +36,7 @@ namespace ex1.Model
         {
             try
             {
+                cl = new TcpClient();
                 cl.Connect("127.0.0.1", destPort);
                 this.stream = cl.GetStream();
                 return true;
