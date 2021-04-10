@@ -32,12 +32,12 @@
 
                 <oxy:Plot Title="{Binding VM_SelectedFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
+                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}" Color="MediumPurple"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
                 <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}"/>
+                        <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}" Color="MediumPurple"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
@@ -47,14 +47,14 @@
                 <oxy:Plot Width="305" x:Name="featuresPoints" Background="Transparent" Height="190">
                     <oxy:Plot.Series>
                         <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
-                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle"/>
+                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="DarkSlateGray"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
-                <StackPanel>
+                <StackPanel Margin="0 10">
                     <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Center" Click="ZoomIn_Click"/>
                     <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Center" Click="ZoomOut_Click"/>
                     <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Center" Click="Refresh_Clicked"/>
-                    <TextBlock Text="drag right mouse&#xD;&#xA;button to move" FontSize="9"/>
+                    <TextBlock Text="drag right mouse button to move" FontSize="9" MaxWidth="60" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Margin="10 0 0 0">
                     <Label Content="Anomalies" Height="25" FontSize="10"/>
