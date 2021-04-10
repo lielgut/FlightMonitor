@@ -33,6 +33,18 @@ namespace ex1.Model
                 PlotAnnotation = null;
             }
         }
+        private float corrThreshold;
+        public float CorrThreshold
+        {
+            get
+            {
+                return corrThreshold;
+            }
+            set
+            {
+                corrThreshold = value;
+            }
+        }
 
         private List<String> features;
         public Research()
@@ -115,7 +127,7 @@ namespace ex1.Model
 
             // load and analyze data from CSV files
             MethodInfo loadFlightData = detectorType.GetMethod("loadFlightData");
-            loadFlightData.Invoke(detector, new object[] { pathReg, pathNew });
+            loadFlightData.Invoke(detector, new object[] { pathReg, pathNew, CorrThreshold });
 
             // learn correlated features, plot models, anomalies
             MethodInfo getCorrFeature = detectorType.GetMethod("getCorrFeature");

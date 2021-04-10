@@ -255,6 +255,11 @@ namespace ex1.Model
             pilot.endClient();
         }
 
+        public void setThreshold(float threshold)
+        {
+            research.CorrThreshold = threshold;
+        }
+
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
         {
             research.analyzeData(normalFlightPath, newFlightPath, anomalyDetPath);

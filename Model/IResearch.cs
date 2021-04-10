@@ -10,6 +10,7 @@ namespace ex1.Model
 {
     interface IResearch
     {
+        public float CorrThreshold { get; set; }
         public void addFeature(string featureName);
         public String getFeature(int i);
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);

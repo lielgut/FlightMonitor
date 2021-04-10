@@ -154,9 +154,32 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Please select anomaly detection dll.");
                 return;
             }
-            settingsVM.fc.Paths.DLLPath = anomalyDetPath.Text;
+            if (thresholdText.Text == "")
+            {
+                MaterialMessageBox.ShowError("Please choose a correlation threshold.");
+                return;
+            }
+
+            float threshold;
+            try
+            {
+                threshold = float.Parse(thresholdText.Text);
+                if (threshold <= 0 || threshold >= 1)
+                {
+                    MaterialMessageBox.ShowError("Threshold value must be larger than 0 and smaller than 1.");
+                    return;
+                }
+                settingsVM.fc.setThreshold(threshold);
+            }
+            catch (System.FormatException)
+            {
+                MaterialMessageBox.ShowError("Invalid input for threshold value. Please enter a number between 0-1.");
+                return;
+            }
+
+            settingsVM.fc.Paths.DLLPath = anomalyDetPath.Text;            
             reset();
-            MaterialMessageBox.Show("new plugin loaded succesfully");
+            MaterialMessageBox.Show("plugin loaded succesfully");
         }
 
         private void ApplyPort_Click(object sender, RoutedEventArgs e)
@@ -185,7 +208,6 @@ namespace ex1.Views
             settingsVM.fc.reset();
             settingsVM.fc.loadData(settingsVM.fc.Paths.NewCSVPath);
             settingsVM.fc.analyzeData(settingsVM.fc.Paths.NormalCSVPath, settingsVM.fc.Paths.NewCSVPath, settingsVM.fc.Paths.DLLPath);
-
         }
 
     }

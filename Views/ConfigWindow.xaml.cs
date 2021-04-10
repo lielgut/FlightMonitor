@@ -62,6 +62,28 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Please select anomaly detection dll.");
                 return;
             }
+            if (thresholdText.Text == "")
+            {
+                MaterialMessageBox.ShowError("Please choose a correlation threshold.");
+                return;
+            }
+
+            float threshold;
+            try
+            {
+                threshold = float.Parse(thresholdText.Text);
+                if(threshold <= 0 || threshold >= 1)
+                {
+                    MaterialMessageBox.ShowError("Threshold value must be larger than 0 and smaller than 1.");
+                    return;
+                }
+                fc.setThreshold(threshold);
+            }
+            catch (System.FormatException)
+            {
+                MaterialMessageBox.ShowError("Invalid input for threshold value. Please enter a number between 0-1.");
+                return;
+            }
 
             try
             {
@@ -98,6 +120,7 @@ namespace ex1.Views
 
             fc.loadFeatures("..//..//..//Resources//playback_small.xml");
             fc.loadData(newFlightPath.Text);
+            
             fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
 
 

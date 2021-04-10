@@ -57,11 +57,18 @@
             <Separator Style="{StaticResource MaterialDesignDarkSeparator}" />
 
             <!--Load Anomaly Detection-->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Choose correlation threshold between 0-1:" VerticalAlignment="Bottom"/>
+                <TextBox x:Name="thresholdText" Width="85" materialDesign:HintAssist.Hint="threshold"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Bottom"/>
+            </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
+
                 <StackPanel Orientation="Horizontal" Margin="5">
 
                     <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
@@ -71,6 +78,7 @@
                     </Button>
 
                 </StackPanel>
+
                 <Button Grid.Column="1" Margin="10 0" Click="ApplyDLL_Click">
                     <StackPanel Orientation="Horizontal">
 

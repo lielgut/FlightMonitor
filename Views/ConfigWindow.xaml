@@ -19,6 +19,13 @@
         <StackPanel>
 
             <TextBlock Text="Configurations:" Height="28" Margin="5 0 0 0" FontSize="16" FontWeight="Medium"/>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Choose correlation threshold between 0-1:" VerticalAlignment="Bottom"/>
+                <TextBox x:Name="thresholdText" Width="85" materialDesign:HintAssist.Hint="threshold"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            
             <StackPanel Orientation="Horizontal" Margin="5">
 
                 <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" 
@@ -27,7 +34,6 @@
                     <materialDesign:PackIcon Kind="FileCog" Width="30" Height="30"/>
                 </Button>
             </StackPanel>
-
 
             <StackPanel Orientation="Horizontal" Margin="5">
 

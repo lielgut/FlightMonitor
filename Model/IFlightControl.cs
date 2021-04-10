@@ -28,6 +28,7 @@ namespace ex1.Model
         public bool SendCurrentData();
         public bool startClient();
         public void endClient();
+        public void setThreshold(float threshold);
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);
         public void reset();
         public String getCorrelative(String featureName);
