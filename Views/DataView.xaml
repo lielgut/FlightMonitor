@@ -332,7 +332,7 @@
         </Grid>
         <Canvas Grid.Column="0">
             <StackPanel Canvas.Left="3" Canvas.Top="17">
-                <ProgressBar Height="30" Width="326" Maximum="10000" Value="{Binding VM_Altimeter, Mode=OneWay}" Orientation="Vertical"/>
+                <ProgressBar Height="30" Width="326" Maximum="10000" Value="{Binding VM_Altimeter, Mode=OneWay}" Orientation="Vertical" Background="#FFCEC1E3"/>
                 <TextBlock Text="Altimeter"/>
                 <TextBlock Text="{Binding VM_Altimeter, Mode=OneWay}"/>
             </StackPanel>
