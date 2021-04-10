@@ -56,6 +56,22 @@ namespace ex1.ViewModels
                 return sMinutes + ":" + sSeconds;
             }
         }
+
+        public MaterialDesignThemes.Wpf.PackIconKind VM_PlayIcon
+        {
+            get
+            {
+                if(fc.Stop)
+                {
+                    return MaterialDesignThemes.Wpf.PackIconKind.Play;
+                }
+                else
+                {
+                    return MaterialDesignThemes.Wpf.PackIconKind.Pause;
+                }
+            }
+        }
+
         public PlayerViewModel(IFlightControl fc) : base(fc) { }
 
     }

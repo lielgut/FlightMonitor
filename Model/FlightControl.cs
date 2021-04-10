@@ -98,7 +98,15 @@ namespace ex1.Model
         public bool Stop
         {
             get { return stop; }
-            set { stop = value; }
+            set
+            {
+                stop = value;
+                /*if(stop)
+                {
+                    thread.Join(); 
+                }*/
+                PropertyChangedNotify("PlayIcon");
+            }
         }
 
         private PathInfo paths;
@@ -142,7 +150,7 @@ namespace ex1.Model
 
         public void start()
         {
-            stop = false;
+            Stop = false;
             this.thread = new Thread(delegate ()
             {
                 while (!stop)
@@ -150,12 +158,12 @@ namespace ex1.Model
                     if(!pilot.sendCurrentData(Timestep))
                     {
                         IsConnected = false;
-                        stop = true;
+                        Stop = true;
                         break;
                     }
                     if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
                     {
-                        stop = true;
+                        Stop = true;
                         break;
                     }
                     Timestep += (IsReverse ? -1 : 1);
@@ -167,8 +175,7 @@ namespace ex1.Model
 
         void IFlightControl.stop()
         {
-            stop = true;
-            thread.Join();
+            Stop = true;
         }
         public void PropertyChangedNotify(string prop)
         {

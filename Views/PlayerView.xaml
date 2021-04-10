@@ -41,7 +41,7 @@
                     <materialDesign:PackIcon Kind="Stop"/>
                 </Button>
                 <Button Margin="5" Click="Play_Click" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                    <materialDesign:PackIcon x:Name="playPauseIcon" Kind="Play"/>
+                    <materialDesign:PackIcon x:Name="playPauseIcon" Kind="{Binding VM_PlayIcon}"/>
                 </Button>
                 <Button Margin="5"  PreviewMouseLeftButtonUp="FForward_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FForward_MouseLeftButtonDown">
                     <materialDesign:PackIcon Kind="FastForward"/>
