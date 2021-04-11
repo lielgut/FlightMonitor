@@ -11,6 +11,7 @@
     <None Remove="images\comapss_indicator.png" />
     <None Remove="images\compass.png" />
     <None Remove="images\flightgear.png" />
+    <None Remove="images\FlightMonitor.png" />
     <None Remove="images\Pitch_airplane_black.png" />
     <None Remove="images\Pitch_airplane_white.png" />
     <None Remove="images\Roll_airplane_black.png" />
@@ -31,6 +32,7 @@
     <Resource Include="images\comapss_indicator.png" />
     <Resource Include="images\compass.png" />
     <Resource Include="images\flightgear.png" />
+    <Resource Include="images\FlightMonitor.png" />
     <Resource Include="images\Pitch_airplane_black.png" />
     <Resource Include="images\Pitch_airplane_white.png" />
     <Resource Include="images\Roll_airplane_black.png" />

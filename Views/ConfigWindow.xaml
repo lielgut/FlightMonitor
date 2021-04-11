@@ -96,6 +96,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2">
             <Button x:Name="DoneButton" Content="Done" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
         </StackPanel>
+        <Image Source="/images/FlightMonitor.png" VerticalAlignment="Top" Stretch="UniformToFill" Margin="23,10,23,0" Height="111" Grid.Column="2"/>
 
     </Grid>
 </Window>
