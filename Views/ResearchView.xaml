@@ -47,7 +47,7 @@
                 <oxy:Plot Width="305" x:Name="featuresPoints" Background="Transparent" Height="190">
                     <oxy:Plot.Series>
                         <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
-                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="DarkSlateGray"/>
+                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="ForestGreen"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
                 <StackPanel Margin="0 10">
@@ -68,9 +68,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
-
             </StackPanel>
-            <!--<oxy:PlotView Model="{Binding VM_Plot}" Margin="172,187,151,23" Background="Transparent"/>-->
         </Grid>
 
     </Grid>
