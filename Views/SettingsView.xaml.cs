@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Threading;
 
 namespace ex1.Views
 {
@@ -24,9 +25,15 @@ namespace ex1.Views
             }
         }
 
+        private MediaPlayer mp;
+        private bool isMpPlaying;
+
         public SettingsView()
         {
             InitializeComponent();
+            mp = new MediaPlayer();
+            mp.Open(new Uri(@"..\..\..\Resources\surprise.mp3", UriKind.Relative));
+            isMpPlaying = false;
         }
 
 
@@ -211,5 +218,18 @@ namespace ex1.Views
             settingsVM.AnalyzeData();
         }
 
+        private void EasterEgg_Click(object sender, RoutedEventArgs e)
+        {
+            if(!isMpPlaying)
+            {                
+                mp.Play();
+                isMpPlaying = true;
+            }
+            else
+            {
+                mp.Pause();
+                isMpPlaying = false;
+            }
+        }        
     }
 }
