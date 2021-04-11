@@ -7,12 +7,14 @@ namespace ex1.ViewModels
 {
     class DataViewModel : ViewModel
     {
+        public DataViewModel(IFlightControl model) : base(model) { }
+
         public float VM_Throttle
         {
             get
             {
                 // -120 for going up in the Y axis, the values of throttle are 0-1.
-                return (float)Math.Round(fc.getCurrentData("throttle")*(-120),2);
+                return (float)Math.Round(Model.getCurrentData("throttle")*(-120),2);
             }
         }
         public float VM_Rudder
@@ -20,35 +22,35 @@ namespace ex1.ViewModels
             get
             {
                 // I assume the data is 0-1, max value we can achieve is 120, min is 0.
-                return (float)Math.Round(fc.getCurrentData("rudder")*120,2);
+                return (float)Math.Round(Model.getCurrentData("rudder")*120,2);
             }
         }
         public float VM_Aileron
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("aileron")*80,2);
+                return (float)Math.Round(Model.getCurrentData("aileron")*80,2);
             }
         }
         public float VM_Elevator
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("elevator")*80,2);
+                return (float)Math.Round(Model.getCurrentData("elevator")*80,2);
             }
         }
         public float VM_Altimeter
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("altimeter_indicated-altitude-ft"),2);
+                return (float)Math.Round(Model.getCurrentData("altimeter_indicated-altitude-ft"),2);
             }
         }
         public float VM_Airspeed
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("airspeed-kt"),2);
+                return (float)Math.Round(Model.getCurrentData("airspeed-kt"),2);
             }
         }
         public float VM_SpeedToAngle
@@ -65,31 +67,29 @@ namespace ex1.ViewModels
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("heading-deg"),2);
+                return (float)Math.Round(Model.getCurrentData("heading-deg"),2);
             }
         }
         public float VM_PitchDeg
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("pitch-deg"),2);
+                return (float)Math.Round(Model.getCurrentData("pitch-deg"),2);
             }
         }
         public float VM_RollDeg
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("roll-deg"),2);
+                return (float)Math.Round(Model.getCurrentData("roll-deg"),2);
             }
         }
         public float VM_SideSlipDeg
         {
             get
             {
-                return (float)Math.Round(fc.getCurrentData("side-slip-deg"),2);
+                return (float)Math.Round(Model.getCurrentData("side-slip-deg"),2);
             }
-        }
-
-        public DataViewModel(IFlightControl fc) : base(fc) { }        
+        }             
     }
 }

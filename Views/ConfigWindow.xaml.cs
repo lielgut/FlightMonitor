@@ -11,7 +11,6 @@ namespace ex1.Views
 {
     public partial class ConfigWindow : Window
     {
-        // private MainWindow mw;
         private SettingsViewModel SettingsVM;
         
         public ConfigWindow()

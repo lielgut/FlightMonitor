@@ -9,7 +9,7 @@ namespace ex1.ViewModels
 {
     class ResearchViewModel : ViewModel
     {
-        public ResearchViewModel(IFlightControl fc) : base(fc) { }
+        public ResearchViewModel(IFlightControl model) : base(model) { }
 
         private String selectedFeature;
         public String VM_SelectedFeature
@@ -34,7 +34,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }
-                String corr = fc.getCorrelative(selectedFeature);
+                String corr = Model.getCorrelative(selectedFeature);
                 if(corr == null)
                 {
                     return "no correlative feature";
@@ -47,7 +47,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getFeaturesList();
+                return Model.getFeaturesList();
             }            
         }
 
@@ -55,7 +55,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getAnomaliesList(selectedFeature);
+                return Model.getAnomaliesList(selectedFeature);
             }
         }
 
@@ -63,7 +63,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                List<DataPoint> l = fc.getDataPoints(selectedFeature);
+                List<DataPoint> l = Model.getDataPoints(selectedFeature);
                 if(l == null)
                 {
                     return null;
@@ -81,7 +81,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }
-                List<DataPoint> l = fc.getDataPoints(corrFeature);
+                List<DataPoint> l = Model.getDataPoints(corrFeature);
                 if (l == null)
                 {
                     return null;
@@ -98,7 +98,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }        
-                return fc.getRecentScatterPoints(selectedFeature);
+                return Model.getRecentScatterPoints(selectedFeature);
             }
         }
 
@@ -110,7 +110,7 @@ namespace ex1.ViewModels
                 {
                     return null;
                 }
-                return fc.getRecentAnomalousPoints(selectedFeature);
+                return Model.getRecentAnomalousPoints(selectedFeature);
             }
         }
 
@@ -118,7 +118,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getFeatureAnnotation(VM_SelectedFeature);
+                return Model.getFeatureAnnotation(VM_SelectedFeature);
             }
         }
 
@@ -126,7 +126,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getMinX(VM_SelectedFeature);
+                return Model.getMinX(VM_SelectedFeature);
             }
         }
 
@@ -134,7 +134,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getMaxX(VM_SelectedFeature);
+                return Model.getMaxX(VM_SelectedFeature);
             }
         }
 
@@ -142,7 +142,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getMinY(VM_SelectedFeature);
+                return Model.getMinY(VM_SelectedFeature);
             }
         }
 
@@ -150,7 +150,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                return fc.getMaxY(VM_SelectedFeature);
+                return Model.getMaxY(VM_SelectedFeature);
             }
         }
 
@@ -158,8 +158,13 @@ namespace ex1.ViewModels
         {
             set
             {
-                fc.Timestep = value;
+                Model.Timestep = value;
             }
+        }
+
+        public void update()
+        {
+            Model.SendCurrentData();
         }
 
     }

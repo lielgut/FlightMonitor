@@ -7,27 +7,27 @@ namespace ex1.ViewModels
 {
     class PlayerViewModel : ViewModel
     {
-        public PlayerViewModel(IFlightControl fc) : base(fc) { }
+        public PlayerViewModel(IFlightControl model) : base(model) { }
 
         public bool VM_IsPlaying
         {
-            get { return !fc.Stop; }
-            set { fc.Stop = !value; }
+            get { return !Model.Stop; }
+            set { Model.Stop = !value; }
         }
         public float VM_Speed
         {
-            get { return fc.Speed; }
-            set { fc.Speed = value;  }
+            get { return Model.Speed; }
+            set { Model.Speed = value;  }
         }
         public bool VM_IsReverse
         {
-            get { return fc.IsReverse; }
-            set { fc.IsReverse = value; }
+            get { return Model.IsReverse; }
+            set { Model.IsReverse = value; }
         }
         public int VM_Timestep
         {
-            get { return fc.Timestep; }
-            set { fc.Timestep = value; }
+            get { return Model.Timestep; }
+            set { Model.Timestep = value; }
         }
         public string VM_Minute
         {
@@ -44,7 +44,7 @@ namespace ex1.ViewModels
         }
         public int VM_Length
         {
-            get { return fc.NumLines - 1; }
+            get { return Model.NumLines - 1; }
         }
         public string VM_MaxTime
         {
@@ -63,7 +63,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                if(fc.Stop)
+                if(Model.Stop)
                 {
                     return MaterialDesignThemes.Wpf.PackIconKind.Play;
                 }
@@ -76,17 +76,17 @@ namespace ex1.ViewModels
 
         public void start()
         {
-            fc.start();
+            Model.start();
         }
 
         public void stop()
         {
-            fc.stop();
+            Model.stop();
         }
 
         public void update()
         {
-            fc.SendCurrentData();
+            Model.SendCurrentData();
         }      
 
     }

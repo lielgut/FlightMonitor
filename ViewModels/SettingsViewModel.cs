@@ -7,13 +7,13 @@ namespace ex1.ViewModels
 {
     class SettingsViewModel : ViewModel
     {
-        public SettingsViewModel(IFlightControl fc) : base(fc) { }
+        public SettingsViewModel(IFlightControl model) : base(model) { }
 
         public PathInfo VM_Paths
         {
             get
             {
-                return fc.Paths;
+                return Model.Paths;
             }
         }
 
@@ -21,7 +21,7 @@ namespace ex1.ViewModels
         {
             set
             {
-                fc.DestPort = value;
+                Model.DestPort = value;
             }
         }
 
@@ -29,43 +29,43 @@ namespace ex1.ViewModels
         {
             set
             {
-                fc.Threshold = value;
+                Model.Threshold = value;
             }
         }
 
         public bool StartClient()
         {
-            return fc.startClient();
+            return Model.startClient();
         }
 
         public void EndClient()
         {
-            fc.endClient();
+            Model.endClient();
         }
 
         public void Reset()
         {
-            fc.reset();
+            Model.reset();
         }
 
         public void LoadFeatures(String path)
         {
-            fc.loadFeatures(path);
+            Model.loadFeatures(path);
         }
 
         public void LoadData()
         {
-            fc.loadData(VM_Paths.NewCSVPath);
+            Model.loadData(VM_Paths.NewCSVPath);
         }
 
         public void AnalyzeData()
         {
-            fc.analyzeData(VM_Paths.NormalCSVPath, VM_Paths.NewCSVPath, VM_Paths.DLLPath);
+            Model.analyzeData(VM_Paths.NormalCSVPath, VM_Paths.NewCSVPath, VM_Paths.DLLPath);
         }
 
         public MainWindow LoadMainWindow()
         {
-            return new MainWindow(fc);
+            return new MainWindow(Model);
         }
     }
 }

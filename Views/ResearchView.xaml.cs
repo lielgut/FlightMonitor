@@ -76,7 +76,10 @@ namespace ex1.Views
         {
             object selectedTime = (sender as ListBox).SelectedItem;
             if(selectedTime != null)
-                researchVM.VM_CurrTimestep = (int) selectedTime;
+            {
+                researchVM.VM_CurrTimestep = (int)selectedTime;
+                researchVM.update();
+            }                
         }
     }
 }
