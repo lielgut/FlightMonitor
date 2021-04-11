@@ -125,8 +125,7 @@ namespace ex1.Views
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            
-            Clipboard.SetText(fgSetting.Text);
+            Clipboard.SetDataObject(fgSetting.Text);
             copied.Visibility = Visibility.Visible;
         }
 
