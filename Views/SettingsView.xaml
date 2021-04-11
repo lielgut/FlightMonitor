@@ -1,4 +1,4 @@
-﻿ <UserControl x:Class="ex1.Views.SettingsView"
+﻿<UserControl x:Class="ex1.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -59,18 +59,19 @@
             <!--Load Anomaly Detection-->
             <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
                 <Label Content="Choose correlation threshold between 0-1:" VerticalAlignment="Bottom"/>
-                
+
                 <TextBox x:Name="thresholdText" Width="70" materialDesign:HintAssist.Hint="threshold"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             </StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="11*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
 
 
-                <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
+                <StackPanel Orientation="Horizontal" Margin="15 10 0 0" Grid.ColumnSpan="2">
 
                     <TextBox x:Name="anomalyDetPath" TextWrapping="NoWrap" Height="auto"
                          materialDesign:HintAssist.Hint="Load anomaly detection dll" Width="300"  materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
@@ -80,7 +81,7 @@
 
                 </StackPanel>
 
-                <Button Grid.Column="1" Margin="0 10 40 0" Click="ApplyDLL_Click">
+                <Button Grid.Column="2" Margin="0,19,40,9" Click="ApplyDLL_Click">
                     <StackPanel Orientation="Horizontal">
 
                         <TextBlock Text="Apply" VerticalAlignment="Center"/>

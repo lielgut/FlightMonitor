@@ -136,6 +136,8 @@ namespace ex1.Views
             settingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
             reset();
             MaterialMessageBox.Show("new files loaded succesfully");
+            normalFlightPath.Text = "";
+            newFlightPath.Text = "";
         }
         private void ApplyDLL_Click(object sender, RoutedEventArgs e)
         {
@@ -170,6 +172,8 @@ namespace ex1.Views
             settingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;            
             reset();
             MaterialMessageBox.Show("plugin loaded succesfully");
+            anomalyDetPath.Text = "";
+            thresholdText.Text = "";
         }
 
         private void ApplyPort_Click(object sender, RoutedEventArgs e)
@@ -198,6 +202,7 @@ namespace ex1.Views
                 MaterialMessageBox.Show("Connected to new port");
             else
                 MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");
+            portnum.Text = "";
         }
         private void reset()
         {
