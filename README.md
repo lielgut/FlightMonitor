@@ -18,13 +18,6 @@ This is our project for "Advanced Programming 2" course in Bar-Ilan University. 
 - ### Visualizing Anomalies:
   - The research tab allows flight researches to analyze anomalies in a flight, by using another flight data for learning the correlation between different features, and using an anomaly detection algorithm which can be dynamically loadad via dll. The user can select a feature to present its values in a constantly updating graph, alongside its correlated feature if one exists. The correlation between the features is presented dynamically according to loaded algorithm (for example by showing a linear regression line or minimal circle). The values of the recent 30 seconds are presented with the anomalies highlighted in red. The user can see the list of timesteps during flight with anomalous values and choose to go back to these anytime.
   
-<!-- test -->
-```
-
-```
-- `hey`
----
-<!-- test -->
 
 ## Dependencies
 - Either the latest [FlightGear Simulator](https://www.flightgear.org/download/) or any older version from 2018.3.1 and above.
