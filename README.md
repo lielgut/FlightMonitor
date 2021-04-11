@@ -40,7 +40,7 @@ responsible for presenting the different views. The MainWindow class creates the
 - The playback_small.xml file which can be found in the "Resources" folder is required to be located at the data/protocol folder in FlightGear installation folder.
 - Latest version of [Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
 - .NET 5.0
-</br>
+
 #### Libraries used:
 - [MaterialDesignTheme](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit) v4.0
 - [MaterialMessageBox](https://github.com/denpalrius/Material-Message-Box) v4.0.2
