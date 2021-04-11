@@ -8,7 +8,7 @@ namespace ex1.Model
     {
         public int DestPort { get; set; }
         public bool connect();
-        public void send(string data);
+        public bool send(string data);
         public void close();
     }
 }

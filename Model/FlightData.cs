@@ -22,6 +22,8 @@ namespace ex1.Model
 
         public float getValue(string featureName, int timestep)
         {
+            if (timestep == data.Count || featureName == null)
+                return 0;
             return data[timestep][features[featureName]];
         }
         public void addFeature(string featureName, int column)
@@ -32,6 +34,11 @@ namespace ex1.Model
         public bool containsFeature(string featureName)
         {
             return features.ContainsKey(featureName);
+        }
+
+        public void reset()
+        {
+            data.Clear();
         }
     }
 }

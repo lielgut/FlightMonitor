@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using OxyPlot;
-using OxyPlot.Annotations;
+using OxyPlot.Wpf;
 using OxyPlot.Series;
+using BespokeFusion;
 
 namespace ex1.Model
 {
@@ -35,7 +36,6 @@ namespace ex1.Model
             }
             set
             {
-                PrevTimestep = this.timestep;
                 this.timestep = value;
                 PropertyChangedNotify("Timestep");
                 PropertyChangedNotify("Minute");
@@ -59,11 +59,12 @@ namespace ex1.Model
                     PropertyChangedNotify("RollDeg");
                     PropertyChangedNotify("SideSlipDeg");
                     PropertyChangedNotify("FeaturePoints");
+                    PropertyChangedNotify("SecondFeaturePoints");
+                    PropertyChangedNotify("CorrFeaturesPoints");
+                    PropertyChangedNotify("AnomalousPoints");
                 }
             }
         }
-
-        public int PrevTimestep { get; set; }
 
         private int numLines;
         public int NumLines
@@ -95,7 +96,45 @@ namespace ex1.Model
         public bool Stop
         {
             get { return stop; }
-            set { stop = value; }
+            set
+            {
+                stop = value;
+                /*if(stop)
+                {
+                    thread.Join(); 
+                }*/
+                PropertyChangedNotify("PlayIcon");
+            }
+        }
+
+        private PathInfo paths;
+        public PathInfo Paths
+        {
+            get { return paths; }
+        }
+
+        public int DestPort
+        {
+            get
+            {
+                return pilot.DestPort;
+            }
+            set
+            {
+                pilot.DestPort = value;
+            }
+        }
+
+        public float Threshold
+        {
+            get
+            {
+                return research.CorrThreshold;
+            }
+            set
+            {
+                research.CorrThreshold = value;
+            }
         }
 
         private Pilot pilot;
@@ -114,22 +153,28 @@ namespace ex1.Model
             this.pilot = new SimplePilot();
             this.flightdata = new FlightData();
             this.research = new Research();
+            this.paths = new PathInfo();
         }
 
 
         public void start()
         {
-            stop = false;
+            Stop = false;
             this.thread = new Thread(delegate ()
             {
                 while (!stop)
                 {
-                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines && !IsReverse))
+                    if(!pilot.sendCurrentData(Timestep))
                     {
-                        stop = true;
+                        Stop = true;
+                        MaterialMessageBox.ShowError("disconnected from server. Please reconnect via settings.");
                         break;
                     }
-                    pilot.sendCurrentData(Timestep);
+                    if ((Timestep == 0 && IsReverse) || (Timestep >= numLines - 1 && !IsReverse))
+                    {
+                        Stop = true;
+                        break;
+                    }
                     Timestep += (IsReverse ? -1 : 1);
                     Thread.Sleep((int)(100f / Math.Abs(Speed)));
                 }
@@ -139,14 +184,13 @@ namespace ex1.Model
 
         void IFlightControl.stop()
         {
-            stop = true;
-            thread.Join();
+            Stop = true;
         }
         public void PropertyChangedNotify(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-        
+
 
         public void loadFeatures(string xmlPath)
         {
@@ -198,18 +242,13 @@ namespace ex1.Model
             f.Close();
         }
 
-        public void changePort(int destPort)
-        {
-            this.pilot.changePort(destPort);
-        }
-
         public float getCurrentData(String feature)
         {
             return flightdata.getValue(feature, timestep);
         }
-        public void SendCurrentData()
+        public bool SendCurrentData()
         {
-            pilot.sendCurrentData(Timestep);
+            return pilot.sendCurrentData(Timestep);
         }
         public bool startClient()
         {
@@ -236,11 +275,57 @@ namespace ex1.Model
             return research.getFeaturesList();
         }
 
+        public List<int> getAnomaliesList(String featureName)
+        {
+            return research.getAnomaliesList(featureName);
+        }
+
         public List<DataPoint> getDataPoints(String featureName)
         {
             return research.getDataPoints(Timestep, featureName);
         }
 
+        public List<ScatterPoint> getRecentScatterPoints(String featureName)
+        {
+            return research.getRecentScatterPoints(Timestep, featureName);
+        }
 
+        public List<ScatterPoint> getRecentAnomalousPoints(String featureName)
+        {
+            return research.getRecentAnomalousPoints(Timestep, featureName);
+        }
+
+        public Annotation getFeatureAnnotation(String featureName)
+        {
+            return research.getFeatureAnnotation(featureName);
+        }
+
+        public double getMinX(String featureName)
+        {
+            return research.getMinX(featureName);
+        }
+
+        public double getMaxX(String featureName)
+        {
+            return research.getMaxX(featureName);
+        }
+
+        public double getMinY(String featureName)
+        {
+            return research.getMinY(featureName);
+        }
+
+        public double getMaxY(String featureName)
+        {
+            return research.getMaxY(featureName);
+        }
+
+        public void reset()
+        {
+            flightdata.reset();
+            pilot.reset();
+            research.reset();
+            Timestep = 0;
+        }
     }
 }

@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ex1.Views"             
+             xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Height="400"
-             Width="600"       >
-    <Grid Background="WhiteSmoke">
-        <ListBox x:Name="listBox" Margin="10,0,466,0" Background="White" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
+             Width="600"
+             Background="WhiteSmoke">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBox" Grid.Column="0" ItemsSource="{Binding VM_Features, Mode=OneWay}" SelectionChanged="listBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -18,15 +23,53 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
 
-        <oxy:Plot Title="{Binding VM_SelectedFeature}" Margin="155,20,237,233">
-            <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}"/>
-            </oxy:Plot.Series>
-        </oxy:Plot>
+                <oxy:Plot Title="{Binding VM_SelectedFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding VM_FeaturePoints}" Color="MediumPurple"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+                <oxy:Plot Title="{Binding VM_CorrFeature}" Width="200" Height="200" TitleFontSize="10" Background="Transparent">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding VM_SecondFeaturePoints}" Color="MediumPurple"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
 
-        <Label Content="{Binding VM_SelectedFeature}" HorizontalAlignment="Left" Margin="546,219,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding VM_CorrFeature}" HorizontalAlignment="Left" Margin="527,322,0,0" VerticalAlignment="Top"/>
-        
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <oxy:Plot Width="305" x:Name="featuresPoints" Background="Transparent" Height="190">
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="10" Title="{Binding VM_SelectedFeature}"/>
+                        <oxy:LinearAxis Position="Left" Minimum="0" Maximum="10" Title="{Binding VM_CorrFeature}"/>
+                    </oxy:Plot.Axes>
+                    <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
+                    <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="ForestGreen"/>
+                </oxy:Plot>
+                <StackPanel Margin="0 10">
+                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Center" Click="ZoomIn_Click" ToolTip="zoom in"/>
+                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Center" Click="ZoomOut_Click" ToolTip="zoom out"/>
+                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Center" Click="Refresh_Clicked" ToolTip="reset graph view"/>
+                    <TextBlock Text="drag right mouse button to move graph" FontSize="9" MaxWidth="60" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Margin="10 0 0 0">
+                    <Label Content="Anomalies" Height="25" FontSize="10"/>
+                    <ListBox x:Name="anomListbox" Grid.Column="0" ItemsSource="{Binding VM_AnomaliesList, Mode=OneWay}" SelectionChanged="anomalies_SelectionChanged" Height="144">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

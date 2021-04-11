@@ -8,12 +8,12 @@ namespace ex1.ViewModels
 {
     class ViewModel : INotifyPropertyChanged
     {
-        public IFlightControl fc;
+        protected IFlightControl Model;
         public event PropertyChangedEventHandler PropertyChanged;
-        public ViewModel(IFlightControl fc) 
+        public ViewModel(IFlightControl model) 
         {
-            this.fc = fc;
-            fc.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
+            this.Model = model;
+            model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
                 PropertyChangedNotify("VM_" + e.PropertyName);
             };

@@ -23,29 +23,43 @@ namespace ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        IFlightControl fc;
         internal MainWindow(IFlightControl fc)
-        {
-            this.fc = fc;
-            // ConfigWindow cw = new ConfigWindow(this, fc);
-            // cw.Show();
+        {    
             InitializeComponent();
 
             PlayerViewModel pvm = new PlayerViewModel(fc); ;
             playerView.PlayerVM = pvm;
             playerView.DataContext = pvm;
 
-            DataViewModel dvm = new DataViewModel(fc); ;
+            DataViewModel dvm = new DataViewModel(fc);
             dataView.DataVM = dvm;
             dataView.DataContext = dvm;
 
-            ResearchViewModel rvm = new ResearchViewModel(fc); ;
+            ResearchViewModel rvm = new ResearchViewModel(fc);
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
 
-            //Visibility = Visibility.Hidden;
+            SettingsViewModel svm = new SettingsViewModel(fc);
+            settingsView.SettingsVM = svm;
+            settingsView.DataContext = svm;
+        }
 
-            //fc.start();
+        private void TabSelected(object sender, RoutedEventArgs e)
+        {
+            TabItem selectedTab = sender as TabItem;
+            if(selectedTab != null)
+            {
+                switch(selectedTab.Name)
+                {
+                    case "dataTab":
+                    case "researchTab":
+                        playerView.Visibility = Visibility.Visible;
+                        break;
+                    case "settingsTab":
+                        playerView.Visibility = Visibility.Hidden;
+                        break;
+                }
+            }
         }
     }
 }

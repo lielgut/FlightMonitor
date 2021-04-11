@@ -28,7 +28,7 @@ namespace ex1.Model
 
         public SimpleClient()
         {
-            this.cl = new TcpClient();
+            this.cl = null;
             this.enc = new ASCIIEncoding();
         }
 
@@ -36,22 +36,31 @@ namespace ex1.Model
         {
             try
             {
+                cl = new TcpClient();
                 cl.Connect("127.0.0.1", destPort);
                 this.stream = cl.GetStream();
                 return true;
             }
-            catch (SocketException)
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        public void send(string data)
+        public bool send(string data)
         {
-            string s = data + "\r\n";
-            byte[] msg = enc.GetBytes(s);
-            stream.Write(msg, 0, msg.Length);
+            try
+            {
+                string s = data + "\r\n";
+                byte[] msg = enc.GetBytes(s);
+                stream.Write(msg, 0, msg.Length);
+                return true;
+            }
             // catch exception if server closes
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public void close()

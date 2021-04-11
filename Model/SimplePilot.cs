@@ -22,9 +22,14 @@ namespace ex1.Model
         }
 
         // TODO implement
-        public override void sendCurrentData(int timestep)
+        public override bool sendCurrentData(int timestep)
         {
-            cl.send(dataLines[timestep]);
+            return cl.send(dataLines[timestep]);
+        }
+
+        public override void reset()
+        {
+            dataLines.Clear();
         }
     }
 }

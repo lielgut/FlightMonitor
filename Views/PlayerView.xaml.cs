@@ -44,15 +44,13 @@ namespace ex1.Views
         {
             if (playerVM.VM_IsPlaying)
             {
-                playerVM.fc.stop();
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+                playerVM.stop();
             }
             else
             {
                 if (playerVM.VM_Timestep == playerVM.VM_Length)
                     playerVM.VM_Timestep = 0;
-                playerVM.fc.start();
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
+                playerVM.start();
             }
         }
         private void FForward5_Click(object sender, RoutedEventArgs e)
@@ -63,7 +61,7 @@ namespace ex1.Views
             else
                 // set to the last timestep
                 playerVM.VM_Timestep = playerVM.VM_Length;
-            playerVM.fc.SendCurrentData();
+            playerVM.update();
         }
 
         private void FRewind5_Click(object sender, RoutedEventArgs e)
@@ -73,7 +71,7 @@ namespace ex1.Views
                 playerVM.VM_Timestep -= 50;
             else
                 playerVM.VM_Timestep = 0;
-            playerVM.fc.SendCurrentData();
+            playerVM.update();
         }
 
         private void FForward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -100,8 +98,7 @@ namespace ex1.Views
         {
             if (!playerVM.VM_IsPlaying && playerVM.VM_Timestep != playerVM.VM_Length)
             {
-                playerVM.fc.start();
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
+                playerVM.start();
             }
             playerVM.VM_Speed *= 4f;
         }
@@ -110,8 +107,7 @@ namespace ex1.Views
         {
             playerVM.VM_Speed /= 4f;
             if (playerVM.VM_IsPlaying)
-                playerVM.fc.stop();
-            playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+                playerVM.stop();
         }
 
         private void SkipBackward_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -120,8 +116,7 @@ namespace ex1.Views
             playerVM.VM_IsReverse = true;
             if (!playerVM.VM_IsPlaying)
             {
-                playerVM.fc.start();
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Pause;
+                playerVM.start();
             }
             playerVM.VM_Speed *= 4f;
         }
@@ -130,23 +125,21 @@ namespace ex1.Views
         {
             playerVM.VM_Speed /= 4f;
             playerVM.VM_IsReverse = false;
-            playerVM.fc.stop();
-            playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            playerVM.stop();
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             playerVM.VM_Timestep = 0;
-            playerVM.fc.SendCurrentData();
-            playerVM.fc.stop();
-            playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            playerVM.update();
+            playerVM.stop();
         }
 
         private void SendData_DragStarted(object sender, DragStartedEventArgs e)
         {
             if (!playerVM.VM_IsPlaying)
             {
-                playerVM.fc.start();
+                playerVM.start();
                 wasPaused = true;
             }
             else
@@ -154,12 +147,8 @@ namespace ex1.Views
         }
         private void SendData_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            if (TimestepSlider.Value == playerVM.VM_Length)
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-
-
             if (wasPaused)
-                playerVM.fc.stop();
+                playerVM.stop();
             
         }
 
@@ -167,8 +156,7 @@ namespace ex1.Views
         {
             if (TimestepSlider.Value == playerVM.VM_Length && playerVM.VM_IsPlaying)
             {
-                playerVM.fc.stop();
-                playPauseIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+                playerVM.stop();
             }
         }
     }
