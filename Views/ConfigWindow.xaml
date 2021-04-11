@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.FontSize="10"
-        Title="FlightStat" Height="510" Width="670" ResizeMode="NoResize">
+        Title="FlightMonitor" Height="510" Width="670" ResizeMode="NoResize">
     <Window.Resources>
         <!--make all textboxes have the same style-->
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>

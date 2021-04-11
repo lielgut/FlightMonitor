@@ -15,7 +15,7 @@
         xmlns:views="clr-namespace:ex1.Views"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight"
-        Title="FlightStat" Height="auto" Width="auto"
+        Title="FlightMonitor" Height="auto" Width="auto"
         ResizeMode="NoResize" Visibility="Visible">
 
     <Grid>
