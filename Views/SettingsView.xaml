@@ -117,7 +117,7 @@
             </Grid>
         </StackPanel>
         <Button x:Name="easterButton" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="561,0,0,0" VerticalAlignment="Top" Click="EasterEgg_Click" Height="auto" Width="49">
-            <materialDesign:PackIcon Kind="Music" Background="MediumPurple" Width="15" Height="15"/>
+            <materialDesign:PackIcon Kind="Music" Foreground="MediumPurple" Opacity="0.3" Width="15" Height="15"/>
         </Button>
     </Grid>
 </UserControl>
