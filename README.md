@@ -17,7 +17,23 @@ This is our project for "Advanced Programming 2" course in Bar-Ilan University. 
   - The data tab in our program visually presents various data during the flight, such as altimeter, air speed, roll, pitch and yaw degrees, heading degree, the aileron, elevator, throttle and rudder controls.
 - ### Visualizing Anomalies:
   - The research tab allows flight researches to analyze anomalies in a flight, by using another flight data for learning the correlation between different features, and using an anomaly detection algorithm which can be dynamically loadad via dll. The user can select a feature to present its values in a constantly updating graph, alongside its correlated feature if one exists. The correlation between the features is presented dynamically according to loaded algorithm (for example by showing a linear regression line or minimal circle). The values of the recent 30 seconds are presented with the anomalies highlighted in red. The user can see the list of timesteps during flight with anomalous values and choose to go back to these anytime.
-  
+
+## Project Files
+The project files include the following:
+- The <b>Views</b> folder includes the multiple views in the project: DataView, PlayerView, ResearchView, SettingsView (UserControls) and also the configuration window (which is shown at startup). Each one includes both XAML and CS files.
+- The <b>ViewModels</b> folder includes all the ViewModel classes for the views above, which are responsible for the presentation logic. All of the view models extend the general ViewModel class.
+- The <b>Model</b> folder includes all of the classes and interfaces which are part of the program's model:
+  - The <b>IFlightControl</b> interface, implemented by <b>FlightControl</b>, is the facade of the program's model. It is contained within the different ViewModels and is responsible for the entire program logic by interacting with other classes in the model.
+  - The <b>IFlightData</b> interface, implemented by <b>FlightData</b>, is responsible for saving and returning the flight data.
+  - The <b>IClient</b> interface, implemented by <b>SimpleClient</b> is responsible for general client-server communication via TCP connection, in order to transfer the required data.
+  - The <b>Pilot</b> abstract class, inherited by the <b>SimplePilot</b> class, is responsible for saving the necessary lines from the CSV files and send them to the FlightGear server via the Client class which is contained as a member, in order to make the plane fly (hence its name). It is seperated from the Client class in order to seperate their responsibilities and keep the client more general.
+  - The <b>IResearch</b> interface, implemented by the <b>Research</b> class, is responsible for mapping between each feature and its necessary information saved in the inner <b>ResearchInfo</b> class (such as DataPoints used for the graphic represenation, correlative feature name, anomalies and the matching annotation), and for dynamically loading a dll plugin that is responsible for anomaly detection.
+  - The <b>PathInfo</b> class is responsible for saving the paths of loaded files.
+- The MainWindow class and XAML, which contain the user-controls
+responsible for presenting the different views. The MainWindow class creates the ViewModels neccesary for each view at its initialization.
+- The <b>Plugins</b> folder contains 2 DLL files, both written in C#. Each one is responsible for using a different anomaly detection algorithm and create its graphics accordingly - one by using linear regression (LinearReg.dll) and the other by using minimal circle algorithm (MinCircle.dll).
+- The <b>Resources</b> folder includes additional resources required for the project, such as the feature names and neccesary dll written in C++ which can be used by the loaded plugins. Loaded CSV files are also saved in this folder with the feature names appended.
+- The <b>images</b> folder contains images used in the project.
 
 ## Dependencies
 - Either the latest [FlightGear Simulator](https://www.flightgear.org/download/) or any older version from 2018.3.1 and above.
