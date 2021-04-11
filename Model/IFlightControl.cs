@@ -16,17 +16,16 @@ namespace ex1.Model
         bool IsReverse { get; set; }
         bool Stop { get; set; }
         PathInfo Paths { get; }
+        int DestPort { get; set; }
+        float Threshold { get; set; }
         public void start();
         public void stop();
         public void loadFeatures(string xmlPath);
         public void loadData(string csvPath);
-        public void changePort(int destPort);
-        public int getCurrentPort();
         public float getCurrentData(String feature);
         public bool SendCurrentData();
         public bool startClient();
         public void endClient();
-        public void setThreshold(float threshold);
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath);
         public void reset();
         public String getCorrelative(String featureName);

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using OxyPlot;
 using OxyPlot.Series;
 using ex1.Model;
+using OxyPlot.Wpf;
 
 namespace ex1.ViewModels
 {
@@ -111,6 +111,54 @@ namespace ex1.ViewModels
                     return null;
                 }
                 return fc.getRecentAnomalousPoints(selectedFeature);
+            }
+        }
+
+        public Annotation VM_Annotation
+        {
+            get
+            {
+                return fc.getFeatureAnnotation(VM_SelectedFeature);
+            }
+        }
+
+        public double VM_MinX
+        {
+            get
+            {
+                return fc.getMinX(VM_SelectedFeature);
+            }
+        }
+
+        public double VM_MaxX
+        {
+            get
+            {
+                return fc.getMaxX(VM_SelectedFeature);
+            }
+        }
+
+        public double VM_MinY
+        {
+            get
+            {
+                return fc.getMinY(VM_SelectedFeature);
+            }
+        }
+
+        public double VM_MaxY
+        {
+            get
+            {
+                return fc.getMaxY(VM_SelectedFeature);
+            }
+        }
+
+        public int VM_CurrTimestep
+        {
+            set
+            {
+                fc.Timestep = value;
             }
         }
 

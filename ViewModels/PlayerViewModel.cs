@@ -7,6 +7,8 @@ namespace ex1.ViewModels
 {
     class PlayerViewModel : ViewModel
     {
+        public PlayerViewModel(IFlightControl fc) : base(fc) { }
+
         public bool VM_IsPlaying
         {
             get { return !fc.Stop; }
@@ -72,7 +74,20 @@ namespace ex1.ViewModels
             }
         }
 
-        public PlayerViewModel(IFlightControl fc) : base(fc) { }
+        public void start()
+        {
+            fc.start();
+        }
+
+        public void stop()
+        {
+            fc.stop();
+        }
+
+        public void update()
+        {
+            fc.SendCurrentData();
+        }      
 
     }
 }

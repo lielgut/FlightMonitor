@@ -1,33 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.IO;
 using ex1.Model;
+using ex1.ViewModels;
 using BespokeFusion;
-using System.Threading;
 using System.Diagnostics;
 
 namespace ex1.Views
 {
-    /// <summary>
-    /// Interaction logic for ConfigWindow.xaml
-    /// </summary>
     public partial class ConfigWindow : Window
     {
         // private MainWindow mw;
-        private IFlightControl fc;
-
+        private SettingsViewModel SettingsVM;
+        
         public ConfigWindow()
         {
-            this.fc = new FlightControl();
+            this.SettingsVM = new SettingsViewModel(new FlightControl());
             InitializeComponent();
         }
 
@@ -77,7 +66,7 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Threshold value must be larger than 0 and smaller than 1.");
                     return;
                 }
-                fc.setThreshold(threshold);
+                SettingsVM.VM_Threshold = threshold;
             }
             catch (System.FormatException)
             {
@@ -93,7 +82,7 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
                 }
-                fc.changePort(pn);
+                SettingsVM.VM_DestPort = pn;
             }
             catch (System.FormatException)
             {
@@ -107,25 +96,23 @@ namespace ex1.Views
                 return;
                 
             }
-                if (!fc.startClient())
+                if (!SettingsVM.StartClient())
             {
                 MaterialMessageBox.ShowError("Server is inactive at specified port.\r\nPlease wait for FlightGear server to load or check settings");
                 return;
             }
 
-            fc.Paths.FGPath = fgPath.Text;
-            fc.Paths.NormalCSVPath = normalFlightPath.Text;
-            fc.Paths.NewCSVPath = newFlightPath.Text;
-            fc.Paths.DLLPath = anomalyDetPath.Text;
+            SettingsVM.VM_Paths.FGPath = fgPath.Text;
+            SettingsVM.VM_Paths.NormalCSVPath = normalFlightPath.Text;
+            SettingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
+            SettingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;
 
-            fc.loadFeatures("..//..//..//Resources//playback_small.xml");
-            fc.loadData(newFlightPath.Text);
+            SettingsVM.LoadFeatures("..//..//..//Resources//playback_small.xml");
+            SettingsVM.LoadData();
             
-            fc.analyzeData(normalFlightPath.Text, newFlightPath.Text, anomalyDetPath.Text);
+            SettingsVM.AnalyzeData();
 
-
-            MainWindow mw = new MainWindow(fc);
-            mw.Show();
+            SettingsVM.LoadMainWindow().Show();
             this.Close();
 
         }
@@ -194,7 +181,7 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
                 }
-                fc.changePort(pn);
+                SettingsVM.VM_DestPort = pn;
             }
             catch (System.FormatException)
             {

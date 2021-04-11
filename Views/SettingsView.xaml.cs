@@ -1,25 +1,14 @@
 ﻿using BespokeFusion;
 using ex1.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ex1.Views
 {
-    /// <summary>
-    /// Interaction logic for SettingsView.xaml
-    /// </summary>
     public partial class SettingsView : UserControl
     {
         private SettingsViewModel settingsVM;
@@ -68,7 +57,7 @@ namespace ex1.Views
         private void LaunchFG_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!File.Exists(settingsVM.fc.Paths.FGPath + @"\bin\fgfs.exe"))
+            if (!File.Exists(settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe"))
             {
                 MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in FlightGear installation folder.");
                 return;
@@ -82,7 +71,7 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535.");
                     return;
                 }
-                settingsVM.fc.changePort(pn);
+                settingsVM.VM_DestPort = pn;
             }
             catch (System.FormatException)
             {
@@ -115,8 +104,8 @@ namespace ex1.Views
             }
             try
             {
-                ProcessStartInfo psi = new ProcessStartInfo(settingsVM.fc.Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + pn + ",tcp,playback_small --fdm=null --timeofday=morning");
-                psi.WorkingDirectory = settingsVM.fc.Paths.FGPath + @"\data";
+                ProcessStartInfo psi = new ProcessStartInfo(settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + pn + ",tcp,playback_small --fdm=null --timeofday=morning");
+                psi.WorkingDirectory = settingsVM.VM_Paths.FGPath + @"\data";
                 Process.Start(psi);
 
             }
@@ -124,8 +113,8 @@ namespace ex1.Views
             {
                 MaterialMessageBox.ShowError("An error has occured, please make sure that FlightGear is installed properly.");
             }
-            settingsVM.fc.endClient();
-            settingsVM.fc.startClient();
+            settingsVM.EndClient();
+            settingsVM.StartClient();
 
 
         }
@@ -143,8 +132,8 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Please select new flight CSV file.");
                 return;
             }
-            settingsVM.fc.Paths.NormalCSVPath = normalFlightPath.Text;
-            settingsVM.fc.Paths.NewCSVPath = newFlightPath.Text;
+            settingsVM.VM_Paths.NormalCSVPath = normalFlightPath.Text;
+            settingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
             reset();
             MaterialMessageBox.Show("new files loaded succesfully");
         }
@@ -170,7 +159,7 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Threshold value must be larger than 0 and smaller than 1.");
                     return;
                 }
-                settingsVM.fc.setThreshold(threshold);
+                settingsVM.VM_Threshold = threshold;
             }
             catch (System.FormatException)
             {
@@ -178,7 +167,7 @@ namespace ex1.Views
                 return;
             }
 
-            settingsVM.fc.Paths.DLLPath = anomalyDetPath.Text;            
+            settingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;            
             reset();
             MaterialMessageBox.Show("plugin loaded succesfully");
         }
@@ -203,18 +192,18 @@ namespace ex1.Views
                 return;
             }
 
-            settingsVM.fc.endClient();
-            settingsVM.fc.changePort(pn);
-            if(settingsVM.fc.startClient())
+            settingsVM.EndClient();
+            settingsVM.VM_DestPort = pn;
+            if(settingsVM.StartClient())
                 MaterialMessageBox.Show("Connected to new port");
             else
                 MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");
         }
         private void reset()
         {
-            settingsVM.fc.reset();
-            settingsVM.fc.loadData(settingsVM.fc.Paths.NewCSVPath);
-            settingsVM.fc.analyzeData(settingsVM.fc.Paths.NormalCSVPath, settingsVM.fc.Paths.NewCSVPath, settingsVM.fc.Paths.DLLPath);
+            settingsVM.Reset();
+            settingsVM.LoadData();
+            settingsVM.AnalyzeData();
         }
 
     }

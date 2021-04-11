@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ex1.ViewModels;
 using OxyPlot.Wpf;
 
 namespace ex1.Views
 {
-    /// <summary>
-    /// Interaction logic for ResearchView.xaml
-    /// </summary>
     public partial class ResearchView : UserControl
     {
         private ResearchViewModel researchVM;
@@ -45,15 +33,15 @@ namespace ex1.Views
             String selected = (sender as ListBox).SelectedItem as String;
             researchVM.VM_SelectedFeature = selected;
 
-            Annotation a = researchVM.fc.getFeatureAnnotation(selected);
+            Annotation a = researchVM.VM_Annotation;
             featuresPoints.Annotations.Clear();
             if (a != null)
             {
                 a.Layer = OxyPlot.Annotations.AnnotationLayer.BelowSeries;                
                 featuresPoints.Annotations.Add(a);
 
-                double min = Math.Min(researchVM.fc.getMinX(selected), researchVM.fc.getMinY(selected));
-                double max = Math.Max(researchVM.fc.getMaxX(selected), researchVM.fc.getMaxY(selected));
+                double min = Math.Min(researchVM.VM_MinX, researchVM.VM_MinY);
+                double max = Math.Max(researchVM.VM_MaxX, researchVM.VM_MaxY);
                 double dist = max - min;
                 featuresPoints.Axes[0].Minimum = min - 0.25 * dist;
                 featuresPoints.Axes[0].Maximum = max + 0.25 * dist;
@@ -88,7 +76,7 @@ namespace ex1.Views
         {
             object selectedTime = (sender as ListBox).SelectedItem;
             if(selectedTime != null)
-                researchVM.fc.Timestep = (int) selectedTime;
+                researchVM.VM_CurrTimestep = (int) selectedTime;
         }
     }
 }

@@ -113,6 +113,30 @@ namespace ex1.Model
             get { return paths; }
         }
 
+        public int DestPort
+        {
+            get
+            {
+                return pilot.DestPort;
+            }
+            set
+            {
+                pilot.DestPort = value;
+            }
+        }
+
+        public float Threshold
+        {
+            get
+            {
+                return research.CorrThreshold;
+            }
+            set
+            {
+                research.CorrThreshold = value;
+            }
+        }
+
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
@@ -218,16 +242,6 @@ namespace ex1.Model
             f.Close();
         }
 
-        public void changePort(int destPort)
-        {
-            this.pilot.changePort(destPort);
-        }
-
-        public int getCurrentPort()
-        {
-            return this.pilot.getCurrentPort();
-        }
-
         public float getCurrentData(String feature)
         {
             return flightdata.getValue(feature, timestep);
@@ -244,11 +258,6 @@ namespace ex1.Model
         public void endClient()
         {
             pilot.endClient();
-        }
-
-        public void setThreshold(float threshold)
-        {
-            research.CorrThreshold = threshold;
         }
 
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)

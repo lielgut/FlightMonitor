@@ -8,7 +8,7 @@ namespace ex1.ViewModels
 {
     class ViewModel : INotifyPropertyChanged
     {
-        public IFlightControl fc;
+        protected IFlightControl fc;
         public event PropertyChangedEventHandler PropertyChanged;
         public ViewModel(IFlightControl fc) 
         {
