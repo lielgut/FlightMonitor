@@ -23,9 +23,7 @@ namespace ex1.Views
         public ResearchView()
         {
             InitializeComponent();
-            DataContext = researchVM;
-            featuresPoints.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 10, Position = OxyPlot.Axes.AxisPosition.Bottom });
-            featuresPoints.Axes.Add(new LinearAxis { Minimum = 0, Maximum = 10, Position = OxyPlot.Axes.AxisPosition.Left });
+            DataContext = researchVM;           
         }
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

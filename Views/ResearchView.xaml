@@ -43,18 +43,19 @@
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
-
                 <oxy:Plot Width="305" x:Name="featuresPoints" Background="Transparent" Height="190">
-                    <oxy:Plot.Series>
-                        <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
-                        <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="ForestGreen"/>
-                    </oxy:Plot.Series>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="10" Title="{Binding VM_SelectedFeature}"/>
+                        <oxy:LinearAxis Position="Left" Minimum="0" Maximum="10" Title="{Binding VM_CorrFeature}"/>
+                    </oxy:Plot.Axes>
+                    <oxy:ScatterSeries ItemsSource="{Binding VM_AnomalousPoints}" MarkerType="Circle" MarkerFill="Red"/>
+                    <oxy:ScatterSeries ItemsSource="{Binding VM_CorrFeaturesPoints}" MarkerType="Circle" MarkerFill="ForestGreen"/>
                 </oxy:Plot>
                 <StackPanel Margin="0 10">
-                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Center" Click="ZoomIn_Click"/>
-                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Center" Click="ZoomOut_Click"/>
-                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Center" Click="Refresh_Clicked"/>
-                    <TextBlock Text="drag right mouse button to move" FontSize="9" MaxWidth="60" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                    <Button Margin="5" Content="{materialDesign:PackIcon MagnifyPlusOutline}" HorizontalAlignment="Center" Click="ZoomIn_Click" ToolTip="zoom in"/>
+                    <Button  Margin="5" Content="{materialDesign:PackIcon MagnifyMinusOutline}" HorizontalAlignment="Center" Click="ZoomOut_Click" ToolTip="zoom out"/>
+                    <Button Margin="5" Content="{materialDesign:PackIcon Refresh}" HorizontalAlignment="Center" Click="Refresh_Clicked" ToolTip="reset graph view"/>
+                    <TextBlock Text="drag right mouse button to move graph" FontSize="9" MaxWidth="60" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Margin="10 0 0 0">
                     <Label Content="Anomalies" Height="25" FontSize="10"/>
@@ -70,6 +71,5 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-
     </Grid>
 </UserControl>

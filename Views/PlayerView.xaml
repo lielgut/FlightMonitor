@@ -31,30 +31,30 @@
 
             <!--Panel for buttons-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="5" PreviewMouseLeftButtonDown="SkipBackward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipBackward_MouseLeftButtonUp">
-                    <materialDesign:PackIcon Kind="SkipBackward"/>
-                </Button>
-                <Button Margin="5" PreviewMouseLeftButtonUp="FRewind_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FRewind_MouseLeftButtonDown">
-                    <materialDesign:PackIcon Kind="FastRewind"/>
-                </Button>
-                <Button Margin="5" Click="Stop_Click">
+                <Button Margin="5" Click="Stop_Click" ToolTip="return to start">
                     <materialDesign:PackIcon Kind="Stop"/>
                 </Button>
-                <Button Margin="5" Click="Play_Click" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+                <Button Margin="5" PreviewMouseLeftButtonDown="SkipBackward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipBackward_MouseLeftButtonUp" ToolTip="hold to rewind and pause">
+                    <materialDesign:PackIcon Kind="SkipBackward"/>
+                </Button>
+                <Button Margin="5" PreviewMouseLeftButtonUp="FRewind_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FRewind_MouseLeftButtonDown" ToolTip="hold to rewind while playing">
+                    <materialDesign:PackIcon Kind="FastRewind"/>
+                </Button>
+                <Button Margin="5" Click="Play_Click" Style="{StaticResource MaterialDesignFloatingActionDarkButton}" ToolTip="play / pause">
                     <materialDesign:PackIcon x:Name="playPauseIcon" Kind="{Binding VM_PlayIcon}"/>
                 </Button>
-                <Button Margin="5"  PreviewMouseLeftButtonUp="FForward_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FForward_MouseLeftButtonDown">
+                <Button Margin="5"  PreviewMouseLeftButtonUp="FForward_MouseLeftButtonUp" PreviewMouseLeftButtonDown="FForward_MouseLeftButtonDown" ToolTip="hold to fast forward while playing">
                     <materialDesign:PackIcon Kind="FastForward"/>
                 </Button>
-                <Button Margin="5" PreviewMouseLeftButtonDown="SkipForward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipForward_MouseLeftButtonUp">
+                <Button Margin="5" PreviewMouseLeftButtonDown="SkipForward_MouseLeftButtonDown" PreviewMouseLeftButtonUp="SkipForward_MouseLeftButtonUp" ToolTip="hold to fast forward and pause">
                     <materialDesign:PackIcon Kind="SkipForward"/>
                 </Button>
                 <StackPanel>
 
-                    <Button Margin="5 0 0 0" Click="FForward5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="25 25 0 0">
+                    <Button Margin="5 0 0 0" Click="FForward5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="25 25 0 0" ToolTip="click to skip 5 seconds">
                         <materialDesign:PackIcon Kind="FastForward5" />
                     </Button>
-                    <Button Margin="5 0 0 0" Click="FRewind5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="0 0 25 25">
+                    <Button Margin="5 0 0 0" Click="FRewind5_Click" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="0 0 25 25" ToolTip="click to go back 5 seconds">
                         <materialDesign:PackIcon Kind="Rewind5" />
                     </Button>
                 </StackPanel>
