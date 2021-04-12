@@ -63,7 +63,7 @@ When running the application you will be presented with the configuration window
 - <b>Normal flight CSV path</b> - a CSV file with data of a normal flight is required for the algorithm to learn which values are considered noraml, in order to later recognize anomalies.
 - <b>New flight CSV path</b> - a CSV file with data of the new flight you'd like to show on FlightGear, present its data and analyze it for anomalies detection.</br>
 <b>note:</b> both CSV files must be in a CSV format, without a line with the feature names, with values for each of the 42 features seperated by commas.
-
+- <b>XML file path</b> - a XML file with the names of the features. Use the playback_small.xml file in the resources folder.
 - <b>FlightGear installation folder</b> - The location where FlightGear is installed on your computer. Will be used to make sure the required playback_small.xml file is found in the proper location. You can also choose to launch FlightGear via the configuration window. (You have to specify a port which will be used for opening a FlightGear server). Alternatively you could launch FlightGear manually, and copy the settings presented in the configuration window to your FlightGear program before pressing "fly".<br>
 <b>FlightGear must be running at chosen port in order for the program to run.</b> These settings are used to open the FlightGear server, specifying the XML file for FlightGear to use 
 in order to map the values to its matching features. For easier viewing of the flight the time of the day setting is set to morning, but can be changed via FlightGear.

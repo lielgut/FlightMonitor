@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ex1.Views" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         TextElement.FontSize="10"
-        Title="FlightMonitor" Height="510" Width="670" ResizeMode="NoResize">
+        Title="FlightMonitor" Height="560" Width="670" ResizeMode="NoResize">
     <Window.Resources>
         <!--make all textboxes have the same style-->
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"/>
@@ -15,7 +15,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="93*"/>
             <ColumnDefinition Width="309*"/>
-            <ColumnDefinition Width="268*"/>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="207*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2">
 
@@ -51,6 +52,15 @@
                          materialDesign:HintAssist.Hint="Load new flight CSV" Width="300" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
                 <Button Height="48" Click="BrowseNew_Click" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
                     <materialDesign:PackIcon Kind="FileExcel" Width="30" Height="30"/>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="15 10 0 0">
+
+                <TextBox x:Name="xmlPath" TextWrapping="NoWrap" Height="auto"
+                         materialDesign:HintAssist.Hint="Load playback_small.xml" Width="300" materialDesign:TextFieldAssist.TextFieldCornerRadius="10 0 0 10"/>
+                <Button Height="48" Click="BrowseXml_Click" ToolTip="Browse" materialDesign:ButtonAssist.CornerRadius="0 10 10 0" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:PackIcon Kind="Xml" Width="30" Height="30"/>
                 </Button>
             </StackPanel>
 
@@ -92,11 +102,11 @@
             </StackPanel>
 
         </StackPanel>
-        <Image Source="/images/flightgear.png" Grid.Column="2" VerticalAlignment="Center" Stretch="UniformToFill"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2">
+        <Image Source="/images/flightgear.png" Grid.Column="2" VerticalAlignment="Center" Stretch="UniformToFill" Grid.ColumnSpan="2"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="3">
             <Button x:Name="DoneButton" Content="Done" Click="Button_Click" Width="81" Height="38" Grid.Column="1"/>
         </StackPanel>
-        <Image Source="/images/FlightMonitor.png" VerticalAlignment="Top" Stretch="UniformToFill" Margin="23,10,23,0" Height="111" Grid.Column="2"/>
+        <Image Source="/images/FlightMonitor.png" VerticalAlignment="Top" Stretch="UniformToFill" Margin="23,10,23,0" Height="111" Grid.Column="2" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

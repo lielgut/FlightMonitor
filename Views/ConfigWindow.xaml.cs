@@ -105,8 +105,9 @@ namespace ex1.Views
             SettingsVM.VM_Paths.NormalCSVPath = normalFlightPath.Text;
             SettingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
             SettingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;
+            SettingsVM.VM_Paths.XMLPath = xmlPath.Text;
 
-            SettingsVM.LoadFeatures("..//..//..//Resources//playback_small.xml");
+            SettingsVM.LoadFeatures();
             SettingsVM.LoadData();
             
             SettingsVM.AnalyzeData();
@@ -159,6 +160,14 @@ namespace ex1.Views
             anomalyDetPath.Text = browser.FileName;
         }
 
+        private void BrowseXml_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
+            browser.Filter = "Xml file (*.xml)|*.xml";
+            browser.ShowDialog();
+            xmlPath.Text = browser.FileName;
+        }
+
         private void LaunchFG_Click(object sender, RoutedEventArgs e)
         {
             if (fgPath.Text == "")
@@ -204,6 +213,5 @@ namespace ex1.Views
             }
             
         }
-
     }
 }

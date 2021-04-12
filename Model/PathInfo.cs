@@ -54,5 +54,17 @@ namespace ex1.Model
                 fgPath = value;
             }
         }
+        private String xmlPath;
+        public String XMLPath
+        {
+            get
+            {
+                return xmlPath;
+            }
+            set
+            {
+                xmlPath = value;
+            }
+        }
     }
 }

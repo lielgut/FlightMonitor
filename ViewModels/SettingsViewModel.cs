@@ -53,9 +53,9 @@ namespace ex1.ViewModels
             Model.reset();
         }
 
-        public void LoadFeatures(String path)
+        public void LoadFeatures()
         {
-            Model.loadFeatures(path);
+            Model.loadFeatures(VM_Paths.XMLPath);
         }
 
         public void LoadData()
