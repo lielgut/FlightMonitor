@@ -23,23 +23,23 @@ namespace ex1
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal MainWindow(IFlightControl fc)
+        internal MainWindow(IFlightControl model)
         {    
             InitializeComponent();
 
-            PlayerViewModel pvm = new PlayerViewModel(fc); ;
+            PlayerViewModel pvm = new PlayerViewModel(model); ;
             playerView.PlayerVM = pvm;
             playerView.DataContext = pvm;
 
-            DataViewModel dvm = new DataViewModel(fc);
+            DataViewModel dvm = new DataViewModel(model);
             dataView.DataVM = dvm;
             dataView.DataContext = dvm;
 
-            ResearchViewModel rvm = new ResearchViewModel(fc);
+            ResearchViewModel rvm = new ResearchViewModel(model);
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
 
-            SettingsViewModel svm = new SettingsViewModel(fc);
+            SettingsViewModel svm = new SettingsViewModel(model);
             settingsView.SettingsVM = svm;
             settingsView.DataContext = svm;
         }
