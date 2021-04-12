@@ -21,19 +21,19 @@ This is our project for "Advanced Programming 2" course in Bar-Ilan University. 
 ## Project Files
 The project files include the following:
 - The <b>Views</b> folder includes the multiple views in the project: DataView, PlayerView, ResearchView, SettingsView (UserControls) and also the configuration window (which is shown at startup). Each one includes both XAML and CS files.
-- The <b>ViewModels</b> folder includes all the ViewModel classes for the views above, which are responsible for the presentation logic. All of the view models extend the general ViewModel class.
+- The <b>ViewModels</b> folder includes all the ViewModel classes for the views above: DataViewModel, PlayerViewModel, ResearchViewModel and SettingsViewModel. All of the view models extend the general ViewModel class, and are responsible for presentation logic.
 - The <b>Model</b> folder includes all of the classes and interfaces which are part of the program's model:
-  - The <b>IFlightControl</b> interface, implemented by <b>FlightControl</b>, is the facade of the program's model. It is contained within the different ViewModels and is responsible for the entire program logic by interacting with other classes in the model.
-  - The <b>IFlightData</b> interface, implemented by <b>FlightData</b>, is responsible for saving and returning the flight data.
-  - The <b>IClient</b> interface, implemented by <b>SimpleClient</b> is responsible for general client-server communication via TCP connection, in order to transfer the required data.
-  - The <b>Pilot</b> abstract class, inherited by the <b>SimplePilot</b> class, is responsible for saving the necessary lines from the CSV files and send them to the FlightGear server via the Client class which is contained as a member, in order to make the plane fly (hence its name). It is seperated from the Client class in order to seperate their responsibilities and keep the client more general.
-  - The <b>IResearch</b> interface, implemented by the <b>Research</b> class, is responsible for mapping between each feature and its necessary information saved in the inner <b>ResearchInfo</b> class (such as DataPoints used for the graphic represenation, correlative feature name, anomalies and the matching annotation), and for dynamically loading a dll plugin that is responsible for anomaly detection.
-  - The <b>PathInfo</b> class is responsible for saving the paths of loaded files.
-- The MainWindow class and XAML, which contain the user-controls
-responsible for presenting the different views. The MainWindow class creates the ViewModels neccesary for each view at its initialization.
-- The <b>Plugins</b> folder contains 2 DLL files, both written in C#. Each one is responsible for using a different anomaly detection algorithm and create its graphics accordingly - one by using linear regression (LinearReg.dll) and the other by using minimal circle algorithm (MinCircle.dll).
-- The <b>Resources</b> folder includes additional resources required for the project, such as the feature names and neccesary dll written in C++ which can be used by the loaded plugins. Loaded CSV files are also saved in this folder with the feature names appended.
+  - The <b>IFlightControl</b> interface, implemented by the <b>FlightControl</b> class.
+  - The <b>IFlightData</b> interface, implemented by the <b>FlightData</b> class.
+  - The <b>IClient</b> interface, implemented by the <b>SimpleClient</b> class.
+  - The <b>Pilot</b> abstract class, inherited by the <b>SimplePilot</b> class.
+  - The <b>IResearch</b> interface, implemented by the <b>Research</b> class.
+  - The <b>PathInfo</b> class.
+- The <b>MainWindow</b> class and XAML.
+- The <b>Plugins</b> folder contains 2 DLL files, which are anomaly detection plugins that can be loaded into the program. Both were written in C# and use a dll written in C++. Each one is responsible for using a different anomaly detection algorithm and create its graphics accordingly. Additional info on plugins for the app can be found [here](docs/plugin.md).
+- The <b>Resources</b> folder includes additional resources required for the project (such as the feature names xml and neccesary dll written in C++).
 - The <b>images</b> folder contains images used in the project.
+#### Additional details on each class/interface can be found [here](docs/classesInfo.md).
 
 ## Dependencies
 - Either the latest [FlightGear Simulator](https://www.flightgear.org/download/) or any older version from 2018.3.1 and above.
@@ -44,7 +44,7 @@ responsible for presenting the different views. The MainWindow class creates the
 #### Libraries used:
 - [MaterialDesignTheme](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit) v4.0
 - [MaterialMessageBox](https://github.com/denpalrius/Material-Message-Box) v4.0.2
-- [OxyPlot](https://oxyplot.github.io/) v2.0
+- [OxyPlot.Wpf](https://oxyplot.github.io/) v2.0.0
 - Microsoft Expression Drawing v1.0
 
 ## Installation
@@ -58,13 +58,17 @@ then open the project via Visual Studio 2019, build and run the application.<br>
 
 ## Running & Usage
 When running the application you will be presented with the configuration window where you should enter the following:
-- Correlation threshold - a threshold by which the anomaly detection algorithm will determine which features are correlated.
-- Anomaly detection DLL path - the plugin that the application will use to learn correlations, detect and present the anomalies.
-- Normal flight CSV path - a CSV file with data of a normal flight is required for the algorithm to learn which values are considered noraml, in order to later recognize anomalies.
-- New flight CSV path - a CSV file with data of the new flight you'd like to show on FlightGear, present its data and analyze it for anomalies detection.</br>
-- FlightGear installation folder - The location where FlightGear is installed on your computer. Will be used to make sure the required playback_small.xml file is found in the proper location. You can also choose to launch FlightGear via the configuration window. (You have to specify a port which will be used for opening a FlightGear server). Alternatively you could launch FlightGear manually, and copy the settings presented in the configuration window to your FlightGear program before pressing "fly".<br>
+- <b>Correlation threshold</b> - a threshold by which the anomaly detection algorithm will determine which features are correlated.
+- <b>Anomaly detection DLL path</b> - the plugin that the application will use to learn correlations, detect and present the anomalies.
+- <b>Normal flight CSV path</b> - a CSV file with data of a normal flight is required for the algorithm to learn which values are considered noraml, in order to later recognize anomalies.
+- <b>New flight CSV path</b> - a CSV file with data of the new flight you'd like to show on FlightGear, present its data and analyze it for anomalies detection.</br>
+<b>note:</b> both CSV files must be in a CSV format, without a line with the feature names, with values for each of the 42 features seperated by commas.
+
+- <b>FlightGear installation folder</b> - The location where FlightGear is installed on your computer. Will be used to make sure the required playback_small.xml file is found in the proper location. You can also choose to launch FlightGear via the configuration window. (You have to specify a port which will be used for opening a FlightGear server). Alternatively you could launch FlightGear manually, and copy the settings presented in the configuration window to your FlightGear program before pressing "fly".<br>
 <b>FlightGear must be running at chosen port in order for the program to run.</b> These settings are used to open the FlightGear server, specifying the XML file for FlightGear to use 
 in order to map the values to its matching features. For easier viewing of the flight the time of the day setting is set to morning, but can be changed via FlightGear.
 
-## UML Chart
-![UML Chart](images/uml.svg)
+## Additional information
+- [More documentation and project UML](docs/classesInfo.md)
+- [How to implement a plugin for FlightMonitor](docs/plugin.md)
+- [User stories video](link)
