@@ -99,10 +99,6 @@ namespace ex1.Model
             set
             {
                 stop = value;
-                /*if(stop)
-                {
-                    thread.Join(); 
-                }*/
                 PropertyChangedNotify("PlayIcon");
             }
         }

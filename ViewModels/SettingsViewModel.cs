@@ -19,9 +19,14 @@ namespace ex1.ViewModels
 
         public int VM_DestPort
         {
+            get
+            {
+                return Model.DestPort;
+            }
             set
             {
                 Model.DestPort = value;
+                PropertyChangedNotify("VM_DestPort");
             }
         }
 

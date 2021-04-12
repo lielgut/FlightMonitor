@@ -179,7 +179,6 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
                 }
-                SettingsVM.VM_DestPort = pn;
             }
             catch (System.FormatException)
             {
@@ -189,7 +188,7 @@ namespace ex1.Views
             Process[] pname = Process.GetProcessesByName("fgfs");
             if (pname.Length > 0)
             {
-                MaterialMessageBox.ShowError("FlightGear is already running!");
+                MaterialMessageBox.ShowError("FlightGear is already running! please close it and try again.");
                 return;
             }
             try

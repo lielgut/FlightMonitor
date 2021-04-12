@@ -77,8 +77,7 @@ namespace ex1.Views
                 {
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535.");
                     return;
-                }
-                settingsVM.VM_DestPort = pn;
+                }                
             }
             catch (System.FormatException)
             {
@@ -119,11 +118,7 @@ namespace ex1.Views
             catch (Exception)
             {
                 MaterialMessageBox.ShowError("An error has occured, please make sure that FlightGear is installed properly.");
-            }
-            settingsVM.EndClient();
-            settingsVM.StartClient();
-
-
+            } 
         }
 
         private void ApplyCSV_Click(object sender, RoutedEventArgs e)
@@ -193,8 +188,7 @@ namespace ex1.Views
                 {
                     MaterialMessageBox.ShowError("Invalid port number.\r\nPlease enter a port between 1024-65535");
                     return;
-                }
-                
+                }                
             }
 
             catch (System.FormatException)
@@ -203,12 +197,16 @@ namespace ex1.Views
                 return;
             }
 
-            settingsVM.EndClient();
+            int oldPort = settingsVM.VM_DestPort;
+            settingsVM.EndClient();            
             settingsVM.VM_DestPort = pn;
             if(settingsVM.StartClient())
                 MaterialMessageBox.Show("Connected to new port");
             else
-                MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");
+            {
+                settingsVM.VM_DestPort = oldPort;
+                MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");                
+            }                
             portnum.Text = "";
         }
         private void reset()

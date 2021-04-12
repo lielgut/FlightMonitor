@@ -94,10 +94,15 @@
             <Separator Style="{StaticResource MaterialDesignDarkSeparator}" Margin="0 20"/>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="286*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="55*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="83*"/>
+                    <ColumnDefinition Width="150*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
+                <StackPanel Orientation="Horizontal" Margin="15,0,0,0" Grid.ColumnSpan="6">
 
                     <TextBox x:Name="portnum" Width="200" materialDesign:HintAssist.Hint="Change port number"
                  VerticalAlignment="Center" materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
@@ -108,7 +113,9 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                <Button Grid.Column="1" Margin="0 0 40 0" Click="ApplyPort_Click" Background="SeaGreen" BorderBrush="SeaGreen">
+                <Label Content="current port:" Margin="65,-19,0,0" Background="{x:Null}" Grid.ColumnSpan="2" Grid.Column="5"/>
+                <Label Content="{Binding VM_DestPort}" Margin="65,-19,0,0" FontWeight="Bold" Background="{x:Null}" Grid.Column="6"/>
+                <Button Grid.Column="6" Margin="0,9,40,9" Click="ApplyPort_Click" Background="SeaGreen" BorderBrush="SeaGreen">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Connect" VerticalAlignment="Center"/>
                         <materialDesign:PackIcon Kind="ArrowRightCircle" Margin="5 0 0 0" VerticalAlignment="Center"/>
