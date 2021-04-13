@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using OxyPlot;
 using OxyPlot.Wpf;
@@ -136,7 +137,7 @@ namespace ex1.Model
         private Pilot pilot;
         private IFlightData flightdata;
         private IResearch research;
-        Thread thread;
+        Task task;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public FlightControl()
@@ -156,7 +157,7 @@ namespace ex1.Model
         public void start()
         {
             Stop = false;
-            this.thread = new Thread(delegate ()
+            this.task = new Task(delegate ()
             {
                 while (!stop)
                 {
@@ -175,7 +176,7 @@ namespace ex1.Model
                     Thread.Sleep((int)(100f / Math.Abs(Speed)));
                 }
             });
-            thread.Start();
+            task.Start();
         }
 
         void IFlightControl.stop()
