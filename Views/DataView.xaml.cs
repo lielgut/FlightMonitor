@@ -1,40 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 using ex1.ViewModels;
 
 namespace ex1.Views
 {
-    /// <summary>
-    /// Interaction logic for DataView.xaml
-    /// </summary>
+    // the data view visually presents the properties that are found in the data view model
     public partial class DataView : UserControl
     {
-        private DataViewModel dataVM;
+        // the data view model is used for gettings values of presented data
+        private DataViewModel _dataVM;
         internal DataViewModel DataVM
         {
             get
             {
-                return dataVM;
+                return _dataVM;
             }
             set
             {
-                dataVM = value;
+                _dataVM = value;
             }
         }
+        // constructor for the data view
         public DataView()
         {
             InitializeComponent();
-            DataContext = dataVM;
         }
     }
 }

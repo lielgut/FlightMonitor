@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ex1.Model;
 
 namespace ex1.ViewModels
 {
+    // the DataViewModel is responsible for the presentation logic of the data view
     class DataViewModel : ViewModel
     {
+        // view model constructor (contains the model)
         public DataViewModel(IFlightControl model) : base(model) { }
 
         public float VM_Throttle
@@ -21,7 +21,7 @@ namespace ex1.ViewModels
         {
             get
             {
-                // I assume the data is 0-1, max value we can achieve is 120, min is 0.
+                // assuming the data is in range 0-1, maximum value is 120, minimum is 0.
                 return (float)Math.Round(Model.getCurrentData("rudder")*120,2);
             }
         }

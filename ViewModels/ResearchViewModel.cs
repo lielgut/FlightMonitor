@@ -7,10 +7,13 @@ using OxyPlot.Wpf;
 
 namespace ex1.ViewModels
 {
+    // the ResearchViewModel is responsible for the presentation logic of the research view
     class ResearchViewModel : ViewModel
     {
+        // view model constructor (contains the model)
         public ResearchViewModel(IFlightControl model) : base(model) { }
 
+        // currently selected feature from the list
         private String selectedFeature;
         public String VM_SelectedFeature
         {
@@ -21,11 +24,13 @@ namespace ex1.ViewModels
             set
             {
                 selectedFeature = value;
+                // notify selected feature and its correlative feature have changed
                 PropertyChangedNotify("VM_SelectedFeature");
                 PropertyChangedNotify("VM_CorrFeature");
             }
         }
 
+        // correlative feature to the selected feature
         public String VM_CorrFeature
         {
             get
@@ -43,6 +48,7 @@ namespace ex1.ViewModels
             }
         }               
 
+        // list of features
         public List<String> VM_Features
         {
             get
@@ -51,6 +57,7 @@ namespace ex1.ViewModels
             }            
         }
 
+        // list of timesteps with anomalies
         public List<int> VM_AnomaliesList
         {
             get
@@ -59,6 +66,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // list of selected feature's DataPoints for graph
         public List<DataPoint> VM_FeaturePoints
         {
             get
@@ -72,6 +80,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // list of DataPoints for graph of the correlative feature
         public List<DataPoint> VM_SecondFeaturePoints
         {
             get
@@ -90,6 +99,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // list of ScatterPoints for the graph of the recent 30 seconds
         public List<ScatterPoint> VM_CorrFeaturesPoints
         {
             get
@@ -102,6 +112,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // list of ScatterPoints of anomalies from the recent 30 seconds
         public List<ScatterPoint> VM_AnomalousPoints
         {
             get
@@ -114,6 +125,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // annotation to be presented in the graph
         public Annotation VM_Annotation
         {
             get
@@ -122,6 +134,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // minimal value for X-Axis
         public double VM_MinX
         {
             get
@@ -130,6 +143,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // maximal value for X-Axis
         public double VM_MaxX
         {
             get
@@ -138,6 +152,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // minimal value for Y-Axis
         public double VM_MinY
         {
             get
@@ -146,6 +161,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // maximal value for Y-Axis
         public double VM_MaxY
         {
             get
@@ -154,6 +170,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // current timestep of the flight
         public int VM_CurrTimestep
         {
             set
@@ -162,6 +179,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // update current frame in FlightGear
         public void update()
         {
             Model.SendCurrentData();

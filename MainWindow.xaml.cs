@@ -1,54 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ex1.ViewModels;
 using ex1.Model;
-using ex1.Views;
 
 namespace ex1
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    // The main window contains each view as a user-control and allows switching views with tab-control
     public partial class MainWindow : Window
     {
+        // constructor gets the model in order to create the view models for each view
         internal MainWindow(IFlightControl model)
         {    
             InitializeComponent();
 
+            // create player view model and set its data context
             PlayerViewModel pvm = new PlayerViewModel(model); ;
             playerView.PlayerVM = pvm;
             playerView.DataContext = pvm;
 
+            // create data view model and set its data context
             DataViewModel dvm = new DataViewModel(model);
             dataView.DataVM = dvm;
             dataView.DataContext = dvm;
 
+            // create research view model and set its data context
             ResearchViewModel rvm = new ResearchViewModel(model);
             researchView.ResearchVM = rvm;
             researchView.DataContext = rvm;
 
+            // create settings view model and set its data context
             SettingsViewModel svm = new SettingsViewModel(model);
             settingsView.SettingsVM = svm;
             settingsView.DataContext = svm;
         }
 
+        // event for when a new tab is selected
         private void TabSelected(object sender, RoutedEventArgs e)
         {
             TabItem selectedTab = sender as TabItem;
             if(selectedTab != null)
             {
+                // hide the player view if the settings tab was selected
                 switch(selectedTab.Name)
                 {
                     case "dataTab":

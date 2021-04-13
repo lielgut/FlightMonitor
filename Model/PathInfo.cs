@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ex1.Model
 {
+    // class for saving paths of files loaded by the program
     class PathInfo
     {
+
+        // path to normal flight CSV
         private String normalCSVPath;
         public String NormalCSVPath
         {
@@ -18,6 +19,8 @@ namespace ex1.Model
                 normalCSVPath = value;
             }
         }
+
+        // path to new flight CSV
         private String newCSVPath;
         public String NewCSVPath
         {
@@ -30,6 +33,8 @@ namespace ex1.Model
                 newCSVPath = value;
             }
         }
+
+        // path to dll plugin
         private String dllPath;
         public String DLLPath
         {
@@ -42,6 +47,8 @@ namespace ex1.Model
                 dllPath = value;
             }
         }
+
+        // FlightGear installation path
         private String fgPath;
         public String FGPath
         {
@@ -54,6 +61,8 @@ namespace ex1.Model
                 fgPath = value;
             }
         }
+
+        // XML file path (names of features)
         private String xmlPath;
         public String XMLPath
         {

@@ -1,34 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ex1.Model;
+﻿using ex1.Model;
 
 namespace ex1.ViewModels
 {
+    // the PlayerViewModel is responsible for the presentation logic of the player view
     class PlayerViewModel : ViewModel
     {
+        // view model constructor (contains the model)
         public PlayerViewModel(IFlightControl model) : base(model) { }
 
+        // is the player currently playing
         public bool VM_IsPlaying
         {
             get { return !Model.Stop; }
             set { Model.Stop = !value; }
         }
+
+        // playback speed of the player
         public float VM_Speed
         {
             get { return Model.Speed; }
             set { Model.Speed = value;  }
         }
+
+        // is the player currently playing in reverse
         public bool VM_IsReverse
         {
             get { return Model.IsReverse; }
             set { Model.IsReverse = value; }
         }
+
+        // current timestep of the flight
         public int VM_Timestep
         {
             get { return Model.Timestep; }
             set { Model.Timestep = value; }
         }
+
+        // current timestep converted to minutes
         public string VM_Minute
         {
             get
@@ -42,10 +50,14 @@ namespace ex1.ViewModels
                 return sMinutes + ":" + sSeconds;
             }
         }
+
+        // max value for player slider
         public int VM_Length
         {
             get { return Model.NumLines - 1; }
         }
+
+        // max timestep converted to minutes
         public string VM_MaxTime
         {
             get {
@@ -59,6 +71,7 @@ namespace ex1.ViewModels
             }
         }
 
+        // icon to be presented on the play button (play/pause)
         public MaterialDesignThemes.Wpf.PackIconKind VM_PlayIcon
         {
             get
@@ -74,16 +87,19 @@ namespace ex1.ViewModels
             }
         }
 
+        // start the player
         public void start()
         {
             Model.start();
         }
 
+        // stop the player
         public void stop()
         {
             Model.stop();
         }
 
+        // update current frame in FlightGear
         public void update()
         {
             Model.SendCurrentData();

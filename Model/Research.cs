@@ -9,20 +9,30 @@ using System.Linq;
 
 namespace ex1.Model
 {
+    // class for implementing the IResearch interface
     class Research : IResearch
     {
+        // nested class for saving information on each feature
         class ResearchData
         {
+            // name of correlated feature
             public String Correlated { get; set; }
+            // list of datapoints (x = time, y = value)
             public List<DataPoint> DataPoints { get; set; }
+            // list of ScatterPoints for anomalous correlation points
             public List<ScatterPoint> Anomalies { get; set; }
+            // list of timesteps with anomalies
             public List<int> AnomaliesTimesteps { get; set; }
+            // list of ScatterPoints for correlation points
             public List<ScatterPoint> CorrPoints { get; set; }
+            // annotation for feature
             public Annotation PlotAnnotation { get; set; }
+            // min/max x,y values
             public float MinX { get; set; }
             public float MinY { get; set; }
             public float MaxX { get; set; }
             public float MaxY { get; set; }
+            // constructor
             public ResearchData()
             {
                 Correlated = null;
@@ -33,6 +43,8 @@ namespace ex1.Model
                 PlotAnnotation = null;
             }
         }
+
+        // the pearson threshold by which features are considred correlative
         private float corrThreshold;
         public float CorrThreshold
         {
@@ -45,16 +57,20 @@ namespace ex1.Model
                 corrThreshold = value;
             }
         }
-
+        
+        // list of features
         private List<String> features;
+        // mapping features to their ResearchData
+        private Dictionary<String, ResearchData> dataDict;
+
+        // constructor
         public Research()
         {
             features = new List<String>();
             dataDict = new Dictionary<string, ResearchData>();
         }
-        private Dictionary<String, ResearchData> dataDict;
 
-
+        // add a new feature to list
         public void addFeature(string featureName)
         {
             features.Add(featureName);
@@ -62,22 +78,24 @@ namespace ex1.Model
             dataDict[featureName] = rd;
         }
 
+        // get a feature name of given column number
         public string getFeature(int i)
         {
             return features[i];
         }
 
+        // add given value at given column number
         public void addData(int featureNum, float val)
-        {
-            // dataDict[features[featureNum]].DataVector.Add(val);
+        {           
             List<DataPoint> l = dataDict[features[featureNum]].DataPoints;
             l.Add(new DataPoint(l.Count, val));
         }
 
+        // analyze data from CSV files and detect anomalies by given plugin
         public void analyzeData(String normalFlightPath, String newFlightPath, String anomalyDetPath)
         {
                         
-            // append feature names to files
+            // append feature names to files and save in resources folder
 
             string featuresStr = "";
             int i;
@@ -116,8 +134,6 @@ namespace ex1.Model
             newFlightFile1.Close();
 
 
-            // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
-
             // load dll
             Assembly asm = Assembly.LoadFile(anomalyDetPath);
             Type detectorType = asm.GetType("Detector.Detector");
@@ -134,32 +150,42 @@ namespace ex1.Model
             MethodInfo getAnnotation = detectorType.GetMethod("getAnnotation");
             MethodInfo isFeatureAnomalous = detectorType.GetMethod("isFeatureAnomalous");
             int len = dataDict[features[0]].DataPoints.Count;
+
+            // iterate through feature names
             foreach (String featureName in features)
             {
                 ResearchData rd = dataDict[featureName];
+
+                // get correlative feature
                 String correlated = getCorrFeature.Invoke(detector, new object[] { featureName }) as String;
                 rd.Correlated = correlated;
                 
-
+                // if a correlative feature exists
                 if (correlated != null)
                 {
                     float minX = 0, minY = 0, maxX = 0, maxY = 0;
                     for (i = 0; i < len; i++)
                     {
+                        // get x,y values
                         float x = getValue(i, featureName), y = getValue(i, correlated);
 
+                        // check if point is anomalous
                         bool isAnom = (bool) isFeatureAnomalous.Invoke(detector, new object[] { i, featureName });
                         if (isAnom)
                         {
+                            // if anomalous add to anomalies, add null to other correlation points
                             rd.CorrPoints.Add(null);
                             rd.Anomalies.Add(new ScatterPoint(x, y, 2));
+                            // add timestep to anomalies
                             rd.AnomaliesTimesteps.Add(i);
                         } else
                         {
+                            // if not anomalous add to correlation points, add null to anomalous points
                             rd.CorrPoints.Add(new ScatterPoint(x, y, 2));
                             rd.Anomalies.Add(null);
                         }                                                                      
 
+                        // update min/max x,y values
                         if (x < minX)
                             minX = x;
                         else if (x > maxX)
@@ -170,8 +196,11 @@ namespace ex1.Model
                             maxY = y;                        
                     }
 
+                    // get and set annotation for feature
                     Annotation annot = getAnnotation.Invoke(detector, new object[] { featureName }) as Annotation;                                      
                     rd.PlotAnnotation = annot;
+
+                    // set min/max x,y values
                     rd.MinX = minX;
                     rd.MaxX = maxX;
                     rd.MinY = minY;
@@ -179,21 +208,25 @@ namespace ex1.Model
                 }                               
             }
             
+            // delete any memory allocated by plugin
             MethodInfo deleteAH = detectorType.GetMethod("deleteAnomalyHelper");
             deleteAH.Invoke(detector, null);
         }
 
+        // get name of feature correlative to given feature
         public string getCorrelative(string featureName)
         {
             return dataDict[featureName].Correlated;
             // return corrFeatures[featureName];
         }
 
+        // get a list of the features names
         public List<String> getFeaturesList()
         {
             return features;
         }
 
+        // get a list of timesteps with anomalies
         public List<int> getAnomaliesList(String featureName)
         {
             if(featureName == null)
@@ -203,11 +236,7 @@ namespace ex1.Model
             return dataDict[featureName].AnomaliesTimesteps;
         }
 
-        /*public bool isAnomalous(int timestep, string featureName)
-        {
-            return dataDict[featureName].Anomalies[timestep];
-        }*/
-
+        // get a value from specific timestep and feature
         public float getValue(int timestep, String featureName)
         {
             if (featureName == null || timestep == dataDict[featureName].DataPoints.Count)
@@ -215,6 +244,7 @@ namespace ex1.Model
             return (float)dataDict[featureName].DataPoints[timestep].Y;
         }
 
+        // get a list of datapoints for specific timestep and featureName
         public List<DataPoint> getDataPoints(int timestep, String featureName)
         {
             if(featureName == null)
@@ -224,6 +254,7 @@ namespace ex1.Model
             return new List<DataPoint>(dataDict[featureName].DataPoints.Take(timestep));
         }
 
+        // get a list of points for specific timestep and featureName from recent 30 seconds
         public List<ScatterPoint> getRecentScatterPoints(int timestep, String featureName)
         {
             if (featureName == null)
@@ -234,6 +265,7 @@ namespace ex1.Model
                 .Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0).Where(point => point != null));
         }
 
+        // get a list of anomalous points for specific timestep and feature name from recent 30 seconds
         public List<ScatterPoint> getRecentAnomalousPoints(int timestep, String featureName)
         {
             if (featureName == null)
@@ -244,6 +276,7 @@ namespace ex1.Model
                 .Take(timestep).Skip(timestep > 300 ? timestep - 300 : 0).Where(point => point != null)); ;
         }
 
+        // get an annotation of given feature name
         public Annotation getFeatureAnnotation(String featureName)
         {
             if(featureName == null)
@@ -253,26 +286,25 @@ namespace ex1.Model
             return dataDict[featureName].PlotAnnotation;
         }
 
+        // return minimal/maximal x/y values of given feature's correlation points
         public double getMinX(String featureName)
         {
             return dataDict[featureName].MinX;
         }
-
         public double getMaxX(String featureName)
         {
             return dataDict[featureName].MaxX;
         }
-
         public double getMinY(String featureName)
         {
             return dataDict[featureName].MinY;
         }
-
         public double getMaxY(String featureName)
         {
             return dataDict[featureName].MaxY;
         }
 
+        // clear all loaded data
         public void reset()
         {
             foreach (KeyValuePair<string, ResearchData> entry in dataDict)

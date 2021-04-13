@@ -6,28 +6,31 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Threading;
 
 namespace ex1.Views
 {
+    // view for applying new settings
     public partial class SettingsView : UserControl
     {
-        private SettingsViewModel settingsVM;
+        // the settings view model is used for getting/setting configurations
+        private SettingsViewModel _settingsVM;
         internal SettingsViewModel SettingsVM
         {
             get
             {
-                return settingsVM;
+                return _settingsVM;
             }
             set
             {
-                settingsVM = value;
+                _settingsVM = value;
             }
         }
 
+        // background music player
         private MediaPlayer mp;
         private bool isMpPlaying;
 
+        // constructor for the settings view
         public SettingsView()
         {
             InitializeComponent();
@@ -36,7 +39,7 @@ namespace ex1.Views
             isMpPlaying = false;
         }
 
-
+        // browse for a new CSV file of a normal flight
         private void BrowseNormal_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
@@ -45,6 +48,7 @@ namespace ex1.Views
             normalFlightPath.Text = browser.FileName;
         }
 
+        // browse for a new CSV file of a new flight
         private void BrowseNew_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
@@ -53,6 +57,7 @@ namespace ex1.Views
             newFlightPath.Text = browser.FileName;
         }
 
+        // browse for a new plugin DLL file
         private void BrowseAnomaly_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog browser = new System.Windows.Forms.OpenFileDialog();
@@ -61,14 +66,17 @@ namespace ex1.Views
             anomalyDetPath.Text = browser.FileName;
         }
 
+        // event for when the "Launch FlightGear" button is clicked
         private void LaunchFG_Click(object sender, RoutedEventArgs e)
         {
-
-            if (!File.Exists(settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe"))
+            // verify FG is installed
+            if (!File.Exists(_settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe"))
             {
                 MaterialMessageBox.ShowError("Couldn't locate fgfs.exe in FlightGear installation folder.");
                 return;
             }
+
+            // verify port number
             int pn;
             try
             {
@@ -84,9 +92,11 @@ namespace ex1.Views
                 MaterialMessageBox.ShowError("Invalid input for port number.");
                 return;
             }
+
+            // verify FlightGear isn't already running
             Process[] pname = Process.GetProcessesByName("fgfs");
             if (pname.Length > 0)
-            {
+            {               
                 CustomMaterialMessageBox msg = new CustomMaterialMessageBox
                 {
                     TxtTitle = { Text = "Warning", Foreground = Brushes.White },
@@ -95,12 +105,12 @@ namespace ex1.Views
                     BtnCancel = { Content = "Cancel" },
                     MainContentControl = { Background = Brushes.WhiteSmoke },
                     TitleBackgroundPanel = { Background = Brushes.MediumPurple },
-
                     BorderBrush = Brushes.BlueViolet
                 };
 
                 msg.Show();
                 MessageBoxResult results = msg.Result;
+                // allow user to kill FG process if running
                 if (results == MessageBoxResult.OK)
                 {
                     foreach (var process in pname)
@@ -108,10 +118,11 @@ namespace ex1.Views
                 }
                 return;
             }
+            // try to start FlightGear
             try
             {
-                ProcessStartInfo psi = new ProcessStartInfo(settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + pn + ",tcp,playback_small --fdm=null --timeofday=morning");
-                psi.WorkingDirectory = settingsVM.VM_Paths.FGPath + @"\data";
+                ProcessStartInfo psi = new ProcessStartInfo(_settingsVM.VM_Paths.FGPath + @"\bin\fgfs.exe", "--generic=socket,in,10,127.0.0.1," + pn + ",tcp,playback_small --fdm=null --timeofday=morning");
+                psi.WorkingDirectory = _settingsVM.VM_Paths.FGPath + @"\data";
                 Process.Start(psi);
 
             }
@@ -121,40 +132,52 @@ namespace ex1.Views
             } 
         }
 
+        // event for when the apply CSV button is clicked
         private void ApplyCSV_Click(object sender, RoutedEventArgs e)
         {
+            // verify paths for both CSV files
             if (normalFlightPath.Text == "" || !File.Exists(normalFlightPath.Text))
             {
                 MaterialMessageBox.ShowError("Please select normal flight CSV file.");
                 return;
             }
-
             if (newFlightPath.Text == "" || !File.Exists(newFlightPath.Text))
             {
                 MaterialMessageBox.ShowError("Please select new flight CSV file.");
                 return;
             }
-            settingsVM.VM_Paths.NormalCSVPath = normalFlightPath.Text;
-            settingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
+            // set the paths
+            _settingsVM.VM_Paths.NormalCSVPath = normalFlightPath.Text;
+            _settingsVM.VM_Paths.NewCSVPath = newFlightPath.Text;
+
+            // reset any previous data loaded from other files
             reset();
+
+            // notify user CSV files were loaded
             MaterialMessageBox.Show("new files loaded succesfully");
+
+            // reset textboxes
             normalFlightPath.Text = "";
             newFlightPath.Text = "";
         }
+
+        // event for when the apply DLL button is clicked
         private void ApplyDLL_Click(object sender, RoutedEventArgs e)
         {
+            // verify plugin path
             if (anomalyDetPath.Text == "" || !File.Exists(anomalyDetPath.Text))
             {
                 MaterialMessageBox.ShowError("Please select anomaly detection dll.");
                 return;
             }
+            // verify a threshold was entered
             if (thresholdText.Text == "")
             {
                 MaterialMessageBox.ShowError("Please choose a correlation threshold.");
                 return;
             }
-
             float threshold;
+            // verify that threshold value is valid
             try
             {
                 threshold = float.Parse(thresholdText.Text);
@@ -163,7 +186,8 @@ namespace ex1.Views
                     MaterialMessageBox.ShowError("Threshold value must be larger than 0 and smaller than 1.");
                     return;
                 }
-                settingsVM.VM_Threshold = threshold;
+                // set new threshold
+                _settingsVM.VM_Threshold = threshold;
             }
             catch (System.FormatException)
             {
@@ -171,15 +195,23 @@ namespace ex1.Views
                 return;
             }
 
-            settingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;            
+            // set new plugin path
+            _settingsVM.VM_Paths.DLLPath = anomalyDetPath.Text;           
+            // reset data in order and analyze with new plugin
             reset();
+
+            // notify user plugin was loaded
             MaterialMessageBox.Show("plugin loaded succesfully");
+
+            // reset textboxes
             anomalyDetPath.Text = "";
             thresholdText.Text = "";
         }
 
+        // event for when the apply port button is clicked
         private void ApplyPort_Click(object sender, RoutedEventArgs e)
         {
+            // verify port number
             int pn;
             try
             {
@@ -197,25 +229,38 @@ namespace ex1.Views
                 return;
             }
 
-            int oldPort = settingsVM.VM_DestPort;
-            settingsVM.EndClient();            
-            settingsVM.VM_DestPort = pn;
-            if(settingsVM.StartClient())
+            // save old port
+            int oldPort = _settingsVM.VM_DestPort;
+
+            // end previous conection with server
+            _settingsVM.EndClient();      
+            
+            // set new destination port
+            _settingsVM.VM_DestPort = pn;
+
+            // try to start client and connect to new port
+            if(_settingsVM.StartClient())
                 MaterialMessageBox.Show("Connected to new port");
             else
             {
-                settingsVM.VM_DestPort = oldPort;
+                // if connection failed set to previous port
+                _settingsVM.VM_DestPort = oldPort;
                 MaterialMessageBox.ShowError("Failed to connect to new port. Please try again.");                
-            }                
+            }         
+            
+            // reset textbox
             portnum.Text = "";
         }
+
+        // remove data from previous files, load and analyze the new data
         private void reset()
         {
-            settingsVM.Reset();
-            settingsVM.LoadData();
-            settingsVM.AnalyzeData();
+            _settingsVM.Reset();
+            _settingsVM.LoadData();
+            _settingsVM.AnalyzeData();
         }
 
+        // event for clicking the easter egg (try to find it!)
         private void EasterEgg_Click(object sender, RoutedEventArgs e)
         {
             if(!isMpPlaying)
