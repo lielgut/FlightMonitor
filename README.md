@@ -71,4 +71,4 @@ in order to map the values to its matching features. For easier viewing of the f
 ## Additional information
 - [More documentation and project UML](docs/classesInfo.md)
 - [How to implement a plugin for FlightMonitor](docs/plugin.md)
-- [User stories video](https://drive.google.com/file/d/1287ANkbJP6kbyoar1PlDv0VQ7JSG7Z_g/view?usp=sharing)
+- [User stories video](https://youtu.be/48KjeM-m5YU)
