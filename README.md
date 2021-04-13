@@ -52,7 +52,7 @@ The project files include the following:
 Make sure you have all of the above installed.
 Clone the project using:
 ```
-git clone https://github.com/lielgut/ex1.git
+git clone https://github.com/lielgut/FlightMonitor.git
 ```
 then open the project via Visual Studio 2019, build and run the application.<br>
 
